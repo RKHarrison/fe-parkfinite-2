@@ -11,7 +11,7 @@ export default function ViewCampsite() {
         alignItems: "center",
       }}
     >
-      <Text>Edit (drawer)/(tabs)/mapTab.tsx to edit this screen.</Text>
+      <Text>Details for campsite 1</Text>
     </View>
   );
 }
