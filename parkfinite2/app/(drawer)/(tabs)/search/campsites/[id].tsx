@@ -1,9 +1,9 @@
-import { Text, View} from "react-native";
+import { Text, View } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 import React from "react";
 
 export default function ViewCampsite() {
-    const {id} = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
 
   return (
     <View
