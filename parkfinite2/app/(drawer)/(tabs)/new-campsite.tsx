@@ -9,7 +9,7 @@ export default function PostNewCampsite () {
             alignItems: "center",
           }}
         >
-          <Text>Edit (drawer)/(tabs)/postNewCampsite.tsx to edit this screen.</Text>
+          <Text>Edit (drawer)/(tabs)/new-campsite.tsx to edit this screen.</Text>
         </View>
       );
 }
