@@ -2,7 +2,7 @@ import { Text, View} from "react-native";
 import { Link } from "expo-router";
 import React from "react";
 
-export default function Map() {
+export default function ViewCampsite() {
   return (
     <View
       style={{
@@ -11,8 +11,7 @@ export default function Map() {
         alignItems: "center",
       }}
     >
-      <Text>Edit (tabs)/map.tsx to edit this screen.</Text>
-      <Link href="(drawer)/(tabs)/map/postNewCampsite">Post a new camping spot...</Link>
+      <Text>Edit (drawer)/(tabs)/mapTab.tsx to edit this screen.</Text>
     </View>
   );
 }

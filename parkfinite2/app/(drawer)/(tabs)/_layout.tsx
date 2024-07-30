@@ -19,7 +19,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="map"
+        name="search"
         options={{
           headerShown: false,
           title: "Go to Map",
@@ -29,7 +29,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="postNewCampsite"
+        name="new-campsite"
         options={{
           headerShown: false,
           title: "Post new campsite",
