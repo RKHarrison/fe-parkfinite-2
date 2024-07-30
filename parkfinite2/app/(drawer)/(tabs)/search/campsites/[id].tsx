@@ -1,8 +1,10 @@
 import { Text, View} from "react-native";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import React from "react";
 
 export default function ViewCampsite() {
+    const {id} = useLocalSearchParams();
+
   return (
     <View
       style={{
@@ -11,7 +13,7 @@ export default function ViewCampsite() {
         alignItems: "center",
       }}
     >
-      <Text>Details for campsite 1</Text>
+      <Text>Details for campsite {id}</Text>
     </View>
   );
 }
