@@ -6,9 +6,9 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer>
         <Drawer.Screen
-          name="map"
+          name="(tabs)"
           options={{
-            drawerLabel: "Map",
+            drawerLabel: "Go to main app...",
             title: "Map",
           }}
         />
