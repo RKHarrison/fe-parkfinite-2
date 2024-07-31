@@ -1,10 +1,10 @@
-interface CampsitePhoto {
+export interface CampsitePhoto {
     campsite_id: number;
     campsite_photo_id: number;
     campsite_photo_url: string;
 }
 
-interface CampsiteContact {
+export interface CampsiteContact {
     campsite_contact_email: string | null;
     campsite_contact_id: number;
     campsite_contact_name: string;
@@ -12,13 +12,13 @@ interface CampsiteContact {
     campsite_id: number;
 }
 
-interface CampsiteCategory {
+export interface CampsiteCategory {
     category_id: number;
     category_img_url: string;
     category_name: string;
 }
 
-interface Campsite {
+export interface Campsite {
     added_by: string;
     approved: boolean;
     average_rating: number;
