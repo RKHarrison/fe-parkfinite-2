@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from 'react';
+import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
-
-import { StyleSheet, View } from "react-native";
+import * as Location from "expo-location";
 
 const INITIAL_REGION = {
   latitude: 53.00,
@@ -12,15 +13,24 @@ const INITIAL_REGION = {
 }
 
 
-export default function App() {
+export default function Map() {
+
+  useEffect(() => {
+    Location.requestForegroundPermissionsAsync();
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        provider={PROVIDER_GOOGLE}
+        loadingEnabled={true}
         initialRegion={INITIAL_REGION}
-        showsUserLocation
-        showsMyLocationButton
+        provider={PROVIDER_GOOGLE}
+        followsUserLocation={true}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        showsTraffic={false}
       />
     </View>
   );
