@@ -21,9 +21,7 @@ export default function Map() {
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
     getCampsites()
-      .then((campsitesFromApi) => {
-        return setLoadedCampsites(campsitesFromApi);
-      })
+      .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
 
