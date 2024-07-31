@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Campsite } from "@/types/campsite";
 
 const parkfinite2Api = axios.create({
   baseURL: "https://parkfinite-api.onrender.com",
