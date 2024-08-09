@@ -42,6 +42,8 @@ export default function MapComponent(
             latitude: campsite.campsite_latitude,
             longitude: campsite.campsite_longitude,
           }}
+          title={campsite.campsite_name}
+          description={campsite.category.category_name}
         >
           <Image
             source={campsiteIcon}
