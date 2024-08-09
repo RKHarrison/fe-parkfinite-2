@@ -57,6 +57,10 @@ export default function MapComponent(
       showsMyLocationButton={true}
       followsUserLocation={true}
       showsTraffic={false}
+
+      // cluster controls
+      clusterColor="#c9ffc6"
+      minPoints={6}
     >
       {loadedCampsites.map((campsite, index) => (
         <Marker
