@@ -27,10 +27,6 @@ export default function Map() {
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
 
-  // useEffect(() => {
-  //   console.log(region);
-  // }, [region]);
-
   return (
     <View style={styles.container}>
       <GooglePlacesInput setRegion={setRegion} />
