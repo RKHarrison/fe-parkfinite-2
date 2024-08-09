@@ -1,6 +1,6 @@
-import MapView from "react-native-maps";
-import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import React, { useEffect } from "react";
+import MapView from "react-native-map-clustering";
+import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { StyleSheet, Image } from "react-native";
 
 import { Campsite } from "@/types/campsite";
