@@ -14,17 +14,13 @@ import icon5 from "@/assets/images/campsite-icons/motorhome-free-icon.png";
 import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
 import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
-import icon9 from "@/assets/images/campsite-icons/picnic-icon.png"
+import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 
-const INITIAL_REGION = {
-  latitude: 55.0,
-  longitude: -4.4,
-  latitudeDelta: 11.0,
-  longitudeDelta: 11.0,
-};
 
-const icons = {
+type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+const icons: Record<IconKey, any>  = {
   1: icon1,
   2: icon2,
   3: icon3,
@@ -37,13 +33,23 @@ const icons = {
   10: icon10,
 };
 
-export default function MapComponent(
-  { loadedCampsites, region }: { loadedCampsites: Campsite[], region: Region },
-) {
+const INITIAL_REGION = {
+  latitude: 55.0,
+  longitude: -4.4,
+  latitudeDelta: 11.0,
+  longitudeDelta: 11.0,
+};
 
-  useEffect(()=>{
-    console.log(region);  
-  },[region])
+export default function MapComponent({
+  loadedCampsites,
+  region,
+}: {
+  loadedCampsites: Campsite[];
+  region: Region;
+}) {
+  useEffect(() => {
+    console.log(region);
+  }, [region]);
 
   return (
     <MapView
@@ -56,7 +62,6 @@ export default function MapComponent(
       showsMyLocationButton={true}
       followsUserLocation={true}
       showsTraffic={false}
-
       // cluster controls
       clusterColor="#88c9ffBF"
       minPoints={6}
@@ -72,7 +77,7 @@ export default function MapComponent(
           description={campsite.category.category_name}
         >
           <Image
-            source={icons[campsite.category.category_id]}
+            source={icons[campsite.category.category_id as IconKey]}
             style={{ width: 30, height: 30 }}
             resizeMode="contain"
           />
