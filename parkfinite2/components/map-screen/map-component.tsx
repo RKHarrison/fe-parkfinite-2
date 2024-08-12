@@ -17,10 +17,9 @@ import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 
-
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-const icons: Record<IconKey, any>  = {
+const icons: Record<IconKey, any> = {
   1: icon1,
   2: icon2,
   3: icon3,
