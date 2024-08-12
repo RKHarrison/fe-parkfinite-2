@@ -1,11 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import * as Location from "expo-location";
-import { getCampsites } from "@/services/api/campsitesApi";
-
-import { Campsite } from "@/types/campsite";
 import { Region } from "@/types/locations";
 
 import GooglePlacesInput from "@/components/map-screen/google-places-component";
@@ -18,19 +14,11 @@ export default function Map() {
     latitudeDelta: 11.0,
     longitudeDelta: 11.0,
   });
-  const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
-
-  useEffect(() => {
-    Location.requestForegroundPermissionsAsync();
-    getCampsites()
-      .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
-      .catch((err) => console.error("Failed to load campsites", err));
-  }, []);
 
   return (
     <View style={styles.container}>
       <GooglePlacesInput setRegion={setRegion} />
-      <MapComponent loadedCampsites={loadedCampsites} region={region} />
+      <MapComponent region={region} />
     </View>
   );
 }

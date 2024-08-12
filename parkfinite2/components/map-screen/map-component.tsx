@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MapView from "react-native-map-clustering";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { StyleSheet, Image } from "react-native";
-
+import * as Location from "expo-location";
+import { getCampsites } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/campsite";
 import { Region } from "@/types/locations";
 
@@ -39,13 +40,16 @@ const INITIAL_REGION = {
   longitudeDelta: 11.0,
 };
 
-export default function MapComponent({
-  loadedCampsites,
-  region,
-}: {
-  loadedCampsites: Campsite[];
-  region: Region;
-}) {
+export default function MapComponent({ region }: { region: Region }) {
+  const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
+
+  useEffect(() => {
+    Location.requestForegroundPermissionsAsync();
+    getCampsites()
+      .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
+      .catch((err) => console.error("Failed to load campsites", err));
+  }, []);
+
   useEffect(() => {
     console.log(region);
   }, [region]);
