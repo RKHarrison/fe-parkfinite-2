@@ -35,6 +35,9 @@ const icons: Record<IconKey, any> = {
 
 export default function MapComponent({ region }: { region: Region }) {
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
+  const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
+    null
+  );
 
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
@@ -42,6 +45,12 @@ export default function MapComponent({ region }: { region: Region }) {
       .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
+
+
+  useEffect(()=> {
+    console.log(selectedCampsite?.campsite_name);
+    
+  },[selectedCampsite])
 
   return (
     <MapView
@@ -61,6 +70,7 @@ export default function MapComponent({ region }: { region: Region }) {
       {loadedCampsites.map((campsite, index) => (
         <Marker
           key={campsite.campsite_id}
+          onPress={() => setSelectedCampsite(campsite)}
           coordinate={{
             latitude: campsite.campsite_latitude,
             longitude: campsite.campsite_longitude,
