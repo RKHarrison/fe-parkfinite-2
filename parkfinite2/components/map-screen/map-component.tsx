@@ -4,7 +4,7 @@ import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { StyleSheet, Image } from "react-native";
 import * as Location from "expo-location";
 import { getCampsites } from "@/services/api/campsitesApi";
-import { Campsite } from "@/types/campsite";
+import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Region } from "@/types/locations";
 
 import icon1 from "@/assets/images/campsite-icons/in-nature-icon.png";
@@ -49,10 +49,6 @@ export default function MapComponent({ region }: { region: Region }) {
       .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
-
-  useEffect(() => {
-    console.log(region);
-  }, [region]);
 
   return (
     <MapView
