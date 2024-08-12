@@ -33,13 +33,6 @@ const icons: Record<IconKey, any> = {
   10: icon10,
 };
 
-const INITIAL_REGION = {
-  latitude: 55.0,
-  longitude: -4.4,
-  latitudeDelta: 11.0,
-  longitudeDelta: 11.0,
-};
-
 export default function MapComponent({ region }: { region: Region }) {
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
 
@@ -55,7 +48,7 @@ export default function MapComponent({ region }: { region: Region }) {
       style={styles.map}
       provider={PROVIDER_GOOGLE}
       loadingEnabled={true}
-      initialRegion={INITIAL_REGION}
+      initialRegion={region}
       region={region}
       showsUserLocation={true}
       showsMyLocationButton={true}
