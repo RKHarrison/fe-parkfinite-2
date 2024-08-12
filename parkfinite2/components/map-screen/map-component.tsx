@@ -6,7 +6,6 @@ import { StyleSheet, Image } from "react-native";
 import { Campsite } from "@/types/campsite";
 import { Region } from "@/types/locations";
 
-import icon0 from "@/assets/images/campsite-icons/camping-icon.png"
 import icon1 from "@/assets/images/campsite-icons/in-nature-icon.png";
 import icon2 from "@/assets/images/campsite-icons/carpark-icon.png";
 import icon3 from "@/assets/images/campsite-icons/carpark-day-only-icon.png";
@@ -59,7 +58,7 @@ export default function MapComponent(
       showsTraffic={false}
 
       // cluster controls
-      clusterColor="#c9ffc6"
+      clusterColor="#88c9ffBF"
       minPoints={6}
     >
       {loadedCampsites.map((campsite, index) => (
