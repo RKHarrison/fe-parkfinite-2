@@ -8,7 +8,7 @@ export default function Layout() {
         <Drawer.Screen
           name="(tabs)"
           options={{
-            drawerLabel: "Go to main app...",
+            drawerLabel: "Go to Map screen...",
             title: "Map",
           }}
         />

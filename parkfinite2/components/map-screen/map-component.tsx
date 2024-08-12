@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MapView from "react-native-map-clustering";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { StyleSheet, Image } from "react-native";
-
-import { Campsite } from "@/types/campsite";
+import * as Location from "expo-location";
+import { getCampsites } from "@/services/api/campsitesApi";
+import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Region } from "@/types/locations";
 
 import icon1 from "@/assets/images/campsite-icons/in-nature-icon.png";
@@ -32,30 +33,22 @@ const icons: Record<IconKey, any> = {
   10: icon10,
 };
 
-const INITIAL_REGION = {
-  latitude: 55.0,
-  longitude: -4.4,
-  latitudeDelta: 11.0,
-  longitudeDelta: 11.0,
-};
+export default function MapComponent({ region }: { region: Region }) {
+  const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
 
-export default function MapComponent({
-  loadedCampsites,
-  region,
-}: {
-  loadedCampsites: Campsite[];
-  region: Region;
-}) {
   useEffect(() => {
-    console.log(region);
-  }, [region]);
+    Location.requestForegroundPermissionsAsync();
+    getCampsites()
+      .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
+      .catch((err) => console.error("Failed to load campsites", err));
+  }, []);
 
   return (
     <MapView
       style={styles.map}
       provider={PROVIDER_GOOGLE}
       loadingEnabled={true}
-      initialRegion={INITIAL_REGION}
+      initialRegion={region}
       region={region}
       showsUserLocation={true}
       showsMyLocationButton={true}
