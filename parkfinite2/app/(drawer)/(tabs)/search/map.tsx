@@ -7,13 +7,15 @@ import { Region } from "@/types/locations";
 import GooglePlacesInput from "@/components/map-screen/google-places-component";
 import MapComponent from "@/components/map-screen/map-component";
 
+const initialRegion: Region = {
+  latitude: 53.0,
+  longitude: -4.4,
+  latitudeDelta: 11.0,
+  longitudeDelta: 11.0,
+};
+
 export default function Map() {
-  const [region, setRegion] = useState<Region>({
-    latitude: 53.0,
-    longitude: -4.4,
-    latitudeDelta: 11.0,
-    longitudeDelta: 11.0,
-  });
+  const [region, setRegion] = useState<Region>(initialRegion);
 
   return (
     <View style={styles.container}>
