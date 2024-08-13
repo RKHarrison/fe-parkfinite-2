@@ -49,16 +49,14 @@ export default function MapComponent({ region }: { region: Region }) {
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
 
-  useEffect(() => {
-    console.log(selectedCampsite?.campsite_name);
-  }, [selectedCampsite]);
-
   return (
     <>
-      {selectedCampsite && <CampsiteInfoCard selectedCampsite={selectedCampsite} />}
+      {selectedCampsite && (
+        <CampsiteInfoCard selectedCampsite={selectedCampsite} />
+      )}
       <MapView
         style={styles.map}
-        onPress={()=>setSelectedCampsite(null)}
+        onPress={() => setSelectedCampsite(null)}
         provider={PROVIDER_GOOGLE}
         loadingEnabled={true}
         initialRegion={region}

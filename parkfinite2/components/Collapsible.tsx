@@ -1,6 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
-import { StyleSheet, TouchableOpacity, useColorScheme, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  ViewStyle,
+} from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -11,8 +16,11 @@ export type CollapsibleContainerStyle = ViewStyle;
 export function Collapsible({
   children,
   title,
-  collapsibleContainerStyle
-}: PropsWithChildren & { title: string, collapsibleContainerStyle?: CollapsibleContainerStyle }) {
+  collapsibleContainerStyle,
+}: PropsWithChildren & {
+  title: string;
+  collapsibleContainerStyle?: CollapsibleContainerStyle;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const theme = useColorScheme() ?? "light";
 
@@ -40,8 +48,8 @@ export function Collapsible({
 const styles = StyleSheet.create({
   container: {
     zIndex: 1000,
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     bottom: 70,
   },
   heading: {
@@ -52,6 +60,6 @@ const styles = StyleSheet.create({
   content: {
     marginBottom: 6,
     marginLeft: 24,
-    borderRadius: 5
+    borderRadius: 5,
   },
 });

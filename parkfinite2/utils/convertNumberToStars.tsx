@@ -1,3 +1,3 @@
-export function convertNumberToStars (rating : number): string {
-    return "⭐".repeat(rating);
-  };
+export function convertNumberToStars(rating: number): string {
+  return "⭐".repeat(rating);
+}
