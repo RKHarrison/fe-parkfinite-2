@@ -1,15 +1,16 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import type { PropsWithChildren } from "react";
+import { TouchableOpacity, Text, StyleSheet, ViewStyle } from "react-native";
 
-export function Button({
-  title,
-  onPress,
-}: {
+type Props = PropsWithChildren<{
   title: string;
   onPress: () => void;
-}) {
+  buttonStyle?: ViewStyle
+}>;
+
+export function Button({ title, onPress, buttonStyle }: Props) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
