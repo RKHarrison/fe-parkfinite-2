@@ -1,7 +1,8 @@
 import { getCampsiteById } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { ImageCarousel } from "../ImageCarousel";
 
 export default function IndividualCampsiteCard({
   id,
@@ -16,12 +17,9 @@ export default function IndividualCampsiteCard({
     );
   }, [id]);
 
-  useEffect(() => {
-    console.log("loaded:", loadedCampsite?.campsite_name);
-  }, [loadedCampsite]);
-
   return (
     <>
+     <ImageCarousel campsitePhotos={loadedCampsite?.photos}/>
       <View
         style={styles.container}
       >
