@@ -11,31 +11,37 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
   const theme = useColorScheme() ?? 'light';
 
   return (
-    <ThemedView>
+    <ThemedView style={styles.container}>
+      {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
       <TouchableOpacity
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
         activeOpacity={0.8}>
         <Ionicons
-          name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
+          name={isOpen ? 'chevron-up' : 'chevron-forward-outline'}
           size={18}
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
         />
         <ThemedText type="defaultSemiBold">{title}</ThemedText>
       </TouchableOpacity>
-      {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    zIndex: 1000,
+    position: 'absolute',
+    width: '100%',
+    bottom: 70,
+  },
   heading: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
   content: {
-    marginTop: 6,
+    marginBottom: 6,
     marginLeft: 24,
   },
 });
