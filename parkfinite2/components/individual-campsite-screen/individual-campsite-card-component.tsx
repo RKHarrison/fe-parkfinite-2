@@ -19,10 +19,8 @@ export default function IndividualCampsiteCard({
 
   return (
     <>
-     <ImageCarousel campsitePhotos={loadedCampsite?.photos}/>
-      <View
-        style={styles.container}
-      >
+      <ImageCarousel campsitePhotos={loadedCampsite?.photos} />
+      <View style={styles.container}>
         <Text>{loadedCampsite?.campsite_name}</Text>
         <Text>{loadedCampsite?.category.category_name}</Text>
         <Text>Average user rating: {loadedCampsite?.average_rating}</Text>
@@ -31,14 +29,18 @@ export default function IndividualCampsiteCard({
         </Text>
         <Text>Description: {loadedCampsite?.description}</Text>
       </View>
-      <View
-        style={styles.container}
-      >
-        <Text>CONTACT INFO</Text>
-        <Text>Name: {loadedCampsite?.contacts[0].campsite_contact_name}</Text>
-        <Text>Phone: {loadedCampsite?.contacts[0].campsite_contact_phone}</Text>
-        <Text>Email: {loadedCampsite?.contacts[0].campsite_contact_email}</Text>
-      </View>
+      {loadedCampsite?.contacts[0] && (
+        <View style={styles.container}>
+          <Text>CONTACT INFO</Text>
+          <Text>Name: {loadedCampsite?.contacts[0].campsite_contact_name}</Text>
+          <Text>
+            Phone: {loadedCampsite?.contacts[0].campsite_contact_phone}
+          </Text>
+          <Text>
+            Email: {loadedCampsite?.contacts[0].campsite_contact_email}
+          </Text>
+        </View>
+      )}
     </>
   );
 }
