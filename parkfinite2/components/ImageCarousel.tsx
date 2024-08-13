@@ -10,9 +10,9 @@ type props = {
 export function ImageCarousel({ campsitePhotos }: props) {
   return (
     <View style={styles.imageContainer}>
-      {campsitePhotos ? (
+      {campsitePhotos && campsitePhotos.length ? (
         <ScrollView horizontal={true}>
-          {campsitePhotos.map((photo, index) => (
+          {campsitePhotos?.map((photo, index) => (
             <Image
               key={index}
               style={styles.images}
