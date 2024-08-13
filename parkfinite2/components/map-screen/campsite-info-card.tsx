@@ -1,7 +1,7 @@
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Collapsible } from "../Collapsible";
 import { Text } from "react-native";
-import { getStars } from "../GetStars";
+import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { StyleSheet, ViewStyle } from "react-native";
 
 export function CampsiteInfoCard({
@@ -12,7 +12,7 @@ export function CampsiteInfoCard({
   return (
     <Collapsible title={"Campsite Info"} collapsibleContainerStyle={styles.collapsibleContainer}>
       <Text style={styles.header}>{selectedCampsite?.campsite_name}</Text>
-      <Text>{getStars(selectedCampsite?.average_rating)}  </Text>
+      <Text>{convertNumberToStars(selectedCampsite?.average_rating)}  </Text>
       <Text>{selectedCampsite?.description}</Text>
     </Collapsible>
   );
