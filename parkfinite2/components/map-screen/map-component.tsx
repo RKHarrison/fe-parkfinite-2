@@ -58,6 +58,7 @@ export default function MapComponent({ region }: { region: Region }) {
       {selectedCampsite && <CampsiteInfoCard selectedCampsite={selectedCampsite} />}
       <MapView
         style={styles.map}
+        onPress={()=>setSelectedCampsite(null)}
         provider={PROVIDER_GOOGLE}
         loadingEnabled={true}
         initialRegion={region}
