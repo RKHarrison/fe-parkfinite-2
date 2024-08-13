@@ -14,7 +14,7 @@ export function CampsiteInfoCard({
 }) {
   return (
     <Collapsible
-      title="Campsite Info"
+      title="campsite info"
       collapsibleContainerStyle={styles.collapsibleContainer}
     >
       <View style={styles.contentContainer}>
@@ -30,7 +30,7 @@ export function CampsiteInfoCard({
           <Text>{selectedCampsite?.description}</Text>
 
           <Button
-            title="view full info"
+            title="View full info"
             onPress={() =>
               router.push(
                 `/(drawer)/(tabs)/search/campsites/${selectedCampsite.campsite_id}`
