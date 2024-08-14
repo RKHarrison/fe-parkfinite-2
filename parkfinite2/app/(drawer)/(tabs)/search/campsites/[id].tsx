@@ -1,19 +1,8 @@
-import { Text, View } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
-import React from "react";
+import { useLocalSearchParams } from "expo-router";
+import CampsiteDetailedCard from "@/components/individual-campsite-screen/campsite-detailed-card";
 
 export default function ViewCampsite() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string | string[] }>();
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Details for campsite {id}</Text>
-    </View>
-  );
+  return <CampsiteDetailedCard id={id} />;
 }

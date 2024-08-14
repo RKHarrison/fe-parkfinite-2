@@ -8,7 +8,7 @@ import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { Collapsible } from "../Collapsible";
-import { CampsiteInfoCard } from "./campsite-info-card";
+import { CampsiteSummaryCard } from "./campsite-summary-card";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
@@ -52,7 +52,7 @@ export default function MapComponent({ region }: { region: Region }) {
   return (
     <>
       {selectedCampsite && (
-        <CampsiteInfoCard selectedCampsite={selectedCampsite} />
+        <CampsiteSummaryCard selectedCampsite={selectedCampsite} />
       )}
       <MapView
         style={styles.map}

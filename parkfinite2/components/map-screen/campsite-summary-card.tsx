@@ -1,18 +1,20 @@
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Collapsible } from "../Collapsible";
-import { Text, Image, View } from "react-native";
+import { Text, Image, View, Pressable } from "react-native";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { StyleSheet, ViewStyle } from "react-native";
 import { useEffect } from "react";
+import { Button } from "@/components/Button";
+import { Link, router } from "expo-router";
 
-export function CampsiteInfoCard({
+export function CampsiteSummaryCard({
   selectedCampsite,
 }: {
   selectedCampsite: Campsite;
 }) {
   return (
     <Collapsible
-      title="Campsite Info"
+      title="campsite info"
       collapsibleContainerStyle={styles.collapsibleContainer}
     >
       <View style={styles.contentContainer}>
@@ -26,6 +28,16 @@ export function CampsiteInfoCard({
           <Text style={styles.header}>{selectedCampsite?.campsite_name}</Text>
           <Text>{convertNumberToStars(selectedCampsite?.average_rating)}</Text>
           <Text>{selectedCampsite?.description}</Text>
+
+          <Button
+            title="View full info"
+            onPress={() =>
+              router.push(
+                `/(drawer)/(tabs)/search/campsites/${selectedCampsite.campsite_id}`
+              )
+            }
+            buttonStyle={{ alignSelf: "center", marginTop: 3 }}
+          />
         </View>
       </View>
     </Collapsible>
