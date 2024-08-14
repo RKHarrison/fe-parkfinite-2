@@ -7,6 +7,7 @@ import { ImageCarousel } from "../ImageCarousel";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import formatDateStamp from "@/utils/formatDateStamp";
 import FieldAndDataText from "@/components/FieldAndDataText";
+import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
 
 export default function CampsiteDetailedCard({
   id,
@@ -45,21 +46,7 @@ export default function CampsiteDetailedCard({
         <Text style={{ fontStyle: "italic" }}>{`"${loadedCampsite?.description}"`}</Text>
       </View>
       {loadedCampsite?.contacts[0] && (
-        <View style={styles.container}>
-          <Text style={styles.h2}>CONTACT INFO</Text>
-          <FieldAndDataText
-            title="Name"
-            data={loadedCampsite?.contacts[0].campsite_contact_name}
-          />
-          <FieldAndDataText
-            title="Phone"
-            data={loadedCampsite?.contacts[0].campsite_contact_phone}
-          />
-          <FieldAndDataText
-            title="Email"
-            data={loadedCampsite?.contacts[0].campsite_contact_email}
-          />
-        </View>
+        <CampsiteContacts campsiteContacts={loadedCampsite.contacts}/>
       )}
     </ScrollView>
   );
