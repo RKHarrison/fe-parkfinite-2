@@ -13,7 +13,9 @@ export default function CampsiteHeaderAndRating({
 }: CampsiteHeaderAndRatingProps) {
   return (
     <View style={campsiteDetailedCardStyles.headerContainer}>
-      <Text style={campsiteDetailedCardStyles.h1}>{campsite.campsite_name}</Text>
+      <Text style={campsiteDetailedCardStyles.h1}>
+        {campsite.campsite_name}
+      </Text>
       <FieldAndDataText title="Average rating" data={campsite.average_rating} />
       <Text>
         {campsite.average_rating &&

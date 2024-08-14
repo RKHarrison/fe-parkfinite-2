@@ -13,7 +13,9 @@ export default function CampsiteBasicInfo({
 }: CampsiteBasicInfoProps) {
   return (
     <View style={campsiteDetailedCardStyles.container}>
-      <Text style={campsiteDetailedCardStyles.h2}>{campsite?.category.category_name}</Text>
+      <Text style={campsiteDetailedCardStyles.h2}>
+        {campsite?.category.category_name}
+      </Text>
       <FieldAndDataText
         title="Added on"
         data={campsite && formatDateStamp(campsite.date_added)}
