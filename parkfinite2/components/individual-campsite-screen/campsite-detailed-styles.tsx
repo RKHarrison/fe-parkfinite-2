@@ -23,6 +23,18 @@ export const campsiteDetailedCardStyles = StyleSheet.create({
     backgroundColor: "darkseagreen",
     borderRadius: 10,
   },
+  subContainer: {
+    width: 320,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    padding: 10,
+    margin: 5,
+    alignSelf: "center",
+    backgroundColor: "beige",
+    borderRadius: 10,
+  },
   h1: {
     fontSize: 28,
     fontWeight: "bold",
@@ -31,4 +43,11 @@ export const campsiteDetailedCardStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  h3: {
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  italicText: {
+    fontStyle: "italic"
+  }
 });
