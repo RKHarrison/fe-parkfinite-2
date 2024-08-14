@@ -1,8 +1,8 @@
-import FieldAndDataText from "@/components/FieldAndDataText";
-import { Campsite } from "@/types/api-data-types/campsite-types";
-import formatDateStamp from "@/utils/formatDateStamp";
 import { View, Text, StyleSheet } from "react-native";
+import formatDateStamp from "@/utils/formatDateStamp";
+import { Campsite } from "@/types/api-data-types/campsite-types";
 import { campsiteDetailedCardStyles } from "../campsite-detailed-styles";
+import FieldAndDataText from "@/components/FieldAndDataText";
 
 type CampsiteBasicInfoProps = {
   campsite: Campsite;

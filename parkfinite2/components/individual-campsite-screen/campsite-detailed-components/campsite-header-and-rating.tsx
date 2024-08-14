@@ -1,8 +1,8 @@
-import FieldAndDataText from "@/components/FieldAndDataText";
-import { Campsite } from "@/types/api-data-types/campsite-types";
-import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { Text, View } from "react-native";
+import { convertNumberToStars } from "@/utils/convertNumberToStars";
+import { Campsite } from "@/types/api-data-types/campsite-types";
 import { campsiteDetailedCardStyles } from "../campsite-detailed-styles";
+import FieldAndDataText from "@/components/FieldAndDataText";
 
 type CampsiteHeaderAndRatingProps = {
   campsite: Campsite;

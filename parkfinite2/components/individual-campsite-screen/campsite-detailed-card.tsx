@@ -1,13 +1,12 @@
+import React, { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+
 import { getCampsiteById } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import { ImageCarousel } from "../ImageCarousel";
 
-import { convertNumberToStars } from "@/utils/convertNumberToStars";
-import FieldAndDataText from "@/components/FieldAndDataText";
-import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
+import { ImageCarousel } from "@/components/ImageCarousel";
 import CampsiteBasicInfo from "./campsite-detailed-components/campsite-basic-info";
+import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
 import CampsiteHeaderAndRating from "./campsite-detailed-components/campsite-header-and-rating";
 
 export default function CampsiteDetailedCard({
