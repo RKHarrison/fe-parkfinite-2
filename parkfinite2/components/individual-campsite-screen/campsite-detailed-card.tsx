@@ -5,9 +5,9 @@ import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { ImageCarousel } from "../ImageCarousel";
 
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
-import formatDateStamp from "@/utils/formatDateStamp";
 import FieldAndDataText from "@/components/FieldAndDataText";
 import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
+import CampsiteBasicInfo from "./campsite-detailed-components/campsite-basic-info";
 
 export default function CampsiteDetailedCard({
   id,
@@ -36,17 +36,9 @@ export default function CampsiteDetailedCard({
         </Text>
       </View>
       <ImageCarousel campsitePhotos={loadedCampsite?.photos} />
-      <View style={styles.container}>
-        <Text style={styles.h2}>{loadedCampsite?.category.category_name}</Text>
-        <FieldAndDataText
-          title="Added on"
-          data={loadedCampsite && formatDateStamp(loadedCampsite?.date_added)}
-        />
-        <FieldAndDataText title="Added by" data={loadedCampsite?.added_by} />
-        <Text style={{ fontStyle: "italic" }}>{`"${loadedCampsite?.description}"`}</Text>
-      </View>
+      {loadedCampsite && <CampsiteBasicInfo campsite={loadedCampsite} />}
       {loadedCampsite?.contacts[0] && (
-        <CampsiteContacts campsiteContacts={loadedCampsite.contacts}/>
+        <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
       )}
     </ScrollView>
   );
