@@ -47,4 +47,7 @@ export const campsiteDetailedCardStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
   },
+  italicText: {
+    fontStyle: "italic"
+  }
 });
