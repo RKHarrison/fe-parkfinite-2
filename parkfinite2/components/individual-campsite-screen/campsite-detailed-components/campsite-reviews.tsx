@@ -22,13 +22,22 @@ export default function CampsiteReviews({ campsiteId }: CampsiteReviewsProps) {
     <>
       <View style={campsiteDetailedCardStyles.container}>
         <Text style={campsiteDetailedCardStyles.h2}>Reviews</Text>
-        {campsiteReviews.map((review) => (
-          <View style={campsiteDetailedCardStyles.subContainer}>
-            <Text>{convertNumberToStars(review.rating)}</Text>
-            <Text>{review.comment}</Text>
-            <Text style={campsiteDetailedCardStyles.h3}>{review.username}</Text>
-          </View>
-        ))}
+        {campsiteReviews.length > 0 ? (
+          campsiteReviews.map((review) => (
+            <View
+              style={campsiteDetailedCardStyles.subContainer}
+              key={review.review_id}
+            >
+              <Text>{convertNumberToStars(review.rating)}</Text>
+              <Text>{review.comment}</Text>
+              <Text style={campsiteDetailedCardStyles.h3}>
+                {review.username}
+              </Text>
+            </View>
+          ))
+        ) : (
+          <Text style={campsiteDetailedCardStyles.italicText}>Be the first to review this campsite...</Text>
+        )}
       </View>
     </>
   );
