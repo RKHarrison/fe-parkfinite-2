@@ -8,7 +8,7 @@ import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import formatDateStamp from "@/utils/formatDateStamp";
 import FieldAndDataText from "@/components/FieldAndDataText";
 
-export default function IndividualCampsiteCard({
+export default function CampsiteDetailedCard({
   id,
 }: {
   id: string | string[];

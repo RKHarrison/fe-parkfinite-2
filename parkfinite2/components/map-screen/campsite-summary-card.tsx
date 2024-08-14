@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/Button";
 import { Link, router } from "expo-router";
 
-export function CampsiteInfoCard({
+export function CampsiteSummaryCard({
   selectedCampsite,
 }: {
   selectedCampsite: Campsite;
