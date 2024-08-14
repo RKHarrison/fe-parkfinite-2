@@ -8,6 +8,7 @@ import { ImageCarousel } from "@/components/ImageCarousel";
 import CampsiteBasicInfo from "./campsite-detailed-components/campsite-basic-info";
 import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
 import CampsiteHeaderAndRating from "./campsite-detailed-components/campsite-header-and-rating";
+import CampsiteReviews from "./campsite-detailed-components/campsite-reviews";
 
 export default function CampsiteDetailedCard({
   id,
@@ -32,6 +33,7 @@ export default function CampsiteDetailedCard({
           {loadedCampsite.contacts[0] && (
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
+          <CampsiteReviews campsiteId={loadedCampsite.campsite_id}/>
         </ScrollView>
       )}
     </>
