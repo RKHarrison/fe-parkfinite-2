@@ -2,7 +2,7 @@ import axios from "axios";
 import { Campsite, CampsiteReview } from "@/types/api-data-types/campsite-types";
 
 const parkfinite2Api = axios.create({
-  baseURL: "https://parkfinite-api.onrender.com",
+  baseURL: "https://parkfinite-2-api.onrender.com/",
 });
 
 export const getCampsites = () => {
