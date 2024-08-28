@@ -19,11 +19,14 @@ export function Button({ title, onPress, buttonStyle }: Props) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "green",
-    borderRadius: 5,
+    borderRadius: 12,
     width: "80%",
     height: 30,
+    minWidth: 80,
+    alignItems: 'center',
+    margin: 12,
     paddingTop: 3,
-    alignItems: "center",
+    padding: 5,
   },
   buttonText: {
     color: "white",
