@@ -16,7 +16,7 @@ parkfinite2Api.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    throw error;
   }
 );
 
