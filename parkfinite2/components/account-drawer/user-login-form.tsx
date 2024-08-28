@@ -1,13 +1,26 @@
+import { save, getValueFor } from "../../utils/secure-store";
 import { getJsonWebToken } from "@/services/api/authApi";
 import { Button } from "@/components/Button";
 import { StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
-import { text } from "stream/consumers";
+import { useEffect, useState } from "react";
 
 export default function UserLoginForm() {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+
+  async function handleLogin() {
+    try {
+      const token = await getJsonWebToken(usernameInput, passwordInput);
+      await save("bearerToken", token.access_token);
+      setUsernameInput("")
+      setPasswordInput("")
+      alert("Login successful!")
+      
+    } catch (error) {
+      alert("Login unsuccsessful. Please check your username and password.");
+    }
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -26,10 +39,7 @@ export default function UserLoginForm() {
         placeholder="Please provide a valid password..."
         keyboardType="numeric"
       />
-      <Button
-        title="login"
-        onPress={() => getJsonWebToken(usernameInput, passwordInput)}
-      ></Button>
+      <Button title="login" onPress={() => handleLogin()}></Button>
     </SafeAreaView>
   );
 }
