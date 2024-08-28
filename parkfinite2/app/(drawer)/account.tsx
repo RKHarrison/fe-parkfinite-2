@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import AccountScreen from "@/components/account-drawer/account-screen";
 
 export default function Account() {
   return (
@@ -9,7 +10,7 @@ export default function Account() {
         alignItems: "center",
       }}
     >
-      <Text>Edit account.tsx to edit this screen.</Text>
+      <AccountScreen />
     </View>
   );
 }
