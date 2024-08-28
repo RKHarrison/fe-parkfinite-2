@@ -3,28 +3,40 @@ import { getJsonWebToken } from "@/services/api/authApi";
 import { Button } from "@/components/Button";
 import { StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { getUserAccountDataById } from "@/services/api/usersApi";
+import { UserContext } from "@/contexts/UserContext";
 
 interface UserLoginFormProps {
-    setIsLoggedIn: (isLoggedIn:Boolean) => void;
+  setIsLoggedIn: (isLoggedIn: Boolean) => void;
 }
 
-export default function UserLoginForm({setIsLoggedIn}:UserLoginFormProps) {
+export default function UserLoginForm({ setIsLoggedIn }: UserLoginFormProps) {
+  const { user, setUser } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
   async function handleLogin() {
     try {
       const token = await getJsonWebToken(usernameInput, passwordInput);
+      console.log('GOT', token);
+      
       await save("bearerToken", token.access_token);
-      setUsernameInput("")
-      setPasswordInput("")
-      setIsLoggedIn(true)
-      alert("Login successful!")
+      setUsernameInput("");
+      setPasswordInput("");
+      setIsLoggedIn(true);
+      getUserAccountDataById(token.user_id).then(res => (
+        setUser(res)
+      ))
+      alert("Login successful!");
     } catch (error) {
       alert("Login unsuccsessful. Please check your username and password.");
     }
   }
+
+  useEffect(()=>{
+    console.log('user', user);
+  }, [user])
 
   return (
     <SafeAreaView style={styles.safeArea}>
