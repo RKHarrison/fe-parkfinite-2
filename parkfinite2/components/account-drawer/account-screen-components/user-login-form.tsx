@@ -1,11 +1,15 @@
-import { save, getValueFor } from "../../utils/secure-store";
+import { save, getValueFor } from "../../../utils/expoSecureStore";
 import { getJsonWebToken } from "@/services/api/authApi";
 import { Button } from "@/components/Button";
 import { StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 
-export default function UserLoginForm() {
+interface UserLoginFormProps {
+    setIsLoggedIn: (isLoggedIn:Boolean) => void;
+}
+
+export default function UserLoginForm({setIsLoggedIn}:UserLoginFormProps) {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
@@ -15,8 +19,8 @@ export default function UserLoginForm() {
       await save("bearerToken", token.access_token);
       setUsernameInput("")
       setPasswordInput("")
+      setIsLoggedIn(true)
       alert("Login successful!")
-      
     } catch (error) {
       alert("Login unsuccsessful. Please check your username and password.");
     }

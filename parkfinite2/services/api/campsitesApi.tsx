@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { Campsite, CampsiteReview } from "@/types/api-data-types/campsite-types";
-import { longPressHandlerName } from "react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler";
 
 const parkfinite2Api = axios.create({
   baseURL: "https://parkfinite-2-api.onrender.com/",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
-import UserLoginForm from "./user-login-form";
+import UserLoginForm from "./account-screen-components/user-login-form";
 
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
