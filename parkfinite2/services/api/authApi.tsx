@@ -20,15 +20,13 @@ export const getJsonWebToken = (username: string, password: string) => {
     .post<JwtResponse>("/auth/token", params)
     .then((res) => {
       const jwt = res.data;
-      console.log(jwt);
-      
       return jwt;
     })
     .catch((error) => {
       console.error("API Error", {
         message: error.response?.data?.detail
-          ? error.response.data.detail[0].msg
-          : error.message,
+          ? error.response.data.detail
+          : 'Uncaught error when logging in.',
         status: error.response?.status,
       });
       throw error;
