@@ -3,13 +3,14 @@ import { Drawer } from "expo-router/drawer";
 import { UserContext } from "@/contexts/UserContext";
 import { useContext } from "react";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CustomDrawerContent from "../../components/navigation/CustomDrawerContent"
 
 export default function Layout() {
   const { user } = useContext(UserContext);
 
   return (
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer>
+        <Drawer drawerContent={CustomDrawerContent}>
           <Drawer.Screen
             name="(tabs)"
             options={{
