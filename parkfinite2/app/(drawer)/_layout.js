@@ -1,10 +1,12 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { UserProvider } from "@/contexts/UserContext";
+import { UserContext } from "@/contexts/UserContext";
+import { useContext } from "react";
 
 export default function Layout() {
+  const { user } = useContext(UserContext);
+
   return (
-    <UserProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Drawer>
           <Drawer.Screen
@@ -17,8 +19,8 @@ export default function Layout() {
           <Drawer.Screen
             name="account"
             options={{
-              drawerLabel: "My Account",
-              title: "Account Page",
+              drawerLabel: user ? "My Account" : "Login",
+              title: user ? "Account Details" : "Login Page",
             }}
           />
           <Drawer.Screen
@@ -30,6 +32,5 @@ export default function Layout() {
           />
         </Drawer>
       </GestureHandlerRootView>
-    </UserProvider>
   );
 }
