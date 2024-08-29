@@ -17,6 +17,7 @@ export default function Layout() {
           drawerHideStatusBarOnOpen: true,
           drawerStatusBarAnimation: "fade",
           drawerActiveTintColor: "#2a892a",
+          drawerLabelStyle: {marginLeft: -20}
         }}
       >
         <Drawer.Screen
