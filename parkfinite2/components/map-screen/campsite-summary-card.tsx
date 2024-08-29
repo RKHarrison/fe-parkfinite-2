@@ -3,15 +3,18 @@ import { Collapsible } from "../Collapsible";
 import { Text, Image, View, Pressable } from "react-native";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { StyleSheet, ViewStyle } from "react-native";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Button } from "@/components/Button";
 import { Link, router } from "expo-router";
+import { UserContext } from "@/contexts/UserContext";
 
 export function CampsiteSummaryCard({
   selectedCampsite,
 }: {
   selectedCampsite: Campsite;
 }) {
+  const { user } = useContext(UserContext);
+
   return (
     <Collapsible
       title="campsite info"
@@ -29,15 +32,25 @@ export function CampsiteSummaryCard({
           <Text>{convertNumberToStars(selectedCampsite?.average_rating)}</Text>
           <Text>{selectedCampsite?.description}</Text>
 
-          <Button
-            title="View full info"
-            onPress={() =>
-              router.push(
-                `/(drawer)/(tabs)/search/campsites/${selectedCampsite.campsite_id}`
-              )
-            }
-            buttonStyle={{ alignSelf: "center", marginTop: 3 }}
-          />
+          {user ? (
+            <Button
+              title="View full info"
+              onPress={() =>
+                router.push(
+                  `/(drawer)/(tabs)/search/campsites/${selectedCampsite.campsite_id}`
+                )
+              }
+            />
+          ) : (
+            <Button
+              title="Login for full access"
+              onPress={() =>
+                router.push(
+                  `/(drawer)/account`
+                )
+              }
+            />
+          )}
         </View>
       </View>
     </Collapsible>
