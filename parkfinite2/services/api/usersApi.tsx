@@ -25,9 +25,10 @@ export const getUserAccountDataById = (userId: string) => {
   return parkfinite2Api
     .get(`/users/${userId}`)
     .then((res) => {
-      console.log(res.data);
+      return res.data
     })
     .catch((error) => {
       console.error(error);
+      throw error
     });
 };
