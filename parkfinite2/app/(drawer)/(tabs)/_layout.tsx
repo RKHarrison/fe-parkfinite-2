@@ -1,11 +1,13 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useContext } from "react";
 
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { UserContext } from "@/contexts/UserContext";
 
 export default function TabLayout() {
+  const { user } = useContext(UserContext);
   const colorScheme = useColorScheme();
 
   return (
@@ -36,6 +38,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? "pin" : "pin-outline"} color={color} />
           ),
+          href: user ? "/(drawer)/(tabs)/new-campsite" : null,
         }}
       />
     </Tabs>
