@@ -8,10 +8,14 @@ import { getUserAccountDataById } from "@/services/api/usersApi";
 import { UserContext } from "@/contexts/UserContext";
 
 interface UserLoginFormProps {
+  isLoggedIn: Boolean;
   setIsLoggedIn: (isLoggedIn: Boolean) => void;
 }
 
-export default function UserLoginForm({ setIsLoggedIn }: UserLoginFormProps) {
+export default function UserLoginForm({
+  isLoggedIn,
+  setIsLoggedIn,
+}: UserLoginFormProps) {
   const { user, setUser } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -19,24 +23,20 @@ export default function UserLoginForm({ setIsLoggedIn }: UserLoginFormProps) {
   async function handleLogin() {
     try {
       const token = await getJsonWebToken(usernameInput, passwordInput);
-      console.log('GOT', token);
-      
       await save("bearerToken", token.access_token);
+
+      const userAccountData = await getUserAccountDataById(token.user_id);
+      const userAccountWithUsername = { ...userAccountData, username: usernameInput };
+      setUser(userAccountWithUsername);
+
+      setIsLoggedIn(true);
       setUsernameInput("");
       setPasswordInput("");
-      setIsLoggedIn(true);
-      getUserAccountDataById(token.user_id).then(res => (
-        setUser(res)
-      ))
       alert("Login successful!");
     } catch (error) {
       alert("Login unsuccsessful. Please check your username and password.");
     }
   }
-
-  useEffect(()=>{
-    console.log('user', user);
-  }, [user])
 
   return (
     <SafeAreaView style={styles.safeArea}>
