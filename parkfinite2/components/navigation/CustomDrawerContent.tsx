@@ -5,7 +5,7 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { useContext } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Text } from "react-native";
 
 export default function CustomDrawerContent(props: any) {
   const { user, logout } = useContext(UserContext);
@@ -27,13 +27,25 @@ export default function CustomDrawerContent(props: any) {
                 alignSelf: "center",
                 borderRadius: 100,
                 padding: 20,
-                margin:20
+                margin: 20,
               }}
             />
+            <Text
+              style={{
+                alignSelf: "center",
+                fontWeight: "500",
+                fontSize: 20,
+                paddingTop: 5,
+                paddingBottom: 25,
+                color: "#2a892a",
+              }}
+            >
+              Welcome {user.user_firstname}
+            </Text>
           </View>
         )}
         <DrawerItemList {...props} />
-        {user && <DrawerItem label={"logout"} onPress={() => logout()} />}
+        {user && <DrawerItem label={"Logout"} onPress={() => logout()} />}
       </DrawerContentScrollView>
     </View>
   );
