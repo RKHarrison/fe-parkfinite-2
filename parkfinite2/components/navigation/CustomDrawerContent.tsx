@@ -26,7 +26,7 @@ export default function CustomDrawerContent(props: any) {
                 height: 120,
                 alignSelf: "center",
                 borderRadius: 100,
-                padding: 20,
+                paddingTop: 20,
                 margin: 20,
               }}
             />
@@ -35,7 +35,7 @@ export default function CustomDrawerContent(props: any) {
                 alignSelf: "center",
                 fontWeight: "500",
                 fontSize: 20,
-                paddingTop: 5,
+                paddingTop:10,
                 paddingBottom: 25,
                 color: "#2a892a",
               }}
@@ -44,8 +44,10 @@ export default function CustomDrawerContent(props: any) {
             </Text>
           </View>
         )}
-        <DrawerItemList {...props} />
+        <View style={{backgroundColor: 'white', paddingTop: 15}}>
+          <DrawerItemList {...props} />
         {user && <DrawerItem label={"Logout"} onPress={() => logout()} />}
+        </View>
       </DrawerContentScrollView>
     </View>
   );
