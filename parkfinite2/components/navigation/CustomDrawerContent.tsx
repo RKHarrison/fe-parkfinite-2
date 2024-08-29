@@ -5,7 +5,7 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { useContext } from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 
 export default function CustomDrawerContent(props: any) {
   const { user, logout } = useContext(UserContext);
@@ -15,9 +15,24 @@ export default function CustomDrawerContent(props: any) {
       <DrawerContentScrollView
         {...props}
         scrollEnabled={false}
-        contentContainerStyle={{backgroundColor: "#ebf9eb"}}
+        contentContainerStyle={{ backgroundColor: "#ebf9eb" }}
       >
-        <DrawerItemList {...props}/>
+        {user && (
+          <View>
+            <Image
+              source={require("@/assets/images/dummy_profile_pic.jpeg")}
+              style={{
+                width: 120,
+                height: 120,
+                alignSelf: "center",
+                borderRadius: 100,
+                padding: 20,
+                margin:20
+              }}
+            />
+          </View>
+        )}
+        <DrawerItemList {...props} />
         {user && <DrawerItem label={"logout"} onPress={() => logout()} />}
       </DrawerContentScrollView>
     </View>
