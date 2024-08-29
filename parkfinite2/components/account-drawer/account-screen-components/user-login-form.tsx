@@ -17,7 +17,6 @@ export default function UserLoginForm() {
       await login(usernameInput, passwordInput)
       setUsernameInput("");
       setPasswordInput("");
-      alert("Login successful!");
     } catch (error) {
       alert("Login unsuccsessful. Please check your username and password.");
     }
