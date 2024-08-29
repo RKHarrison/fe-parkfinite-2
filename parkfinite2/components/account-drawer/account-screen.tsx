@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
+import { UserContext } from "@/contexts/UserContext";
 import UserLoginForm from "./account-screen-components/user-login-form";
 
 export default function AccountScreen() {
-  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
-
-  useEffect(()=>{
-
-  }, [isLoggedIn])
+  const {user} = useContext(UserContext)
 
   return (
     <SafeAreaView>
-      {!isLoggedIn && <UserLoginForm setIsLoggedIn={setIsLoggedIn}/>}
+      {!user && <UserLoginForm/>}
     </SafeAreaView>
   );
 }

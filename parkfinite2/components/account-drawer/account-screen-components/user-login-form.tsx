@@ -7,23 +7,14 @@ import { useContext, useEffect, useState } from "react";
 import { getUserAccountDataById } from "@/services/api/usersApi";
 import { UserContext } from "@/contexts/UserContext";
 
-interface UserLoginFormProps {
-  isLoggedIn: Boolean;
-  setIsLoggedIn: (isLoggedIn: Boolean) => void;
-}
-
-export default function UserLoginForm({
-  isLoggedIn,
-  setIsLoggedIn,
-}: UserLoginFormProps) {
-  const { user, login } = useContext(UserContext);
+export default function UserLoginForm() {
+  const { login } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
   async function handleLogin() {
     try {
       await login(usernameInput, passwordInput)
-      setIsLoggedIn(true);
       setUsernameInput("");
       setPasswordInput("");
       alert("Login successful!");
@@ -31,11 +22,6 @@ export default function UserLoginForm({
       alert("Login unsuccsessful. Please check your username and password.");
     }
   }
-
-  useEffect(()=>{
-    console.log(user);
-    
-  },[user])
 
   return (
     <SafeAreaView style={styles.safeArea}>
