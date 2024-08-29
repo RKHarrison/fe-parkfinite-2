@@ -3,11 +3,12 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
+import "react-native-gesture-handler"
+import "react-native-reanimated";
+import { useEffect } from "react";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import "react-native-reanimated";
+import { useFonts } from "expo-font";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { UserProvider } from "@/contexts/UserContext";
