@@ -24,8 +24,12 @@ export default function Layout() {
           options={{
             drawerLabel: "Go to Map screen...",
             title: "Map",
-            drawerIcon: ({ size, color }) => (
-              <Ionicons name={ "map-outline"} size={size} color={color} />
+            drawerIcon: ({ focused, size, color }) => (
+              <Ionicons
+                name={focused ? "map" : "map-outline"}
+                size={size}
+                color={color}
+              />
             ),
           }}
         />
@@ -34,8 +38,12 @@ export default function Layout() {
           options={{
             drawerLabel: user ? "My Account" : "Login",
             title: user ? "Account Details" : "Login Page",
-            drawerIcon: ({ size, color }) => (
-              <Ionicons name="person-outline" size={size} color={color} />
+            drawerIcon: ({ focused, size, color }) => (
+              <Ionicons
+                name={focused ? "person" : "person-outline"}
+                size={size}
+                color={color}
+              />
             ),
           }}
         />
@@ -44,8 +52,12 @@ export default function Layout() {
           options={{
             drawerLabel: "Settings",
             title: "Settings",
-            drawerIcon: ({ size, color }) => (
-              <Ionicons name="settings-outline" size={size} color={color} />
+            drawerIcon: ({ focused, size, color }) => (
+              <Ionicons
+                name={focused ? "settings" : "settings-outline"}
+                size={size}
+                color={color}
+              />
             ),
           }}
         />
