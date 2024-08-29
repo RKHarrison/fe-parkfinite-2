@@ -1,9 +1,23 @@
 import axios from "axios";
+import * as SecureStore from 'expo-secure-store';
 import { Campsite, CampsiteReview } from "@/types/api-data-types/campsite-types";
 
 const parkfinite2Api = axios.create({
   baseURL: "https://parkfinite-2-api.onrender.com/",
 });
+
+parkfinite2Api.interceptors.request.use(
+  async (config) => {
+    const token = await SecureStore.getItemAsync('bearerToken');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    throw error;
+  }
+);
 
 export const getCampsites = () => {
   return parkfinite2Api
