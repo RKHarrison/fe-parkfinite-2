@@ -16,19 +16,13 @@ export default function UserLoginForm({
   isLoggedIn,
   setIsLoggedIn,
 }: UserLoginFormProps) {
-  const { user, setUser } = useContext(UserContext);
+  const { user, login } = useContext(UserContext);
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
   async function handleLogin() {
     try {
-      const token = await getJsonWebToken(usernameInput, passwordInput);
-      await save("bearerToken", token.access_token);
-
-      const userAccountData = await getUserAccountDataById(token.user_id);
-      const userAccountWithUsername = { ...userAccountData, username: usernameInput };
-      setUser(userAccountWithUsername);
-
+      await login(usernameInput, passwordInput)
       setIsLoggedIn(true);
       setUsernameInput("");
       setPasswordInput("");
@@ -37,6 +31,11 @@ export default function UserLoginForm({
       alert("Login unsuccsessful. Please check your username and password.");
     }
   }
+
+  useEffect(()=>{
+    console.log(user);
+    
+  },[user])
 
   return (
     <SafeAreaView style={styles.safeArea}>
