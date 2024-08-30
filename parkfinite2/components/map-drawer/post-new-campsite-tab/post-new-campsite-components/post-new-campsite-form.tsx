@@ -2,14 +2,18 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/Button";
 
+type FormData = {
+  campsiteName: string;
+};
+
 export default function PostNewCampsiteForm() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data:FormData) => {
     console.log("Form Data:", data);
   };
 
@@ -19,8 +23,14 @@ export default function PostNewCampsiteForm() {
 
       <Controller
         control={control}
-        name="name"
-        rules={{ required: "Campsite name is required" }}
+        name="campsiteName"
+        rules={{
+          required: "Campsite name is required",
+          minLength: {
+            value: 4,
+            message: "Minimum length for campsite name or summary is 4",
+          },
+        }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
@@ -31,9 +41,8 @@ export default function PostNewCampsiteForm() {
           />
         )}
       />
-
-      {errors.name && (
-        <Text style={{ color: "red" }}>{errors.name.message}</Text>
+      {errors.campsiteName && (
+        <Text style={{ color: "red" }}>{errors.campsiteName.message}</Text>
       )}
 
       <Button
