@@ -1,10 +1,12 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
 type FormData = {
   campsiteName: string;
   campsiteDescription: string;
+  campsiteCategory: string;
 };
 
 export default function PostNewCampsiteForm() {
@@ -81,7 +83,31 @@ export default function PostNewCampsiteForm() {
         </Text>
       )}
 
-      <Picker
+      <Controller
+        control={control}
+        name="campsiteCategory"
+        rules={{
+          required: "A category is required",
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Picker
+            onBlur={onBlur}
+            onValueChange={onChange}
+            selectedValue={value}
+          >
+            <Picker.Item
+              label="Select a location..."
+              value=""
+              enabled={false}
+            />
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+        )}
+      />
+      {errors.campsiteCategory && (
+        <Text style={{ color: "red" }}>{errors.campsiteCategory.message}</Text>
+      )}
 
       <Button
         title="Submit new campsite for approval..."
