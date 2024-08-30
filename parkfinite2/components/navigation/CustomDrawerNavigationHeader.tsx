@@ -48,6 +48,14 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingTop: 25,
     backgroundColor: "#badeba",
+
+    // IOS SHADOW
+    shadowColor: "#000", // Black shadow color
+    shadowOffset: { width: 0, height: 2 }, // Slightly larger offset
+    shadowOpacity: 0.15, // Slightly lighter shadow opacity
+    shadowRadius: 4, // Slightly larger blur radius
+    // ANDROID SHADOW
+    elevation: 7, // Adds shadow effect on Android
   },
   searchInput: {
     flex: 1,
