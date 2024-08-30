@@ -7,6 +7,7 @@ type FormData = {
   campsiteName: string;
   campsiteDescription: string;
   campsiteCategory: string;
+  parkingCost: string;
 };
 
 export default function PostNewCampsiteForm() {
@@ -17,7 +18,12 @@ export default function PostNewCampsiteForm() {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log("Form Data:", data);
+    // CONVERT SPECIFIED FIELDS TO FLOAT BEFORE SUBMIT
+    const parsedData = {
+      ...data,
+      parkingCost: parseFloat(data.parkingCost)
+    };
+    console.log("Form Data:", parsedData);
   };
 
   return (
@@ -120,6 +126,31 @@ export default function PostNewCampsiteForm() {
         <Text style={{ color: "red" }}>{errors.campsiteCategory.message}</Text>
       )}
 
+      <Controller
+        control={control}
+        name="parkingCost"
+        rules={{
+          required: "Please specify a cost for parking; if free, specify 0.",
+          pattern: {
+            value: /^\d*\.?\d*$/,
+            message: "Parking cost must be a valid number or decimal",
+          }
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.textInput}
+            keyboardType="numeric"
+            placeholder="Enter a cost for parking."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value ? value.toString() : ""}
+          />
+        )}
+      />
+      {errors.parkingCost && (
+        <Text style={{ color: "red" }}>{errors.parkingCost.message}</Text>
+      )}
+
       <Button
         title="Submit new campsite for approval..."
         onPress={handleSubmit(onSubmit)}
@@ -148,6 +179,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     minWidth: "60%",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 });
