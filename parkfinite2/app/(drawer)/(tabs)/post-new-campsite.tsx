@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import PostNewCampsiteScreen from "@/components/map-drawer/post-new-campsite-tab/post-new-campsite-screen"
 
 export default function PostNewCampsite() {
