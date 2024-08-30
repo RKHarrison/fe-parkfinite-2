@@ -4,7 +4,7 @@ import { UserContext } from "@/contexts/UserContext";
 import { useContext } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomDrawerContent from "../../components/navigation/CustomDrawerContent";
-import CustomDrawerNavigationHeader from "../../components/navigation/CustomDrawerNavigationHeader"
+import CustomDrawerNavigationHeader from "../../components/navigation/CustomDrawerNavigationHeader";
 
 export default function Layout() {
   const { user } = useContext(UserContext);
@@ -14,8 +14,12 @@ export default function Layout() {
       <Drawer
         drawerContent={CustomDrawerContent}
         screenOptions={({ navigation }) => ({
-          
-          header: (props) => <CustomDrawerNavigationHeader navigation={navigation} screenTitle={props.options.title}/>,
+          header: (props) => (
+            <CustomDrawerNavigationHeader
+              navigation={navigation}
+              screenTitle={props.options.title}
+            />
+          ),
           drawerHideStatusBarOnOpen: true,
           drawerStatusBarAnimation: "fade",
           drawerActiveTintColor: "#2a892a",

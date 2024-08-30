@@ -8,15 +8,15 @@ import { router } from "expo-router";
 
 type CustomDrawerNavigationHeaderProps = {
   navigation: DrawerNavigationProp<any>;
-  screenTitle: string
+  screenTitle: string;
 };
 
-
 export default function CustomDrawerNavigationHeader({
-  navigation, screenTitle
+  navigation,
+  screenTitle,
 }: CustomDrawerNavigationHeaderProps) {
   const { user } = useContext(UserContext);
-    
+
   return (
     <View style={styles.headerContainer}>
       {user ? (
@@ -30,7 +30,7 @@ export default function CustomDrawerNavigationHeader({
         <Ionicons
           name="menu"
           size={28}
-          color={'#123b12'}
+          color={"#123b12"}
           onPress={() => navigation.openDrawer()}
         />
       )}
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   screenTitle: {
-    flex:1,
-    textAlign: 'center',
+    flex: 1,
+    textAlign: "center",
     fontSize: 20,
     fontWeight: "500",
-    color: "#123b12", 
-  }
+    color: "#123b12",
+  },
 });
