@@ -1,5 +1,11 @@
-import { Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import PostNewCampsiteForm from "./post-new-campsite-components/post-new-campsite-form";
 
 export default function PostNewCampsiteScreen() {
-  return <Text>Screen will go here</Text>;
+  return (
+    <View>
+      <PostNewCampsiteForm />
+    </View>
+  );
 }
+
