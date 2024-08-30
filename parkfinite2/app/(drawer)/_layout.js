@@ -4,7 +4,7 @@ import { UserContext } from "@/contexts/UserContext";
 import { useContext } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomDrawerContent from "../../components/navigation/CustomDrawerContent";
-import { DrawerStatusContext } from "@react-navigation/drawer";
+import CustomDrawerNavigationHeader from "../../components/navigation/CustomDrawerNavigationHeader"
 
 export default function Layout() {
   const { user } = useContext(UserContext);
@@ -13,12 +13,13 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         drawerContent={CustomDrawerContent}
-        screenOptions={{
+        screenOptions={({ navigation }) => ({
+          header: () => <CustomDrawerNavigationHeader navigation={navigation} />,
           drawerHideStatusBarOnOpen: true,
           drawerStatusBarAnimation: "fade",
           drawerActiveTintColor: "#2a892a",
-          drawerLabelStyle: {marginLeft: -20}
-        }}
+          drawerLabelStyle: { marginLeft: -20 },
+        })}
       >
         <Drawer.Screen
           name="(tabs)"
