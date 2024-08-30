@@ -31,14 +31,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="new-campsite"
+        name="post-new-campsite"
         options={{
           headerShown: false,
           title: "Post new campsite",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? "pin" : "pin-outline"} color={color} />
           ),
-          href: user ? "/(drawer)/(tabs)/new-campsite" : null,
+          href: user ? "/(drawer)/(tabs)/post-new-campsite" : null,
         }}
       />
     </Tabs>

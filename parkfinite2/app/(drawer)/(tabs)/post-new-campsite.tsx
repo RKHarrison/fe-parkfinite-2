@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import PostNewCampsiteScreen from "@/components/map-drawer/post-new-campsite-tab/post-new-campsite-screen"
 
 export default function PostNewCampsite() {
   return (
@@ -9,7 +10,7 @@ export default function PostNewCampsite() {
         alignItems: "center",
       }}
     >
-      <Text>Edit (drawer)/(tabs)/new-campsite.tsx to edit this screen.</Text>
+      <PostNewCampsiteScreen />
     </View>
   );
 }
