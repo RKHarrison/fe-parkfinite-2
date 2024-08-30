@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { Campsite } from "@/types/api-data-types/campsite-types";
-import { campsiteDetailedCardStyles } from "../campsite-detailed-styles";
+import { campsiteDetailedCardStyles } from "../individual-campsite-styles";
 import FieldAndDataText from "@/components/FieldAndDataText";
 
 type CampsiteHeaderAndRatingProps = {

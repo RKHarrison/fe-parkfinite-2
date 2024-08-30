@@ -7,8 +7,7 @@ import { Image, StyleSheet, View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
-import { Collapsible } from "../Collapsible";
-import { CampsiteSummaryCard } from "./campsite-summary-card";
+import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
