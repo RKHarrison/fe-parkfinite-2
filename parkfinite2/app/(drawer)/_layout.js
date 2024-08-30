@@ -14,7 +14,8 @@ export default function Layout() {
       <Drawer
         drawerContent={CustomDrawerContent}
         screenOptions={({ navigation }) => ({
-          header: () => <CustomDrawerNavigationHeader navigation={navigation} />,
+          
+          header: (props) => <CustomDrawerNavigationHeader navigation={navigation} screenTitle={props.options.title}/>,
           drawerHideStatusBarOnOpen: true,
           drawerStatusBarAnimation: "fade",
           drawerActiveTintColor: "#2a892a",

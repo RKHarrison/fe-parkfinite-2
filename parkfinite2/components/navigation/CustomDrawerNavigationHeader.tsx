@@ -1,19 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View, TextInput, Image } from "react-native";
+import { StyleSheet, View, TextInput, Image, Text } from "react-native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { router } from "expo-router";
 
 type CustomDrawerNavigationHeaderProps = {
   navigation: DrawerNavigationProp<any>;
+  screenTitle: string
 };
 
+
 export default function CustomDrawerNavigationHeader({
-  navigation,
+  navigation, screenTitle
 }: CustomDrawerNavigationHeaderProps) {
   const { user } = useContext(UserContext);
-
+    console.log(screenTitle);
+    
   return (
     <View style={styles.headerContainer}>
       {user ? (
@@ -30,6 +34,7 @@ export default function CustomDrawerNavigationHeader({
           onPress={() => navigation.openDrawer()}
         />
       )}
+      <Text style={styles.screenTitle}>{screenTitle}</Text>
     </View>
   );
 }
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
     height: 65,
     paddingVertical: 5,
     paddingTop: 25,
-    backgroundColor: "#afcfaf",
+    backgroundColor: "#badeba",
   },
   searchInput: {
     flex: 1,
@@ -58,4 +63,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     borderRadius: 50,
   },
+  screenTitle: {
+    flex:1,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#193419", 
+  }
 });
