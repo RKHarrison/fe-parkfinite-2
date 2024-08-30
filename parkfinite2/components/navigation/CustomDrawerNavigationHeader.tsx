@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     marginHorizontal: 2,
     borderRadius: 50,
   },
