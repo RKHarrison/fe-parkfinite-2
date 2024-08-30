@@ -1,8 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View, TextInput } from "react-native";
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 
-export default function CustomDrawerNavigationHeader({navigation}) {
+type CustomDrawerNavigationHeaderProps = {
+    navigation: DrawerNavigationProp<any>
+}
+
+export default function CustomDrawerNavigationHeader({navigation}:CustomDrawerNavigationHeaderProps) {
 
     return (
         <View style={styles.headerContainer}>
