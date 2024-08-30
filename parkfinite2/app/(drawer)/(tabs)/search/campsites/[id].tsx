@@ -1,8 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
-import CampsiteDetailedCard from "@/components/individual-campsite-screen/campsite-detailed-card";
+import IndividualCampsiteStack from "@/components/map-drawer/map-tab/individual-campsite-stack/individual-campsite-stack";
 
 export default function ViewCampsite() {
   const { id } = useLocalSearchParams<{ id: string | string[] }>();
 
-  return <CampsiteDetailedCard id={id} />;
+  return <IndividualCampsiteStack id={id} />;
 }

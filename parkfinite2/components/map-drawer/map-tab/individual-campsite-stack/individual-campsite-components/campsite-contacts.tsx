@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { CampsiteContact } from "@/types/api-data-types/campsite-types";
-import { campsiteDetailedCardStyles } from "@/components/individual-campsite-screen/campsite-detailed-styles";
+import { campsiteDetailedCardStyles } from "@/components/map-drawer/map-tab/individual-campsite-stack/individual-campsite-styles";
 import FieldAndDataText from "@/components/FieldAndDataText";
 
 type CampsiteContactProps = {

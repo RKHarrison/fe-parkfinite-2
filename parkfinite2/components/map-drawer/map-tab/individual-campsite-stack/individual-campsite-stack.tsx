@@ -5,12 +5,12 @@ import { getCampsiteById } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
 
 import { ImageCarousel } from "@/components/ImageCarousel";
-import CampsiteBasicInfo from "./campsite-detailed-components/campsite-basic-info";
-import CampsiteContacts from "./campsite-detailed-components/campsite-contacts";
-import CampsiteHeaderAndRating from "./campsite-detailed-components/campsite-header-and-rating";
-import CampsiteReviews from "./campsite-detailed-components/campsite-reviews";
+import CampsiteBasicInfo from "./individual-campsite-components/campsite-basic-info";
+import CampsiteContacts from "./individual-campsite-components/campsite-contacts";
+import CampsiteHeaderAndRating from "./individual-campsite-components/campsite-header-and-rating";
+import CampsiteReviews from "./individual-campsite-components/campsite-reviews";
 
-export default function CampsiteDetailedCard({
+export default function IndividualCampsiteStack({
   id,
 }: {
   id: string | string[];

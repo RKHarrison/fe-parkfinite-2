@@ -1,5 +1,5 @@
 import { Campsite } from "@/types/api-data-types/campsite-types";
-import { Collapsible } from "../Collapsible";
+import { Collapsible } from "@/components/Collapsible";
 import { Text, Image, View, Pressable } from "react-native";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
 import { StyleSheet, ViewStyle } from "react-native";
