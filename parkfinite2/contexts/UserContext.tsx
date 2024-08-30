@@ -4,6 +4,7 @@ import { save } from "@/utils/expoSecureStore";
 import { getJsonWebToken } from "@/services/api/authApi";
 import { getUserAccountDataById } from "@/services/api/usersApi";
 import { UserAccountData } from "@/types/api-data-types/user-types";
+import { router } from "expo-router";
 
 interface LoggedInUser extends UserAccountData {
   username: string;
@@ -39,7 +40,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         username: username,
       };
 
-      setUser(userAccountWithUsername);
+      await setUser(userAccountWithUsername);
+      router.push('/(drawer)/(tabs)/search/map')
     } catch (error) {
       throw error;
     }
