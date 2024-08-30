@@ -41,7 +41,7 @@ export default function PostNewCampsiteForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={styles.input}
+            style={styles.textInput}
             placeholder="Enter campsite name"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -69,8 +69,8 @@ export default function PostNewCampsiteForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={styles.input}
-            placeholder="Enter campsite name"
+            style={styles.textInput}
+            placeholder="Enter a description of your new spot..."
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -90,19 +90,30 @@ export default function PostNewCampsiteForm() {
           required: "A category is required",
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <Picker
-            onBlur={onBlur}
-            onValueChange={onChange}
-            selectedValue={value}
-          >
-            <Picker.Item
-              label="Select a location..."
-              value=""
-              enabled={false}
-            />
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              onBlur={onBlur}
+              onValueChange={onChange}
+              selectedValue={value}
+            >
+              <Picker.Item
+                style={styles.picker}
+                label="Select a location..."
+                value=""
+                enabled={false}
+              />
+              <Picker.Item label="In Nature" value={1} />
+              <Picker.Item label="Car Park" value={2} />
+              <Picker.Item label="Car Park (day only)" value={3} />
+              <Picker.Item label="Motorway Rest Stop" value={4} />
+              <Picker.Item label="Free Motor Area" value={5} />
+              <Picker.Item label="Paid Motor Area" value={6} />
+              <Picker.Item label="Private Campervan Spot" value={7} />
+              <Picker.Item label="Camping/Caravan Site" value={8} />
+              <Picker.Item label="Picnic Area" value={9} />
+              <Picker.Item label="On The Beach" value={10} />
+            </Picker>
+          </View>
         )}
       />
       {errors.campsiteCategory && (
@@ -122,12 +133,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
   },
-  input: {
+  textInput: {
     height: 40,
     margin: 12,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     minWidth: "60%",
+  },
+  picker: { padding: 0 },
+  pickerWrapper: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    borderRadius: 10,
+    minWidth: "60%",
+    justifyContent: "center"
   },
 });
