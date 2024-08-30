@@ -16,7 +16,6 @@ export default function CustomDrawerNavigationHeader({
   navigation, screenTitle
 }: CustomDrawerNavigationHeaderProps) {
   const { user } = useContext(UserContext);
-    console.log(screenTitle);
     
   return (
     <View style={styles.headerContainer}>
@@ -31,6 +30,7 @@ export default function CustomDrawerNavigationHeader({
         <Ionicons
           name="menu"
           size={28}
+          color={'#123b12'}
           onPress={() => navigation.openDrawer()}
         />
       )}
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
   screenTitle: {
     flex:1,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "500",
-    color: "#193419", 
+    color: "#123b12", 
   }
 });
