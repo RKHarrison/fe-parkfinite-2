@@ -15,15 +15,15 @@ export default function CustomDrawerContent(props: any) {
       <DrawerContentScrollView
         {...props}
         scrollEnabled={false}
-        contentContainerStyle={{ backgroundColor: "#ebf9eb" }}
+        contentContainerStyle={{ backgroundColor: "#d8f3d8" }}
       >
         {user && (
           <View>
             <Image
               source={require("@/assets/images/dummy_profile_pic.jpeg")}
               style={{
-                width: 120,
-                height: 120,
+                width: 200,
+                height: 200,
                 alignSelf: "center",
                 borderRadius: 100,
                 paddingTop: 20,
@@ -35,7 +35,7 @@ export default function CustomDrawerContent(props: any) {
                 alignSelf: "center",
                 fontWeight: "500",
                 fontSize: 20,
-                paddingTop:10,
+                paddingTop:5,
                 paddingBottom: 25,
                 color: "#2a892a",
               }}
