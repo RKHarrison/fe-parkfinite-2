@@ -3,9 +3,10 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 import { postCampsite } from "@/services/api/campsitesApi";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
 
 type FormData = {
   campsiteName: string;
@@ -18,6 +19,7 @@ type FormData = {
 };
 
 export default function PostNewCampsiteForm() {
+  const { customCoordinates } = useContext(CustomCoordinatesContext);
   const { user } = useContext(UserContext);
 
   const {
@@ -31,24 +33,34 @@ export default function PostNewCampsiteForm() {
       alert("Please log in to submit a new campsite.");
       return;
     }
-    const campsitePostRequestData: CampsitePostRequest = {
-      campsite_name: data.campsiteName,
-      campsite_longitude: 12.3,
-      campsite_latitude: 4.56,
-      contacts: [],
-      parking_cost: parseFloat(data.parkingCost),
-      facilities_cost: parseFloat(data.facilitiesCost),
-      description: data.campsiteDescription,
-      opening_month: data.openingMonth,
-      closing_month: data.closingMonth,
-      user_account_id: user.user_account_id,
-      photos: [],
-      category_id: Number(data.campsiteCategory),
-    };
-    postCampsite(campsitePostRequestData).then(() =>
-      console.log("campsite posted")
-    );
+    if (!customCoordinates) {
+      alert(
+        "Please place a custom marker on the map screen to post a new campsite."
+      );
+    } else {
+      const campsitePostRequestData: CampsitePostRequest = {
+        campsite_name: data.campsiteName,
+        campsite_longitude: customCoordinates?.longitude,
+        campsite_latitude: customCoordinates?.latitude,
+        contacts: [],
+        parking_cost: parseFloat(data.parkingCost),
+        facilities_cost: parseFloat(data.facilitiesCost),
+        description: data.campsiteDescription,
+        opening_month: data.openingMonth,
+        closing_month: data.closingMonth,
+        user_account_id: user.user_account_id,
+        photos: [],
+        category_id: Number(data.campsiteCategory),
+      };
+      postCampsite(campsitePostRequestData).then(() =>
+        console.log("campsite posted")
+      );
+    }
   };
+
+  useEffect(() => {
+    console.log("in post screen", customCoordinates);
+  }, [customCoordinates]);
 
   return (
     <View style={styles.formContainer}>
