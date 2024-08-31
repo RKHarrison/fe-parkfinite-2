@@ -44,3 +44,18 @@ export interface CampsiteReview {
   review_id: number;
   campsite_id: number;
 }
+
+export interface CampsitePostRequest {
+  campsite_name: string;
+  campsite_latitude: number;
+  campsite_longitude: number;
+  contacts: CampsiteContact[];
+  parking_cost: number;
+  facilities_cost: number;
+  description: string;
+  opening_month: string | null;
+  closing_month: string | null;
+  user_account_id: number;
+  photos: CampsitePhoto[];
+  category_id: number;
+}
