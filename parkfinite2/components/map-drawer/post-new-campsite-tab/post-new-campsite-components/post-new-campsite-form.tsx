@@ -27,23 +27,27 @@ export default function PostNewCampsiteForm() {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    if (user) {
-      const campsitePostRequestData: CampsitePostRequest = {
-        campsite_name: data.campsiteName,
-        campsite_longitude: 12.3,
-        campsite_latitude: 4.56,
-        contacts: [],
-        parking_cost: parseFloat(data.parkingCost),
-        facilities_cost: parseFloat(data.facilitiesCost),
-        description: data.campsiteDescription,
-        opening_month: data.openingMonth,
-        closing_month: data.closingMonth,
-        user_account_id: user.user_account_id,
-        photos: [],
-        category_id: Number(data.campsiteCategory),
-      };
-      postCampsite(campsitePostRequestData);
+    if (!user) {
+      alert("Please log in to submit a new campsite.");
+      return;
     }
+    const campsitePostRequestData: CampsitePostRequest = {
+      campsite_name: data.campsiteName,
+      campsite_longitude: 12.3,
+      campsite_latitude: 4.56,
+      contacts: [],
+      parking_cost: parseFloat(data.parkingCost),
+      facilities_cost: parseFloat(data.facilitiesCost),
+      description: data.campsiteDescription,
+      opening_month: data.openingMonth,
+      closing_month: data.closingMonth,
+      user_account_id: user.user_account_id,
+      photos: [],
+      category_id: Number(data.campsiteCategory),
+    };
+    postCampsite(campsitePostRequestData).then(() =>
+      console.log("campsite posted")
+    );
   };
 
   return (
