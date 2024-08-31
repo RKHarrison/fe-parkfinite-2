@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
-import { Campsite, CampsiteReview } from "@/types/api-data-types/campsite-types";
+import { Campsite, CampsitePostRequest, CampsiteReview } from "@/types/api-data-types/campsite-types";
 
 const parkfinite2Api = axios.create({
   baseURL: "https://parkfinite-2-api.onrender.com/",
@@ -18,6 +18,20 @@ parkfinite2Api.interceptors.request.use(
     throw error;
   }
 );
+
+export const postCampsite = (newCampsiteData: CampsitePostRequest) => {
+  return parkfinite2Api
+    .post("/campsites", newCampsiteData)
+    .then(()=> console.log('posted'))
+    .catch((error) => {
+      console.error("API Error", {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data.detail
+      });
+      throw error;
+    });
+}
 
 export const getCampsites = () => {
   return parkfinite2Api
