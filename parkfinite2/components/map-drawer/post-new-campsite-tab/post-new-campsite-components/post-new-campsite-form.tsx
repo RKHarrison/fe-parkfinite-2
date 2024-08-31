@@ -54,7 +54,7 @@ export default function PostNewCampsiteForm() {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.textInput}
-            placeholder="Enter campsite name"
+            placeholder="Enter a name..."
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -85,7 +85,7 @@ export default function PostNewCampsiteForm() {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.textInput}
-            placeholder="Enter a description of your new spot..."
+            placeholder="Enter a description..."
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -154,7 +154,7 @@ export default function PostNewCampsiteForm() {
           <TextInput
             style={styles.textInput}
             keyboardType="numeric"
-            placeholder="Enter a cost for parking."
+            placeholder="Enter cost to park in £GBP..."
             onBlur={onBlur}
             onChangeText={onChange}
             value={value ? value.toString() : ""}
@@ -183,7 +183,7 @@ export default function PostNewCampsiteForm() {
           <TextInput
             style={styles.textInput}
             keyboardType="numeric"
-            placeholder="Enter a cost for using facilities."
+            placeholder="Enter cost to use facilities in £GBP..."
             onBlur={onBlur}
             onChangeText={onChange}
             value={value ? value.toString() : ""}
@@ -207,6 +207,11 @@ export default function PostNewCampsiteForm() {
               onValueChange={onChange}
               selectedValue={value}
             >
+                            <Picker.Item
+                label="Select opening month..."
+                value=""
+                enabled={false}
+              />
               <Picker.Item label="Not applicable." value="" />
               <Picker.Item label="January" value="Jan" />
               <Picker.Item label="February" value="Feb" />
@@ -238,6 +243,11 @@ export default function PostNewCampsiteForm() {
               onValueChange={onChange}
               selectedValue={value}
             >
+                                          <Picker.Item
+                label="Select closing month..."
+                value=""
+                enabled={false}
+              />
               <Picker.Item label="Not applicable." value="" />
               <Picker.Item label="January" value="Jan" />
               <Picker.Item label="February" value="Feb" />
@@ -291,7 +301,7 @@ const styles = StyleSheet.create({
     padding: 10,
     minWidth: "60%",
   },
-  picker: { padding: 0 },
+  picker: { padding: 0, minWidth: "60%", },
   pickerWrapper: {
     height: 40,
     marginTop: 3,
