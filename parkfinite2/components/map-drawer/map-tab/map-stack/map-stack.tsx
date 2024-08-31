@@ -2,11 +2,12 @@ import { getCampsites } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Region } from "@/types/locations";
 import * as Location from "expo-location";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
+import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
@@ -36,6 +37,9 @@ const icons: Record<IconKey, any> = {
 };
 
 export default function MapComponent({ region }: { region: Region }) {
+  const { customCoordinates, setCustomCoordinates } = useContext(
+    CustomCoordinatesContext
+  );
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
     null
@@ -48,6 +52,12 @@ export default function MapComponent({ region }: { region: Region }) {
       .catch((err) => console.error("Failed to load campsites", err));
   }, []);
 
+  function handleMapPress(e) {
+    const { coordinate } = e.nativeEvent;
+    setCustomCoordinates(coordinate);
+    setSelectedCampsite(null);
+  }
+
   return (
     <>
       {selectedCampsite && (
@@ -55,7 +65,7 @@ export default function MapComponent({ region }: { region: Region }) {
       )}
       <MapView
         style={styles.map}
-        onPress={() => setSelectedCampsite(null)}
+        onPress={handleMapPress}
         provider={PROVIDER_GOOGLE}
         loadingEnabled={true}
         initialRegion={region}
@@ -86,6 +96,8 @@ export default function MapComponent({ region }: { region: Region }) {
             />
           </Marker>
         ))}
+
+        {customCoordinates && <Marker coordinate={customCoordinates} />}
       </MapView>
     </>
   );
