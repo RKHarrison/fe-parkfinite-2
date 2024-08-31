@@ -2,6 +2,10 @@ import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
+import { postCampsite } from "@/services/api/campsitesApi";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/UserContext";
+import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 
 type FormData = {
   campsiteName: string;
@@ -14,6 +18,8 @@ type FormData = {
 };
 
 export default function PostNewCampsiteForm() {
+  const { user } = useContext(UserContext);
+
   const {
     control,
     handleSubmit,
@@ -21,12 +27,23 @@ export default function PostNewCampsiteForm() {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    // CONVERT SPECIFIED FIELDS TO FLOAT BEFORE SUBMIT
-    const parsedData = {
-      ...data,
-      parkingCost: parseFloat(data.parkingCost),
-    };
-    console.log("Form Data:", parsedData);
+    if (user) {
+      const campsitePostRequestData: CampsitePostRequest = {
+        campsite_name: data.campsiteName,
+        campsite_longitude: 12.3,
+        campsite_latitude: 4.56,
+        contacts: [],
+        parking_cost: parseFloat(data.parkingCost),
+        facilities_cost: parseFloat(data.facilitiesCost),
+        description: data.campsiteDescription,
+        opening_month: data.openingMonth,
+        closing_month: data.closingMonth,
+        user_account_id: user.user_account_id,
+        photos: [],
+        category_id: Number(data.campsiteCategory),
+      };
+      postCampsite(campsitePostRequestData);
+    }
   };
 
   return (
@@ -209,10 +226,10 @@ export default function PostNewCampsiteForm() {
             >
               <Picker.Item
                 label="Select opening month..."
-                value=""
+                value={null}
                 enabled={false}
               />
-              <Picker.Item label="Not applicable." value="" />
+              <Picker.Item label="Not applicable." value={null} />
               <Picker.Item label="January" value="Jan" />
               <Picker.Item label="February" value="Feb" />
               <Picker.Item label="March" value="Mar" />
@@ -245,10 +262,10 @@ export default function PostNewCampsiteForm() {
             >
               <Picker.Item
                 label="Select closing month..."
-                value=""
+                value={null}
                 enabled={false}
               />
-              <Picker.Item label="Not applicable." value="" />
+              <Picker.Item label="Not applicable." value={null} />
               <Picker.Item label="January" value="Jan" />
               <Picker.Item label="February" value="Feb" />
               <Picker.Item label="March" value="Mar" />
