@@ -207,7 +207,7 @@ export default function PostNewCampsiteForm() {
               onValueChange={onChange}
               selectedValue={value}
             >
-                            <Picker.Item
+              <Picker.Item
                 label="Select opening month..."
                 value=""
                 enabled={false}
@@ -243,7 +243,7 @@ export default function PostNewCampsiteForm() {
               onValueChange={onChange}
               selectedValue={value}
             >
-                                          <Picker.Item
+              <Picker.Item
                 label="Select closing month..."
                 value=""
                 enabled={false}
@@ -266,10 +266,7 @@ export default function PostNewCampsiteForm() {
         )}
       />
 
-      <Button
-        title="Submit new campsite..."
-        onPress={handleSubmit(onSubmit)}
-      />
+      <Button title="Submit new campsite..." onPress={handleSubmit(onSubmit)} />
     </View>
   );
 }
@@ -277,7 +274,7 @@ export default function PostNewCampsiteForm() {
 const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center",
   },
   title: {
     fontSize: 20,
@@ -285,7 +282,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   fieldTitleText: {
-    marginTop:18,
+    marginTop: 18,
     fontStyle: "italic",
     fontSize: 12,
     alignSelf: "center",
@@ -293,9 +290,9 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
-    fontStyle: 'italic',
-    fontWeight: '400',
-    fontSize: 12
+    fontStyle: "italic",
+    fontWeight: "400",
+    fontSize: 12,
   },
   textInput: {
     height: 40,
@@ -304,16 +301,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    minWidth: "70%",
+    minWidth: "80%",
   },
-  picker: { padding: 0},
+  picker: { padding: 0 },
   pickerWrapper: {
+    padding: 0,
     height: 40,
     marginTop: 3,
     marginBottom: 3,
     borderWidth: 1,
     borderRadius: 10,
-    minWidth: "70%",
+    minWidth: "80%",
     justifyContent: "center",
   },
 });
