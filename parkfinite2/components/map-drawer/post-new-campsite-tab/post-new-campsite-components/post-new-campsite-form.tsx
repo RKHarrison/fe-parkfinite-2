@@ -30,7 +30,7 @@ export default function PostNewCampsiteForm() {
   };
 
   return (
-    <View>
+    <View style={styles.formContainer}>
       <Text style={styles.title}>Post a new campsite...</Text>
 
       <Text style={styles.fieldTitleText}>
@@ -257,7 +257,7 @@ export default function PostNewCampsiteForm() {
       />
 
       <Button
-        title="Submit new campsite for approval..."
+        title="Submit new campsite..."
         onPress={handleSubmit(onSubmit)}
       />
     </View>
@@ -265,15 +265,19 @@ export default function PostNewCampsiteForm() {
 }
 
 const styles = StyleSheet.create({
+  formContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
   title: {
     fontSize: 20,
     marginBottom: 10,
   },
   fieldTitleText: {
     fontStyle: "italic",
-    fontSize:12,
-    alignSelf: 'center',
-    color: '#123b12'
+    fontSize: 12,
+    alignSelf: "center",
+    color: "#123b12",
   },
   errorText: {
     color: "red",
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     marginTop: 3,
-    marginBottom:20,
+    marginBottom: 20,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
@@ -291,7 +295,7 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     height: 40,
     marginTop: 3,
-    marginBottom:20,
+    marginBottom: 20,
     borderWidth: 1,
     borderRadius: 10,
     minWidth: "60%",
