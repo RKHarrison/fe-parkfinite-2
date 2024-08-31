@@ -33,6 +33,9 @@ export default function PostNewCampsiteForm() {
     <View>
       <Text style={styles.title}>Post a new campsite...</Text>
 
+      <Text style={styles.fieldTitleText}>
+        Enter a name for your new spot (e.g. 'A quiet beachside spot')...
+      </Text>
       <Controller
         control={control}
         name="campsiteName"
@@ -62,6 +65,9 @@ export default function PostNewCampsiteForm() {
         <Text style={styles.errorText}>{errors.campsiteName.message}</Text>
       )}
 
+      <Text style={styles.fieldTitleText}>
+        Enter a description (e.g. level parking, noise at night...)
+      </Text>
       <Controller
         control={control}
         name="campsiteDescription"
@@ -92,6 +98,9 @@ export default function PostNewCampsiteForm() {
         </Text>
       )}
 
+      <Text style={styles.fieldTitleText}>
+        Select a category describing the type of spot...
+      </Text>
       <Controller
         control={control}
         name="campsiteCategory"
@@ -106,8 +115,7 @@ export default function PostNewCampsiteForm() {
               selectedValue={value}
             >
               <Picker.Item
-                style={styles.picker}
-                label="Select a location..."
+                label="Select a category..."
                 value=""
                 enabled={false}
               />
@@ -129,6 +137,9 @@ export default function PostNewCampsiteForm() {
         <Text style={styles.errorText}>{errors.campsiteCategory.message}</Text>
       )}
 
+      <Text style={styles.fieldTitleText}>
+        Enter the cost of parking in GBP for one night (if applicable)...
+      </Text>
       <Controller
         control={control}
         name="parkingCost"
@@ -154,6 +165,9 @@ export default function PostNewCampsiteForm() {
         <Text style={styles.errorText}>{errors.parkingCost.message}</Text>
       )}
 
+      <Text style={styles.fieldTitleText}>
+        Enter the cost of using facilities for one day/night (if applicable)...
+      </Text>
       <Controller
         control={control}
         name="facilitiesCost"
@@ -180,6 +194,9 @@ export default function PostNewCampsiteForm() {
         <Text style={styles.errorText}>{errors.facilitiesCost.message}</Text>
       )}
 
+      <Text style={styles.fieldTitleText}>
+        Select the month the spot opens for use (if applicable)...
+      </Text>
       <Controller
         control={control}
         name="openingMonth"
@@ -208,6 +225,9 @@ export default function PostNewCampsiteForm() {
         )}
       />
 
+      <Text style={styles.fieldTitleText}>
+        Select the month the spot closes (if applicable)...
+      </Text>
       <Controller
         control={control}
         name="closingMonth"
@@ -249,12 +269,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
   },
+  fieldTitleText: {
+    fontStyle: "italic",
+    fontSize:12,
+    alignSelf: 'center',
+    color: '#123b12'
+  },
   errorText: {
     color: "red",
   },
   textInput: {
     height: 40,
-    margin: 12,
+    marginTop: 3,
+    marginBottom:20,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
@@ -263,7 +290,8 @@ const styles = StyleSheet.create({
   picker: { padding: 0 },
   pickerWrapper: {
     height: 40,
-    margin: 12,
+    marginTop: 3,
+    marginBottom:20,
     borderWidth: 1,
     borderRadius: 10,
     minWidth: "60%",
