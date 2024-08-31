@@ -38,7 +38,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? "pin" : "pin-outline"} color={color} />
           ),
-          href: user ? "/(drawer)/(tabs)/post-new-campsite" : null,
+          href: "/(drawer)/(tabs)/post-new-campsite",
         }}
       />
     </Tabs>

@@ -56,7 +56,7 @@ export default function PostNewCampsiteForm() {
         )}
       />
       {errors.campsiteName && (
-        <Text style={{ color: "red" }}>{errors.campsiteName.message}</Text>
+        <Text style={styles.errorText}>{errors.campsiteName.message}</Text>
       )}
 
       <Controller
@@ -84,7 +84,7 @@ export default function PostNewCampsiteForm() {
         )}
       />
       {errors.campsiteDescription && (
-        <Text style={{ color: "red" }}>
+        <Text style={styles.errorText}>
           {errors.campsiteDescription.message}
         </Text>
       )}
@@ -123,7 +123,7 @@ export default function PostNewCampsiteForm() {
         )}
       />
       {errors.campsiteCategory && (
-        <Text style={{ color: "red" }}>{errors.campsiteCategory.message}</Text>
+        <Text style={styles.errorText}>{errors.campsiteCategory.message}</Text>
       )}
 
       <Controller
@@ -148,7 +148,7 @@ export default function PostNewCampsiteForm() {
         )}
       />
       {errors.parkingCost && (
-        <Text style={{ color: "red" }}>{errors.parkingCost.message}</Text>
+        <Text style={styles.errorText}>{errors.parkingCost.message}</Text>
       )}
 
       <Button
@@ -163,6 +163,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 10,
+  }, errorText: {
+    color: 'red'
   },
   textInput: {
     height: 40,
