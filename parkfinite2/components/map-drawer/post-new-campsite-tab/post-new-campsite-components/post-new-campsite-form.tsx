@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    minWidth: "60%",
+    minWidth: "70%",
   },
   picker: { padding: 0, minWidth: "60%", },
   pickerWrapper: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderWidth: 1,
     borderRadius: 10,
-    minWidth: "60%",
+    minWidth: "70%",
     justifyContent: "center",
   },
 });
