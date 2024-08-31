@@ -281,9 +281,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    marginTop: 20,
     marginBottom: 10,
   },
   fieldTitleText: {
+    marginTop:18,
     fontStyle: "italic",
     fontSize: 12,
     alignSelf: "center",
@@ -291,21 +293,24 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+    fontStyle: 'italic',
+    fontWeight: '400',
+    fontSize: 12
   },
   textInput: {
     height: 40,
     marginTop: 3,
-    marginBottom: 20,
+    marginBottom: 3,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     minWidth: "70%",
   },
-  picker: { padding: 0, minWidth: "60%", },
+  picker: { padding: 0},
   pickerWrapper: {
     height: 40,
     marginTop: 3,
-    marginBottom: 20,
+    marginBottom: 3,
     borderWidth: 1,
     borderRadius: 10,
     minWidth: "70%",
