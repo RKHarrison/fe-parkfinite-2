@@ -8,6 +8,9 @@ type FormData = {
   campsiteDescription: string;
   campsiteCategory: string;
   parkingCost: string;
+  facilitiesCost: string;
+  openingMonth: string;
+  closingMonth: string;
 };
 
 export default function PostNewCampsiteForm() {
@@ -21,7 +24,7 @@ export default function PostNewCampsiteForm() {
     // CONVERT SPECIFIED FIELDS TO FLOAT BEFORE SUBMIT
     const parsedData = {
       ...data,
-      parkingCost: parseFloat(data.parkingCost)
+      parkingCost: parseFloat(data.parkingCost),
     };
     console.log("Form Data:", parsedData);
   };
@@ -134,7 +137,7 @@ export default function PostNewCampsiteForm() {
           pattern: {
             value: /^\d*\.?\d*$/,
             message: "Parking cost must be a valid number or decimal",
-          }
+          },
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
@@ -151,6 +154,88 @@ export default function PostNewCampsiteForm() {
         <Text style={styles.errorText}>{errors.parkingCost.message}</Text>
       )}
 
+      <Controller
+        control={control}
+        name="facilitiesCost"
+        rules={{
+          required:
+            "Please specify a cost for using facilities; if free or none available specify 0",
+          pattern: {
+            value: /^\d*\.?\d*$/,
+            message: "Parking cost must be a valid number or decimal",
+          },
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.textInput}
+            keyboardType="numeric"
+            placeholder="Enter a cost for using facilities."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value ? value.toString() : ""}
+          />
+        )}
+      />
+      {errors.facilitiesCost && (
+        <Text style={styles.errorText}>{errors.facilitiesCost.message}</Text>
+      )}
+
+      <Controller
+        control={control}
+        name="openingMonth"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View style={styles.pickerWrapper}>
+            <Picker
+              onBlur={onBlur}
+              onValueChange={onChange}
+              selectedValue={value}
+            >
+              <Picker.Item label="Not applicable." value="" />
+              <Picker.Item label="January" value="Jan" />
+              <Picker.Item label="February" value="Feb" />
+              <Picker.Item label="March" value="Mar" />
+              <Picker.Item label="April" value="Apr" />
+              <Picker.Item label="May" value="May" />
+              <Picker.Item label="June" value="Jun" />
+              <Picker.Item label="July" value="Jul" />
+              <Picker.Item label="August" value="Aug" />
+              <Picker.Item label="September" value="Sep" />
+              <Picker.Item label="October" value="Oct" />
+              <Picker.Item label="November" value="Nov" />
+              <Picker.Item label="December" value="Dec" />
+            </Picker>
+          </View>
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="closingMonth"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View style={styles.pickerWrapper}>
+            <Picker
+              onBlur={onBlur}
+              onValueChange={onChange}
+              selectedValue={value}
+            >
+              <Picker.Item label="Not applicable." value="" />
+              <Picker.Item label="January" value="Jan" />
+              <Picker.Item label="February" value="Feb" />
+              <Picker.Item label="March" value="Mar" />
+              <Picker.Item label="April" value="Apr" />
+              <Picker.Item label="May" value="May" />
+              <Picker.Item label="June" value="Jun" />
+              <Picker.Item label="July" value="Jul" />
+              <Picker.Item label="August" value="Aug" />
+              <Picker.Item label="September" value="Sep" />
+              <Picker.Item label="October" value="Oct" />
+              <Picker.Item label="November" value="Nov" />
+              <Picker.Item label="December" value="Dec" />
+            </Picker>
+          </View>
+        )}
+      />
+
       <Button
         title="Submit new campsite for approval..."
         onPress={handleSubmit(onSubmit)}
@@ -163,8 +248,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 10,
-  }, errorText: {
-    color: 'red'
+  },
+  errorText: {
+    color: "red",
   },
   textInput: {
     height: 40,
