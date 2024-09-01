@@ -23,7 +23,7 @@ export default function PostNewCampsiteForm() {
   const { customCoordinates, setCustomCoordinates } = useContext(
     CustomCoordinatesContext
   );
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   const {
     control,
@@ -55,7 +55,7 @@ export default function PostNewCampsiteForm() {
         photos: [],
         category_id: Number(data.campsiteCategory),
       };
-      postCampsite(campsitePostRequestData).then(() => {
+      postCampsite(campsitePostRequestData, logout).then(() => {
         setCustomCoordinates(null);
         router.push("/(drawer)/(tabs)/search/map");
       });
