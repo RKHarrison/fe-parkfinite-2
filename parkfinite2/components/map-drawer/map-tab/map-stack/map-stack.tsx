@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useIsFocused } from "@react-navigation/native";
 
 import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
@@ -44,13 +45,14 @@ export default function MapComponent({ region }: { region: Region }) {
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
     null
   );
+  const isFocused = useIsFocused()
 
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
     getCampsites()
       .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
       .catch((err) => console.error("Failed to load campsites", err));
-  }, []);
+  }, [isFocused]);
 
   function handleMapPress(e) {
     const { coordinate } = e.nativeEvent;
