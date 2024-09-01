@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
+import { router } from "expo-router";
 
 type FormData = {
   campsiteName: string;
@@ -19,7 +20,9 @@ type FormData = {
 };
 
 export default function PostNewCampsiteForm() {
-  const { customCoordinates } = useContext(CustomCoordinatesContext);
+  const { customCoordinates, setCustomCoordinates } = useContext(
+    CustomCoordinatesContext
+  );
   const { user } = useContext(UserContext);
 
   const {
@@ -52,9 +55,10 @@ export default function PostNewCampsiteForm() {
         photos: [],
         category_id: Number(data.campsiteCategory),
       };
-      postCampsite(campsitePostRequestData).then(() =>
-        console.log("campsite posted")
-      );
+      postCampsite(campsitePostRequestData).then(() => {
+        setCustomCoordinates(null);
+        router.push("/(drawer)/(tabs)/search/map");
+      });
     }
   };
 
