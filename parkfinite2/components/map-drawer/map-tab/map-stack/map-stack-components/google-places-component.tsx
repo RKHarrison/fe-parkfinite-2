@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { StyleSheet } from "react-native";
 import { Region } from "@/types/locations";
+import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
 
 interface GooglePlacesInputProps {
   setRegion: (region: Region) => void;
@@ -11,6 +12,20 @@ export default function GooglePlacesInput({
   setRegion,
 }: GooglePlacesInputProps) {
   const apikey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const { setCustomCoordinates } = useContext(CustomCoordinatesContext);
+
+  function handlePress(details) {
+    setCustomCoordinates({
+      latitude: details.geometry.location.lat,
+      longitude: details.geometry.location.lng,
+    });
+    setRegion({
+      latitude: details.geometry.location.lat,
+      longitude: details.geometry.location.lng,
+      latitudeDelta: 0.05,
+      longitudeDelta: 0.05,
+    });
+  }
 
   return (
     <GooglePlacesAutocomplete
@@ -21,13 +36,7 @@ export default function GooglePlacesInput({
       placeholder="Search"
       fetchDetails={true}
       onPress={(data, details = null) => {
-        details &&
-          setRegion({
-            latitude: details.geometry.location.lat,
-            longitude: details.geometry.location.lng,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          });
+        handlePress(details, data);
       }}
       onFail={(error) => console.error(error)}
       requestUrl={{
