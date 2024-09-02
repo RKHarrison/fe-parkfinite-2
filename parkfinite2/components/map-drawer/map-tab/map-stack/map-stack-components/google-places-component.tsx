@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
       top: 10,
       left: 60,
       right: 60,
-      zIndex: 2,
+      zIndex: 2000,
     },
     textInput: {
       height: 40,
