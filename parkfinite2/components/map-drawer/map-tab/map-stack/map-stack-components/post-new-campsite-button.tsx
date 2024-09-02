@@ -1,18 +1,14 @@
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
-import { useContext } from "react";
 import { Button } from "@/components/Button";
-import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-
+import { router } from "expo-router";
 
 export default function PostNewCampsiteButton() {
-  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-
   return (
     <View style={styles.container}>
       <Button
         title="Create new campsite here"
-        onPress={() => setDroppedMarker(droppedMarker)}
+        onPress={() => router.push("/(drawer)/(tabs)/post-new-campsite")}
       />
     </View>
   );
