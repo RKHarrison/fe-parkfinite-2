@@ -1,6 +1,5 @@
-
 import { View } from "react-native";
-import { StyleSheet, ViewStyle } from "react-native";
+import { StyleSheet } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/Button";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
@@ -20,11 +19,8 @@ export default function ClearDroppedMarkerButton() {
 
   return (
     <View style={styles.container}>
-            <Button
-              title="Clear marker"
-              onPress={() => setDroppedMarker(null)}
-            />
-      </View>
+      <Button title="Clear marker" onPress={() => setDroppedMarker(null)} />
+    </View>
   );
 }
 
@@ -38,7 +34,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 30,
     padding: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
