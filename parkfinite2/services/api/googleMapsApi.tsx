@@ -4,7 +4,9 @@ const googleMapsApi = axios.create({
   baseURL: "https://maps.googleapis.com/maps/api/",
 });
 
-export const getAddressFromCoordinate = (coordinate) => {
+type Coordinate = { longitude: number; latitude: number };
+
+export const getAddressFromCoordinate = (coordinate: Coordinate) => {
   const apikey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
   return googleMapsApi
     .get(
@@ -12,7 +14,12 @@ export const getAddressFromCoordinate = (coordinate) => {
     )
     .then((res) => {
       const address = res.data.results[0].formatted_address;
-      console.log(address);
+      if (address.includes("+")) {
+        const addressParts = address.split(" ");
+        const addressWithoutPlusCode = addressParts.slice(1).join(" ");
+        return addressWithoutPlusCode;
+      }
+      return address;
     })
     .catch((error) => {
       console.error("Failed to fetch address", error);
