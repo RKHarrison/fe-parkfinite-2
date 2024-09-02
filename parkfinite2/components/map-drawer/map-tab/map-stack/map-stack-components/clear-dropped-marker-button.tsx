@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   container: {
     zIndex: 1000,
     position: "absolute",
-    left: 10,
-    bottom: 30,
+    left: 40,
+    top: 60,
     borderRadius: 12,
     width: 110,
     height: 30,
