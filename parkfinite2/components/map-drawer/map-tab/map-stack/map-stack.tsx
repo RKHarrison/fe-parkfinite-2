@@ -10,6 +10,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
+import ClearDroppedMarkerButton from "./map-stack-components/clear-dropped-marker-button";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
@@ -21,6 +22,7 @@ import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
 import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
+import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -65,6 +67,8 @@ export default function MapComponent({ region }: { region: Region }) {
       {selectedCampsite && (
         <CampsiteSummaryCard selectedCampsite={selectedCampsite} />
       )}
+      {droppedMarker && <ClearDroppedMarkerButton/>}
+      {droppedMarker && <PostNewCampsiteButton/>}
       <MapView
         style={styles.map}
         onPress={handleMapPress}
@@ -104,9 +108,9 @@ export default function MapComponent({ region }: { region: Region }) {
             coordinate={droppedMarker}
             draggable
             onDragEnd={(e) => setDroppedMarker(e.nativeEvent.coordinate)}
-            isPreselected
-          />
+            isPreselected/>
         )}
+
       </MapView>
     </>
   );
