@@ -45,7 +45,7 @@ export default function MapComponent({ region }: { region: Region }) {
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
     null
   );
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
@@ -99,7 +99,14 @@ export default function MapComponent({ region }: { region: Region }) {
           </Marker>
         ))}
 
-        {customCoordinates && <Marker coordinate={customCoordinates} />}
+        {customCoordinates && (
+          <Marker
+            coordinate={customCoordinates}
+            draggable
+            onDragEnd={(e) => setCustomCoordinates(e.nativeEvent.coordinate)}
+            isPreselected
+          />
+        )}
       </MapView>
     </>
   );
