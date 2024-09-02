@@ -5,14 +5,14 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { UserContext } from "@/contexts/UserContext";
-import { CustomCoordinatesProvider } from "@/contexts/CustomCoordinatesContext";
+import { DroppedMarkerProvider } from "@/contexts/DroppedMarkerContext";
 
 export default function TabLayout() {
   const { user } = useContext(UserContext);
   const colorScheme = useColorScheme();
 
   return (
-    <CustomCoordinatesProvider>
+    <DroppedMarkerProvider>
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -50,6 +50,6 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-    </CustomCoordinatesProvider>
+    </DroppedMarkerProvider>
   );
 }

@@ -6,7 +6,7 @@ import { postCampsite } from "@/services/api/campsitesApi";
 import { useContext, useEffect } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
-import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
+import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { router } from "expo-router";
 
 type FormData = {
@@ -20,9 +20,7 @@ type FormData = {
 };
 
 export default function PostNewCampsiteForm() {
-  const { customCoordinates, setCustomCoordinates } = useContext(
-    CustomCoordinatesContext
-  );
+  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const { user, logout } = useContext(UserContext);
 
   const {
@@ -36,15 +34,15 @@ export default function PostNewCampsiteForm() {
       alert("Please log in to submit a new campsite.");
       return;
     }
-    if (!customCoordinates) {
+    if (!droppedMarker) {
       alert(
         "Please place a custom marker on the map screen to post a new campsite."
       );
     } else {
       const campsitePostRequestData: CampsitePostRequest = {
         campsite_name: data.campsiteName,
-        campsite_longitude: customCoordinates?.longitude,
-        campsite_latitude: customCoordinates?.latitude,
+        campsite_longitude: droppedMarker?.longitude,
+        campsite_latitude: droppedMarker?.latitude,
         contacts: [],
         parking_cost: parseFloat(data.parkingCost),
         facilities_cost: parseFloat(data.facilitiesCost),
@@ -56,15 +54,11 @@ export default function PostNewCampsiteForm() {
         category_id: Number(data.campsiteCategory),
       };
       postCampsite(campsitePostRequestData, logout).then(() => {
-        setCustomCoordinates(null);
+        setDroppedMarker(null);
         router.push("/(drawer)/(tabs)/search/map");
       });
     }
   };
-
-  useEffect(() => {
-    console.log("in post screen", customCoordinates);
-  }, [customCoordinates]);
 
   return (
     <View style={styles.formContainer}>

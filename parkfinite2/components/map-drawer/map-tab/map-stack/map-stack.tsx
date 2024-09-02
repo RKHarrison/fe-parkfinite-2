@@ -8,7 +8,7 @@ import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useIsFocused } from "@react-navigation/native";
 
-import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
+import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
@@ -38,8 +38,8 @@ const icons: Record<IconKey, any> = {
 };
 
 export default function MapComponent({ region }: { region: Region }) {
-  const { customCoordinates, setCustomCoordinates } = useContext(
-    CustomCoordinatesContext
+  const { droppedMarker, setDroppedMarker } = useContext(
+    DroppedMarkerContext
   );
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
@@ -56,7 +56,7 @@ export default function MapComponent({ region }: { region: Region }) {
 
   function handleMapPress(e) {
     const { coordinate } = e.nativeEvent;
-    setCustomCoordinates(coordinate);
+    setDroppedMarker(coordinate);
     setSelectedCampsite(null);
   }
 
@@ -99,11 +99,11 @@ export default function MapComponent({ region }: { region: Region }) {
           </Marker>
         ))}
 
-        {customCoordinates && (
+        {droppedMarker && (
           <Marker
-            coordinate={customCoordinates}
+            coordinate={droppedMarker}
             draggable
-            onDragEnd={(e) => setCustomCoordinates(e.nativeEvent.coordinate)}
+            onDragEnd={(e) => setDroppedMarker(e.nativeEvent.coordinate)}
             isPreselected
           />
         )}

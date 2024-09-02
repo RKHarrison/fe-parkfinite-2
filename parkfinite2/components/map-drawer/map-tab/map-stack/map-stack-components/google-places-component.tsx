@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { StyleSheet } from "react-native";
 import { Region } from "@/types/locations";
-import { CustomCoordinatesContext } from "@/contexts/CustomCoordinatesContext";
+import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 
 interface GooglePlacesInputProps {
   setRegion: (region: Region) => void;
@@ -12,10 +12,10 @@ export default function GooglePlacesInput({
   setRegion,
 }: GooglePlacesInputProps) {
   const apikey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const { setCustomCoordinates } = useContext(CustomCoordinatesContext);
+  const { setDroppedMarker } = useContext(DroppedMarkerContext);
 
   function handlePress(details) {
-    setCustomCoordinates({
+    setDroppedMarker({
       latitude: details.geometry.location.lat,
       longitude: details.geometry.location.lng,
     });
