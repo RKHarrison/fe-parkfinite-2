@@ -1,20 +1,36 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-form";
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
+import { UserContext } from "@/contexts/UserContext";
+import { postCampsite } from "@/services/api/campsitesApi";
+import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import { router } from "expo-router";
 
 export default function MultiStepPostNewCampsiteForm() {
-  const { droppedMarker } = useContext(DroppedMarkerContext);
+  const { user, logout } = useContext(UserContext);
+  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [formStep, setFormStep] = useState(1);
-  const [newCampsiteRequestData, setNewCampsiteRequestData] = useState({})
+  const [newCampsiteData, setNewCampsiteData] = useState({});
+
+  useEffect(()=> {
+    console.log(newCampsiteData);
+  }, [newCampsiteData])
 
   return (
     <>
       <View style={styles.screenContainer}>
         <Text style={styles.h1}>Post a new campsite!</Text>
-        {formStep === 1 && <ChooseNewCampsiteLocation setFormStep={setFormStep}/>}
-        {formStep === 2 && droppedMarker && <NewCampsiteBasicInfoForm setFormStep={setFormStep} />}
+        {formStep === 1 && (
+          <ChooseNewCampsiteLocation
+            setFormStep={setFormStep}
+            setNewCampsiteData={setNewCampsiteData}
+          />
+        )}
+        {formStep === 2 && droppedMarker && (
+          <NewCampsiteBasicInfoForm setFormStep={setFormStep} setNewCampsiteData={setNewCampsiteData}/>
+        )}
       </View>
     </>
   );
@@ -33,12 +49,6 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  h2Italic: {
-    fontStyle: "italic",
-    fontSize: 16,
-    marginTop: 20,
     marginBottom: 10,
   },
   formContainer: {
