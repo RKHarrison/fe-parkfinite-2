@@ -40,11 +40,13 @@ const icons: Record<IconKey, any> = {
   10: icon10,
 };
 
-export default function MapScreen({ region }: { region: Region }) {
-  const {user} = useContext(UserContext)
-  const { droppedMarker, setDroppedMarker } = useContext(
-    DroppedMarkerContext
-  );
+type MapScreenProps = {
+  region: Region;
+};
+
+export default function MapScreen({ region }: MapScreenProps) {
+  const { user } = useContext(UserContext);
+  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
     null
@@ -69,8 +71,8 @@ export default function MapScreen({ region }: { region: Region }) {
       {selectedCampsite && (
         <CampsiteSummaryCard selectedCampsite={selectedCampsite} />
       )}
-      {droppedMarker && <ClearDroppedMarkerButton/>}
-      {droppedMarker && <PostNewCampsiteButton/>}
+      {droppedMarker && <ClearDroppedMarkerButton />}
+      {droppedMarker && <PostNewCampsiteButton />}
       <MapView
         style={styles.map}
         onPress={handleMapPress}
@@ -110,9 +112,9 @@ export default function MapScreen({ region }: { region: Region }) {
             coordinate={droppedMarker}
             draggable
             onDragEnd={(e) => setDroppedMarker(e.nativeEvent.coordinate)}
-            isPreselected/>
+            isPreselected
+          />
         )}
-
       </MapView>
     </>
   );

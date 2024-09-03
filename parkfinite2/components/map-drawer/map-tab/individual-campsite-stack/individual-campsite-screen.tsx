@@ -10,11 +10,13 @@ import CampsiteContacts from "./individual-campsite-components/campsite-contacts
 import CampsiteHeaderAndRating from "./individual-campsite-components/campsite-header-and-rating";
 import CampsiteReviews from "./individual-campsite-components/campsite-reviews";
 
+type IndividualCampsiteScreenProps = {
+  id: string | string[];
+};
+
 export default function IndividualCampsiteScreen({
   id,
-}: {
-  id: string | string[];
-}) {
+}: IndividualCampsiteScreenProps) {
   const [loadedCampsite, setLoadedCampsite] = useState<Campsite | null>(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function IndividualCampsiteScreen({
           {loadedCampsite.contacts[0] && (
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
-          <CampsiteReviews campsiteId={loadedCampsite.campsite_id}/>
+          <CampsiteReviews campsiteId={loadedCampsite.campsite_id} />
         </ScrollView>
       )}
     </>
