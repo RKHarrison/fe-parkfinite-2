@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { Region } from "@/types/locations";
 
 import GooglePlacesInput from "@/components/map-drawer/map-tab/map-stack/map-stack-components/google-places-component";
-import MapComponent from "@/components/map-drawer/map-tab/map-stack/map-stack";
+import MapScreen from "@/components/map-drawer/map-tab/map-stack/map-screen";
 
 const initialRegion: Region = {
   latitude: 53.0,
@@ -20,7 +20,7 @@ export default function Map() {
   return (
     <View style={styles.container}>
       <GooglePlacesInput setRegion={setRegion} />
-      <MapComponent region={region} />
+      <MapScreen region={region} />
     </View>
   );
 }

@@ -8,11 +8,13 @@ import { Button } from "@/components/Button";
 import { Link, router } from "expo-router";
 import { UserContext } from "@/contexts/UserContext";
 
+type CampsiteSummaryCardProps = {
+  selectedCampsite: Campsite;
+};
+
 export function CampsiteSummaryCard({
   selectedCampsite,
-}: {
-  selectedCampsite: Campsite;
-}) {
+}: CampsiteSummaryCardProps) {
   const { user } = useContext(UserContext);
 
   return (
@@ -44,11 +46,7 @@ export function CampsiteSummaryCard({
           ) : (
             <Button
               title="Login for full access"
-              onPress={() =>
-                router.push(
-                  `/(drawer)/account`
-                )
-              }
+              onPress={() => router.push(`/(drawer)/account`)}
             />
           )}
         </View>
