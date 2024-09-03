@@ -11,11 +11,11 @@ export default function PostNewCampsiteScreen() {
     <>
       <View style={styles.screenContainer}>
         <Text style={styles.h1}>Post a new campsite!</Text>
-        <ChooseNewCampsiteLocation/>
+        <ChooseNewCampsiteLocation />
 
         {droppedMarker && (
           <View style={styles.formContainer}>
-            <NewCampsiteBasicInfoForm style={styles.formContainer} />
+            <NewCampsiteBasicInfoForm />
           </View>
         )}
       </View>
@@ -35,17 +35,17 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   h2Italic: {
-    fontStyle: 'italic',
+    fontStyle: "italic",
     fontSize: 16,
     marginTop: 20,
     marginBottom: 10,
   },
   formContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
     marginBottom: 80,
   },
