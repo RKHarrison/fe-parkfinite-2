@@ -61,7 +61,7 @@ export interface CampsitePostRequest {
   campsite_longitude: number;
   opening_month: string | null;
   closing_month: string | null;
-  contacts: CampsiteContactPostRequest[] | null;
+  contacts: CampsiteContactPostRequest[];
   photos: CampsitePhoto[];
   user_account_id: number;
 }
