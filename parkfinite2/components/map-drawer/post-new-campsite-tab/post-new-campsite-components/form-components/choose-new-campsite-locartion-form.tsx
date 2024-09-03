@@ -8,10 +8,12 @@ import { Button } from "@/components/Button";
 
 type ChooseNewCampsiteLocationProps = {
   setFormStep: (step: number) => void;
+  setNewCampsiteData: (data: any) => void;
 };
 
 export default function ChooseNewCampsiteLocation({
   setFormStep,
+  setNewCampsiteData,
 }: ChooseNewCampsiteLocationProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
@@ -23,6 +25,14 @@ export default function ChooseNewCampsiteLocation({
       });
     }
   }, [droppedMarker]);
+
+  function handleSubmitLocation() {
+    setNewCampsiteData({
+      campsite_latitude: droppedMarker?.latitude,
+      campsite_longitude: droppedMarker?.longitude,
+    });
+    setFormStep(2);
+  }
 
   return (
     <View style={styles.formContainer}>
@@ -45,16 +55,11 @@ export default function ChooseNewCampsiteLocation({
           <Text> {newCampsiteAddress}</Text>
           <Button
             title="Confirm location"
-            onPress={() => {
-              setFormStep(2);
-            }}
+            onPress={() => handleSubmitLocation()}
           />
           <Button
             title="Choose a different location"
-            onPress={() => {
-              setDroppedMarker(null)
-              setFormStep(1);
-            }}
+            onPress={() => setFormStep(1)}
           />
         </>
       )}
