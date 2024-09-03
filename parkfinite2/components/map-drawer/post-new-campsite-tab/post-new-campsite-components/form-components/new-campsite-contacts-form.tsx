@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -5,6 +6,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import { CampsiteContactPostRequest } from "@/types/api-data-types/campsite-types";
 import { Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { Button } from "@/components/Button";
+
 
 type NewCampsiteContacts = CampsiteContactPostRequest[];
 
@@ -19,11 +22,19 @@ export default function NewCampsiteContactsForm({
   setNewCampsiteData,
   newCampsiteName,
 }: NewCampsiteContactsFormProps) {
+  const [contactsList, setContactsList] = useState<CampsiteContactPostRequest[]>([]);
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewCampsiteContacts>();
+  } = useForm<CampsiteContactPostRequest>();
+
+  function handleAddContact(newContact: CampsiteContactPostRequest) {
+    console.log(newContact);
+    setContactsList(contactsList => ([...contactsList,newContact]))
+    console.log(contactsList);
+    
+  }
 
   return (
     <View style={styles.formContainer}>
@@ -36,7 +47,7 @@ export default function NewCampsiteContactsForm({
         </Text>
         <Controller
           control={control}
-          name="contactName"
+          name="contact_name"
           rules={{
             required: "Campsite name is required",
             minLength: {
@@ -59,15 +70,15 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contactName && (
-          <Text style={styles.errorText}>{errors.contactName.message}</Text>
+        {errors.contact_name && (
+          <Text style={styles.errorText}>{errors.contact_name.message}</Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter a telephone number for this contact...
         </Text>
         <Controller
           control={control}
-          name="contactTelephone"
+          name="contact_number"
           rules={{
             required: "A telephone number is required.",
             pattern: {
@@ -86,9 +97,9 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contactTelephone && (
+        {errors.contact_number && (
           <Text style={styles.errorText}>
-            {errors.contactTelephone.message}
+            {errors.contact_number.message}
           </Text>
         )}
         <Text style={styles.fieldTitleText}>
@@ -96,11 +107,11 @@ export default function NewCampsiteContactsForm({
         </Text>
         <Controller
           control={control}
-          name="contactEmail"
+          name="contact_email"
           rules={{
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Please enter a valid telephone email.",
+              message: "Please enter a valid email.",
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -113,10 +124,14 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contactEmail && (
-          <Text style={styles.errorText}>{errors.contactEmail.message}</Text>
+        {errors.contact_email && (
+          <Text style={styles.errorText}>{errors.contact_email.message}</Text>
         )}
       </ScrollView>
+      <Button
+        title="Add a new contact to campsite list"
+        onPress={handleSubmit(handleAddContact)}
+      />
     </View>
   );
 }
