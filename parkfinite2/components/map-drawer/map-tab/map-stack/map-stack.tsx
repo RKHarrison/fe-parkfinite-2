@@ -23,6 +23,7 @@ import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
 import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
+import { UserContext } from "@/contexts/UserContext";
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -40,6 +41,7 @@ const icons: Record<IconKey, any> = {
 };
 
 export default function MapComponent({ region }: { region: Region }) {
+  const {user} = useContext(UserContext)
   const { droppedMarker, setDroppedMarker } = useContext(
     DroppedMarkerContext
   );
@@ -58,7 +60,7 @@ export default function MapComponent({ region }: { region: Region }) {
 
   function handleMapPress(e) {
     const { coordinate } = e.nativeEvent;
-    setDroppedMarker(coordinate);
+    user && setDroppedMarker(coordinate);
     setSelectedCampsite(null);
   }
 
