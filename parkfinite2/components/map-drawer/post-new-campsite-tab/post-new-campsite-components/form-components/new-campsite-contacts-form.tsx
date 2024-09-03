@@ -1,8 +1,10 @@
-import { useForm } from "react-hook-form";
-import { StyleSheet } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { CampsiteContactPostRequest } from "@/types/api-data-types/campsite-types";
 import { Text } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 
 type NewCampsiteContacts = CampsiteContactPostRequest[];
 
@@ -24,7 +26,89 @@ export default function NewCampsiteContactsForm({
   } = useForm<NewCampsiteContacts>();
 
   return (
-    <Text style={styles.h2}>Step 3 (optional) - Enter contact(s) for {newCampsiteName}</Text>
+    <View style={styles.formContainer}>
+      <Text style={styles.h2}>
+        Step 3 (optional) - Enter contact(s) for {newCampsiteName}
+      </Text>
+      <ScrollView>
+      <Controller
+        control={control}
+        name="contactName"
+        rules={{
+          required: "Campsite name is required",
+          minLength: {
+            value: 4,
+            message:
+              "Minimum length for campsite name or summary is 4 characters",
+          },
+          maxLength: {
+            value: 200,
+            message: "Max length for a name input is 200 characters.",
+          },
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter contact name..."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+      />
+      {errors.contactName && (
+        <Text style={styles.errorText}>{errors.contactName.message}</Text>
+      )}
+
+      <Controller
+        control={control}
+        name="contactTelephone"
+        rules={{
+          required: "A telephone number is required.",
+          pattern: {
+            value:
+              /^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?[-.\s]?)?(\d{1,4}[-.\s]?)?\d{1,4}[-.\s]?\d{1,9}$/,
+            message: "Please enter a valid telephone mumber.",
+          },
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter contact's telephone number..."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+      />
+      {errors.contactTelephone && (
+        <Text style={styles.errorText}>{errors.contactTelephone.message}</Text>
+      )}
+
+      <Controller
+        control={control}
+        name="contactEmail"
+        rules={{
+          pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Please enter a valid telephone email.",
+          },
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter contact's email..."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+      />
+      {errors.contactEmail && (
+        <Text style={styles.errorText}>{errors.contactEmail.message}</Text>
+      )}
+    </ScrollView>
+    </View>
   );
 }
 
