@@ -38,7 +38,10 @@ export default function ChooseNewCampsiteLocation() {
       ) : (
         <>
           <Text> {newCampsiteAddress}</Text>
-          <Button title="Choose a different location" onPress={()=>setDroppedMarker(null)}/>
+          <Button
+            title="Choose a different location"
+            onPress={() => setDroppedMarker(null)}
+          />
         </>
       )}
     </View>
@@ -48,7 +51,7 @@ export default function ChooseNewCampsiteLocation() {
 const styles = StyleSheet.create({
   formContainer: {
     alignItems: "center",
-    marginTop: 10
+    marginTop: 10,
   },
   h2: {
     fontSize: 16,

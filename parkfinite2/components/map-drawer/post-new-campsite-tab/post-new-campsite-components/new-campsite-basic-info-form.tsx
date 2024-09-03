@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 import { postCampsite } from "@/services/api/campsitesApi";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
@@ -62,7 +62,9 @@ export default function NewCampsiteBasicInfoForm() {
 
   return (
     <View style={styles.formContainer}>
-          <Text style={styles.h2}>Step 2 - Enter the details of your new spot: </Text>
+      <Text style={styles.h2}>
+        Step 2 - Enter basic info for your new spot:{" "}
+      </Text>
       <ScrollView>
         <View style={styles.scrollViewContainer}>
           <Text style={styles.fieldTitleText}>
@@ -308,18 +310,15 @@ export default function NewCampsiteBasicInfoForm() {
         </View>
       </ScrollView>
 
-          <Button
-            title="Submit new campsite..."
-            onPress={handleSubmit(onSubmit)}
-          />
+      <Button title="Submit new campsite..." onPress={handleSubmit(onSubmit)} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   formContainer: {
-    alignItems: 'center',
-    marginBottom: 80
+    alignItems: "center",
+    marginBottom: 80,
   },
   scrollViewContainer: {
     width: 350,
@@ -335,7 +334,7 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   fieldTitleText: {
@@ -359,11 +358,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     minWidth: "80%",
-    backgroundColor: '#d8f3d8'
+    backgroundColor: "#d8f3d8",
   },
   picker: { padding: 0 },
   pickerWrapper: {
-    backgroundColor: '#d8f3d8',
+    backgroundColor: "#d8f3d8",
     padding: 0,
     height: 40,
     marginTop: 3,
