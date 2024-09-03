@@ -21,7 +21,13 @@ type FormData = {
   closingMonth: string;
 };
 
-export default function NewCampsiteBasicInfoForm() {
+type NewCampsiteBasicInfoFormProps = {
+  setFormStep: (step: number) => void;
+};
+
+export default function NewCampsiteBasicInfoForm({
+  setFormStep,
+}: NewCampsiteBasicInfoFormProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const { user, logout } = useContext(UserContext);
   const {
@@ -312,6 +318,13 @@ export default function NewCampsiteBasicInfoForm() {
       </ScrollView>
 
       <Button title="Submit new campsite..." onPress={handleSubmit(onSubmit)} />
+      <Button
+        title="Choose a different location"
+        onPress={() => {
+          setDroppedMarker(null);
+          setFormStep(1);
+        }}
+      />
     </View>
   );
 }

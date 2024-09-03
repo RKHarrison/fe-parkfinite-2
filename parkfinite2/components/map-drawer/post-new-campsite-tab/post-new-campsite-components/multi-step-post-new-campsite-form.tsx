@@ -14,7 +14,7 @@ export default function MultiStepPostNewCampsiteForm() {
       <View style={styles.screenContainer}>
         <Text style={styles.h1}>Post a new campsite!</Text>
         {formStep === 1 && <ChooseNewCampsiteLocation setFormStep={setFormStep}/>}
-        {formStep === 2 && droppedMarker && <NewCampsiteBasicInfoForm />}
+        {formStep === 2 && droppedMarker && <NewCampsiteBasicInfoForm setFormStep={setFormStep} />}
       </View>
     </>
   );

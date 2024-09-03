@@ -7,7 +7,7 @@ import GooglePlacesMiniInput from "./google-places-mini-component";
 import { Button } from "@/components/Button";
 
 type ChooseNewCampsiteLocationProps = {
-  setFormStep: (step: number) => void; // Define setStep as a function taking a number and returning void
+  setFormStep: (step: number) => void;
 };
 
 export default function ChooseNewCampsiteLocation({
