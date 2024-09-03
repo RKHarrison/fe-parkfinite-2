@@ -10,7 +10,7 @@ import CampsiteContacts from "./individual-campsite-components/campsite-contacts
 import CampsiteHeaderAndRating from "./individual-campsite-components/campsite-header-and-rating";
 import CampsiteReviews from "./individual-campsite-components/campsite-reviews";
 
-export default function IndividualCampsiteStack({
+export default function IndividualCampsiteScreen({
   id,
 }: {
   id: string | string[];

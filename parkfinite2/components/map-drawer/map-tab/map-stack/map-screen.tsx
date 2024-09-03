@@ -40,7 +40,7 @@ const icons: Record<IconKey, any> = {
   10: icon10,
 };
 
-export default function MapComponent({ region }: { region: Region }) {
+export default function MapScreen({ region }: { region: Region }) {
   const {user} = useContext(UserContext)
   const { droppedMarker, setDroppedMarker } = useContext(
     DroppedMarkerContext
