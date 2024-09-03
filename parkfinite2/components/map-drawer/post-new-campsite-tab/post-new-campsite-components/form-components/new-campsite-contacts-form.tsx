@@ -8,7 +8,6 @@ import { Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Button } from "@/components/Button";
 
-
 type NewCampsiteContacts = CampsiteContactPostRequest[];
 
 type NewCampsiteContactsFormProps = {
@@ -22,18 +21,20 @@ export default function NewCampsiteContactsForm({
   setNewCampsiteData,
   newCampsiteName,
 }: NewCampsiteContactsFormProps) {
-  const [contactsList, setContactsList] = useState<CampsiteContactPostRequest[]>([]);
+  const [contactsList, setContactsList] = useState<
+    CampsiteContactPostRequest[]
+  >([]);
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<CampsiteContactPostRequest>();
 
   function handleAddContact(newContact: CampsiteContactPostRequest) {
-    console.log(newContact);
-    setContactsList(contactsList => ([...contactsList,newContact]))
-    console.log(contactsList);
-    
+    setContactsList((contactsList) => [...contactsList, newContact]);
+
+    reset();
   }
 
   return (
@@ -98,9 +99,7 @@ export default function NewCampsiteContactsForm({
           )}
         />
         {errors.contact_number && (
-          <Text style={styles.errorText}>
-            {errors.contact_number.message}
-          </Text>
+          <Text style={styles.errorText}>{errors.contact_number.message}</Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter an email for this contact... (optional)
