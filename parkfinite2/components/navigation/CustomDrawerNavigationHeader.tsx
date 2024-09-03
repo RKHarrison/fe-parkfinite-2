@@ -1,10 +1,10 @@
-import { Ionicons } from "@expo/vector-icons";
+import { useContext } from "react";
 import { StyleSheet, View, TextInput, Image, Text } from "react-native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
+import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { router } from "expo-router";
+
 
 type CustomDrawerNavigationHeaderProps = {
   navigation: DrawerNavigationProp<any>;

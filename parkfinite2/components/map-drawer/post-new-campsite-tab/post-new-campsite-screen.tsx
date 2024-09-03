@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
 import { useContext } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import NewCampsiteBasicInfoForm from "./post-new-campsite-components/new-campsite-basic-info-form";
 import ChooseNewCampsiteLocation from "./post-new-campsite-components/choose-new-campsite-locartion-form";
