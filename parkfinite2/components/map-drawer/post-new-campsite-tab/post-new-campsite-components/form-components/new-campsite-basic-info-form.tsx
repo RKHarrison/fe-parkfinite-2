@@ -2,16 +2,13 @@ import { useContext } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Controller, useForm } from "react-hook-form";
-import { router } from "expo-router";
 
 import { UserContext } from "@/contexts/UserContext";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-import { postCampsite } from "@/services/api/campsitesApi";
-import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
-type FormData = {
+type BasicInfo = {
   campsiteName: string;
   campsiteDescription: string;
   campsiteCategory: string;
@@ -23,10 +20,12 @@ type FormData = {
 
 type NewCampsiteBasicInfoFormProps = {
   setFormStep: (step: number) => void;
+  setNewCampsiteData: (data: any) => void;
 };
 
 export default function NewCampsiteBasicInfoForm({
   setFormStep,
+  setNewCampsiteData,
 }: NewCampsiteBasicInfoFormProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const { user, logout } = useContext(UserContext);
@@ -34,37 +33,27 @@ export default function NewCampsiteBasicInfoForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<BasicInfo>();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (basicInfo: BasicInfo) => {
     if (!user) {
       alert("Please log in to submit a new campsite.");
       return;
     }
-    if (!droppedMarker) {
-      alert(
-        "Please place a custom marker on the map screen to post a new campsite."
-      );
-    } else {
-      const campsitePostRequestData: CampsitePostRequest = {
-        campsite_name: data.campsiteName,
-        campsite_longitude: droppedMarker?.longitude,
-        campsite_latitude: droppedMarker?.latitude,
-        contacts: [],
-        parking_cost: parseFloat(data.parkingCost),
-        facilities_cost: parseFloat(data.facilitiesCost),
-        description: data.campsiteDescription,
-        opening_month: data.openingMonth,
-        closing_month: data.closingMonth,
-        user_account_id: user.user_account_id,
-        photos: [],
-        category_id: Number(data.campsiteCategory),
-      };
-      postCampsite(campsitePostRequestData, logout).then(() => {
-        setDroppedMarker(null);
-        router.push("/(drawer)/(tabs)/search/map");
-      });
-    }
+    const formattedBasicInfo = {
+      campsite_name: basicInfo.campsiteName,
+      description: basicInfo.campsiteDescription,
+      category_id: Number(basicInfo.campsiteCategory),
+      parking_cost: parseFloat(basicInfo.parkingCost),
+      facilities_cost: parseFloat(basicInfo.facilitiesCost),
+      opening_month: basicInfo.openingMonth,
+      closing_month: basicInfo.closingMonth,
+    };
+    setNewCampsiteData((newCampsiteData) => ({
+      ...newCampsiteData,
+      ...formattedBasicInfo,
+    }));
+    setFormStep(3)
   };
 
   return (
@@ -317,11 +306,10 @@ export default function NewCampsiteBasicInfoForm({
         </View>
       </ScrollView>
 
-      <Button title="Submit new campsite..." onPress={handleSubmit(onSubmit)} />
+      <Button title="Submit basic info..." onPress={handleSubmit(onSubmit)} />
       <Button
-        title="Choose a different location"
+        title="Go back to choose location"
         onPress={() => {
-          setDroppedMarker(null);
           setFormStep(1);
         }}
       />
