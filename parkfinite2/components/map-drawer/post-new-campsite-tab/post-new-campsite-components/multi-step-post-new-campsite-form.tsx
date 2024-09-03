@@ -6,7 +6,6 @@ import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-loc
 import { UserContext } from "@/contexts/UserContext";
 
 export default function MultiStepPostNewCampsiteForm() {
-  const { user, logout } = useContext(UserContext);
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [formStep, setFormStep] = useState(1);
   const [newCampsiteData, setNewCampsiteData] = useState({});
