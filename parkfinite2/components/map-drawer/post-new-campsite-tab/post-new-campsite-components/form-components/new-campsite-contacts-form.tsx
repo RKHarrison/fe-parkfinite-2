@@ -31,83 +31,92 @@ export default function NewCampsiteContactsForm({
         Step 3 (optional) - Enter contact(s) for {newCampsiteName}
       </Text>
       <ScrollView>
-      <Controller
-        control={control}
-        name="contactName"
-        rules={{
-          required: "Campsite name is required",
-          minLength: {
-            value: 4,
-            message:
-              "Minimum length for campsite name or summary is 4 characters",
-          },
-          maxLength: {
-            value: 200,
-            message: "Max length for a name input is 200 characters.",
-          },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter contact name..."
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
+        <Text style={styles.fieldTitleText}>
+          Enter a name for the contact assosciated with your spot...
+        </Text>
+        <Controller
+          control={control}
+          name="contactName"
+          rules={{
+            required: "Campsite name is required",
+            minLength: {
+              value: 4,
+              message:
+                "Minimum length for campsite name or summary is 4 characters",
+            },
+            maxLength: {
+              value: 200,
+              message: "Max length for a name input is 200 characters.",
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter contact name..."
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.contactName && (
+          <Text style={styles.errorText}>{errors.contactName.message}</Text>
         )}
-      />
-      {errors.contactName && (
-        <Text style={styles.errorText}>{errors.contactName.message}</Text>
-      )}
-
-      <Controller
-        control={control}
-        name="contactTelephone"
-        rules={{
-          required: "A telephone number is required.",
-          pattern: {
-            value:
-              /^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?[-.\s]?)?(\d{1,4}[-.\s]?)?\d{1,4}[-.\s]?\d{1,9}$/,
-            message: "Please enter a valid telephone mumber.",
-          },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter contact's telephone number..."
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
+        <Text style={styles.fieldTitleText}>
+          Enter a telephone number for this contact...
+        </Text>
+        <Controller
+          control={control}
+          name="contactTelephone"
+          rules={{
+            required: "A telephone number is required.",
+            pattern: {
+              value:
+                /^\+?(\d{1,3})?[-.\s]?(\(?\d{1,4}\)?[-.\s]?)?(\d{1,4}[-.\s]?)?\d{1,4}[-.\s]?\d{1,9}$/,
+              message: "Please enter a valid telephone mumber.",
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter contact's telephone number..."
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.contactTelephone && (
+          <Text style={styles.errorText}>
+            {errors.contactTelephone.message}
+          </Text>
         )}
-      />
-      {errors.contactTelephone && (
-        <Text style={styles.errorText}>{errors.contactTelephone.message}</Text>
-      )}
-
-      <Controller
-        control={control}
-        name="contactEmail"
-        rules={{
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Please enter a valid telephone email.",
-          },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter contact's email..."
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
+        <Text style={styles.fieldTitleText}>
+          Enter an email for this contact... (optional)
+        </Text>
+        <Controller
+          control={control}
+          name="contactEmail"
+          rules={{
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Please enter a valid telephone email.",
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter contact's email..."
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.contactEmail && (
+          <Text style={styles.errorText}>{errors.contactEmail.message}</Text>
         )}
-      />
-      {errors.contactEmail && (
-        <Text style={styles.errorText}>{errors.contactEmail.message}</Text>
-      )}
-    </ScrollView>
+      </ScrollView>
     </View>
   );
 }
