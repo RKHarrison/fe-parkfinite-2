@@ -5,7 +5,7 @@ import NewCampsiteBasicInfoForm from "./post-new-campsite-components/new-campsit
 import ChooseNewCampsiteLocation from "./post-new-campsite-components/choose-new-campsite-locartion-form";
 
 export default function PostNewCampsiteScreen() {
-  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
+  const { droppedMarker } = useContext(DroppedMarkerContext);
 
   return (
     <>
