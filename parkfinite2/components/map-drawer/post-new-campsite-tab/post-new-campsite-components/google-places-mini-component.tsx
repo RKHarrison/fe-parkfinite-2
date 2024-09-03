@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
 import { StyleSheet } from "react-native";
 import { Region } from "@/types/locations";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
@@ -14,7 +14,7 @@ export default function GooglePlacesMiniInput({
   const apikey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
   const { setDroppedMarker } = useContext(DroppedMarkerContext);
 
-  function handlePress(details) {
+  function handlePress(details: GooglePlaceDetail) {
     setDroppedMarker({
       latitude: details.geometry.location.lat,
       longitude: details.geometry.location.lng,
