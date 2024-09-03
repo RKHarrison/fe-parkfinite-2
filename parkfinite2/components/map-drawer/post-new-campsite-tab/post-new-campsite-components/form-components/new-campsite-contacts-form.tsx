@@ -33,9 +33,13 @@ export default function NewCampsiteContactsForm({
 
   function handleAddContact(newContact: CampsiteContactPostRequest) {
     setContactsList((contactsList) => [...contactsList, newContact]);
-
     reset();
   }
+  function handleSubmitContactList(contactList: CampsiteContactPostRequest[]) {
+      setNewCampsiteData(campsiteData => ({...campsiteData, contacts: [...contactList]}))
+      setFormStep(4)    
+  }
+
 
   return (
     <View style={styles.formContainer}>
@@ -130,6 +134,10 @@ export default function NewCampsiteContactsForm({
       <Button
         title="Add a new contact to campsite list"
         onPress={handleSubmit(handleAddContact)}
+      />
+      <Button
+        title="Submit contact list for new campsite"
+        onPress={() => handleSubmitContactList(contactsList)}
       />
     </View>
   );
