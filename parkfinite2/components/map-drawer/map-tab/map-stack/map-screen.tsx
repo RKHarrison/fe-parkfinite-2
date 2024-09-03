@@ -1,16 +1,18 @@
-import { getCampsites } from "@/services/api/campsitesApi";
-import { Campsite } from "@/types/api-data-types/campsite-types";
-import { Region } from "@/types/locations";
-import * as Location from "expo-location";
 import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import * as Location from "expo-location";
 import { useIsFocused } from "@react-navigation/native";
 
+import { UserContext } from "@/contexts/UserContext";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
+import { getCampsites } from "@/services/api/campsitesApi";
+import { Campsite } from "@/types/api-data-types/campsite-types";
+import { Region } from "@/types/locations";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
 import ClearDroppedMarkerButton from "./map-stack-components/clear-dropped-marker-button";
+import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
@@ -22,8 +24,6 @@ import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
 import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
-import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
-import { UserContext } from "@/contexts/UserContext";
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 

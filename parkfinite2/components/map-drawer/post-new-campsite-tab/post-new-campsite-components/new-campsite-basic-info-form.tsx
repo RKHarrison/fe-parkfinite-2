@@ -1,14 +1,15 @@
-import { Controller, useForm } from "react-hook-form";
+import { useContext } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { Controller, useForm } from "react-hook-form";
+import { router } from "expo-router";
+
+import { UserContext } from "@/contexts/UserContext";
+import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
+import { postCampsite } from "@/services/api/campsitesApi";
+import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
-import { postCampsite } from "@/services/api/campsitesApi";
-import { useContext } from "react";
-import { UserContext } from "@/contexts/UserContext";
-import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
-import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-import { router } from "expo-router";
-import { ScrollView } from "react-native-gesture-handler";
 
 type FormData = {
   campsiteName: string;

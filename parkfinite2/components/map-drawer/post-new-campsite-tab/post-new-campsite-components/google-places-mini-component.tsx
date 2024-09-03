@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
 import { StyleSheet } from "react-native";
-import { Region } from "@/types/locations";
+import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
+import { Region } from "@/types/locations";
 
 interface GooglePlacesInputProps {
   setRegion: (region: Region) => void;
