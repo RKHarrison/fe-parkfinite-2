@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
 import { StyleSheet } from "react-native";
 import { Region } from "@/types/locations";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
@@ -8,13 +8,13 @@ interface GooglePlacesInputProps {
   setRegion: (region: Region) => void;
 }
 
-export default function GooglePlacesInput({
+export default function GooglePlacesMiniInput({
   setRegion,
 }: GooglePlacesInputProps) {
   const apikey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
   const { setDroppedMarker } = useContext(DroppedMarkerContext);
 
-  function handlePress(details) {
+  function handlePress(details: GooglePlaceDetail) {
     setDroppedMarker({
       latitude: details.geometry.location.lat,
       longitude: details.geometry.location.lng,
@@ -51,11 +51,8 @@ export default function GooglePlacesInput({
 const styles = StyleSheet.create({
   input: {
     container: {
-      position: "absolute",
-      top: 10,
-      left: 60,
-      right: 60,
-      zIndex: 2000,
+      width: 300,
+      maxHeight:310
     },
     textInput: {
       height: 40,

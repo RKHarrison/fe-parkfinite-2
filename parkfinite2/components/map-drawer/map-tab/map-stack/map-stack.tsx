@@ -2,12 +2,15 @@ import { getCampsites } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Region } from "@/types/locations";
 import * as Location from "expo-location";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useIsFocused } from "@react-navigation/native";
 
+import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-card";
+import ClearDroppedMarkerButton from "./map-stack-components/clear-dropped-marker-button";
 
 import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
 import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
@@ -19,6 +22,8 @@ import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
 import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
+import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
+import { UserContext } from "@/contexts/UserContext";
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -36,26 +41,39 @@ const icons: Record<IconKey, any> = {
 };
 
 export default function MapComponent({ region }: { region: Region }) {
+  const {user} = useContext(UserContext)
+  const { droppedMarker, setDroppedMarker } = useContext(
+    DroppedMarkerContext
+  );
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
   const [selectedCampsite, setSelectedCampsite] = useState<Campsite | null>(
     null
   );
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
     getCampsites()
       .then((campsitesFromApi) => setLoadedCampsites(campsitesFromApi))
       .catch((err) => console.error("Failed to load campsites", err));
-  }, []);
+  }, [isFocused]);
+
+  function handleMapPress(e) {
+    const { coordinate } = e.nativeEvent;
+    user && setDroppedMarker(coordinate);
+    setSelectedCampsite(null);
+  }
 
   return (
     <>
       {selectedCampsite && (
         <CampsiteSummaryCard selectedCampsite={selectedCampsite} />
       )}
+      {droppedMarker && <ClearDroppedMarkerButton/>}
+      {droppedMarker && <PostNewCampsiteButton/>}
       <MapView
         style={styles.map}
-        onPress={() => setSelectedCampsite(null)}
+        onPress={handleMapPress}
         provider={PROVIDER_GOOGLE}
         loadingEnabled={true}
         initialRegion={region}
@@ -86,6 +104,15 @@ export default function MapComponent({ region }: { region: Region }) {
             />
           </Marker>
         ))}
+
+        {droppedMarker && (
+          <Marker
+            coordinate={droppedMarker}
+            draggable
+            onDragEnd={(e) => setDroppedMarker(e.nativeEvent.coordinate)}
+            isPreselected/>
+        )}
+
       </MapView>
     </>
   );
