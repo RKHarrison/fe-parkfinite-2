@@ -18,6 +18,11 @@ export default function MultiStepPostNewCampsiteForm() {
     console.log(newCampsiteData);
   }, [newCampsiteData])
 
+  useEffect(()=>{
+    setFormStep(1)
+    setNewCampsiteData({})
+  }, [droppedMarker])
+
   return (
     <>
       <View style={styles.screenContainer}>
