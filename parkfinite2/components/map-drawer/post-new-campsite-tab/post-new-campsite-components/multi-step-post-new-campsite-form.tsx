@@ -4,6 +4,7 @@ import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-form";
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
 import { UserContext } from "@/contexts/UserContext";
+import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
@@ -32,6 +33,7 @@ export default function MultiStepPostNewCampsiteForm() {
         {formStep === 2 && droppedMarker && (
           <NewCampsiteBasicInfoForm setFormStep={setFormStep} setNewCampsiteData={setNewCampsiteData}/>
         )}
+        {formStep === 3 && (<NewCampsiteContactsForm  setFormStep={setFormStep} setNewCampsiteData={setNewCampsiteData} newCampsiteName={newCampsiteData.campsite_name ? newCampsiteData.campsite_name : "Not set"}/>)}
       </View>
     </>
   );
