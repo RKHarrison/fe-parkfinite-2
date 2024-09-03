@@ -46,7 +46,7 @@ export default function TabLayout() {
                 color={color}
               />
             ),
-            href: "/(drawer)/(tabs)/post-new-campsite",
+            href: user ? "/(drawer)/(tabs)/post-new-campsite" : null,
           }}
         />
       </Tabs>
