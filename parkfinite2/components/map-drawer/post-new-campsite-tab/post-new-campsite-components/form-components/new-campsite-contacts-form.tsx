@@ -131,13 +131,14 @@ export default function NewCampsiteContactsForm({
           <Text style={styles.errorText}>{errors.contact_email.message}</Text>
         )}
       </ScrollView>
+      <Text>You have added {contactsList.length} contacts for {newCampsiteName}</Text>
       <Button
         title="Add a new contact to campsite list"
         onPress={handleSubmit(handleAddContact)}
       />
       <Button
-        title="Submit contact list for new campsite"
-        onPress={() => handleSubmitContactList(contactsList)}
+        title={contactsList.length ? "Submit contact list for new campsite" : "Skip adding contacts"}
+        onPress={contactsList.length? (() => handleSubmitContactList(contactsList)) : () => setFormStep(4)}
       />
     </View>
   );
