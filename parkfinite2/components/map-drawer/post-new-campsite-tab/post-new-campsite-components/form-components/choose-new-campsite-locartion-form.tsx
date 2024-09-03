@@ -3,10 +3,16 @@ import { StyleSheet, View, Text } from "react-native";
 import { router } from "expo-router";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { getAddressFromCoordinate } from "@/services/api/googleMapsApi";
-import GooglePlacesMiniInput from "../post-new-campsite-components/google-places-mini-component";
+import GooglePlacesMiniInput from "./google-places-mini-component";
 import { Button } from "@/components/Button";
 
-export default function ChooseNewCampsiteLocation() {
+type ChooseNewCampsiteLocationProps = {
+  setFormStep: (step: number) => void; // Define setStep as a function taking a number and returning void
+};
+
+export default function ChooseNewCampsiteLocation({
+  setFormStep,
+}: ChooseNewCampsiteLocationProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
 
@@ -38,8 +44,17 @@ export default function ChooseNewCampsiteLocation() {
         <>
           <Text> {newCampsiteAddress}</Text>
           <Button
+            title="Confirm location"
+            onPress={() => {
+              setFormStep(2);
+            }}
+          />
+          <Button
             title="Choose a different location"
-            onPress={() => setDroppedMarker(null)}
+            onPress={() => {
+              setDroppedMarker(null)
+              setFormStep(1);
+            }}
           />
         </>
       )}
