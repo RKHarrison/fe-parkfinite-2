@@ -4,9 +4,6 @@ import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-form";
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
 import { UserContext } from "@/contexts/UserContext";
-import { postCampsite } from "@/services/api/campsitesApi";
-import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
-import { router } from "expo-router";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { user, logout } = useContext(UserContext);
