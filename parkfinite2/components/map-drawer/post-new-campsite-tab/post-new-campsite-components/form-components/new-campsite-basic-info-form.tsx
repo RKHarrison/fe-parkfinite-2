@@ -59,7 +59,7 @@ export default function NewCampsiteBasicInfoForm({
   return (
     <View style={styles.formContainer}>
       <Text style={styles.h2}>
-        Step 2 - Enter basic info for your new spot:{" "}
+        Step 2 - Enter basic info for your new spot:
       </Text>
       <ScrollView>
         <View style={styles.scrollViewContainer}>
