@@ -36,10 +36,12 @@ export default function NewCampsiteContactsForm({
     reset();
   }
   function handleSubmitContactList(contactList: CampsiteContactPostRequest[]) {
-      setNewCampsiteData(campsiteData => ({...campsiteData, contacts: [...contactList]}))
-      setFormStep(4)    
+    setNewCampsiteData((campsiteData) => ({
+      ...campsiteData,
+      contacts: [...contactList],
+    }));
+    setFormStep(4);
   }
-
 
   return (
     <View style={styles.formContainer}>
@@ -131,14 +133,37 @@ export default function NewCampsiteContactsForm({
           <Text style={styles.errorText}>{errors.contact_email.message}</Text>
         )}
       </ScrollView>
-      <Text>You have added {contactsList.length} contacts for {newCampsiteName}</Text>
+      <Text style={styles.h3}>
+        You have added {contactsList.length} contacts for {newCampsiteName}:
+      </Text>
+      <ScrollView>
+      {contactsList.map((contact, i) => {
+        return (
+          <>
+            <Text style={styles.h4}>Contact {i + 1}: </Text>
+            <Text>
+              {contact.contact_name} - {contact.contact_number}
+            </Text>
+            {contact.contact_email && <Text>{contact.contact_email}</Text>}
+          </>
+        );
+      })}
+      </ScrollView>
       <Button
         title="Add a new contact to campsite list"
         onPress={handleSubmit(handleAddContact)}
       />
       <Button
-        title={contactsList.length ? "Submit contact list for new campsite" : "Skip adding contacts"}
-        onPress={contactsList.length? (() => handleSubmitContactList(contactsList)) : () => setFormStep(4)}
+        title={
+          contactsList.length
+            ? "Submit contact list for new campsite"
+            : "Skip adding contacts"
+        }
+        onPress={
+          contactsList.length
+            ? () => handleSubmitContactList(contactsList)
+            : () => setFormStep(4)
+        }
       />
     </View>
   );
@@ -165,6 +190,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  h3: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  h4: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 2,
   },
   fieldTitleText: {
     marginTop: 12,
