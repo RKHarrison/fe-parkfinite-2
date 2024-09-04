@@ -11,14 +11,14 @@ export default function MultiStepPostNewCampsiteForm() {
   const [formStep, setFormStep] = useState(1);
   const [newCampsiteData, setNewCampsiteData] = useState({});
 
-  useEffect(()=> {
+  useEffect(() => {
     console.log(newCampsiteData);
-  }, [newCampsiteData])
+  }, [newCampsiteData]);
 
-  useEffect(()=>{
-    setFormStep(1)
-    setNewCampsiteData({})
-  }, [droppedMarker])
+  useEffect(() => {
+    setFormStep(1);
+    setNewCampsiteData({});
+  }, [droppedMarker]);
 
   return (
     <>
@@ -31,9 +31,21 @@ export default function MultiStepPostNewCampsiteForm() {
           />
         )}
         {formStep === 2 && droppedMarker && (
-          <NewCampsiteBasicInfoForm setFormStep={setFormStep} setNewCampsiteData={setNewCampsiteData}/>
+          <NewCampsiteBasicInfoForm
+            setFormStep={setFormStep}
+            setNewCampsiteData={setNewCampsiteData}
+          />
         )}
-        {formStep === 3 && (<NewCampsiteContactsForm  setFormStep={setFormStep} setNewCampsiteData={setNewCampsiteData} newCampsiteName={newCampsiteData.campsite_name ? newCampsiteData.campsite_name : "Not set"}/>)}
+        {formStep === 3 && (
+          <NewCampsiteContactsForm
+            setFormStep={setFormStep}
+            setNewCampsiteData={setNewCampsiteData}
+            newCampsiteName={
+              newCampsiteData.campsite_name
+                && newCampsiteData.campsite_name
+            }
+          />
+        )}
       </View>
     </>
   );
