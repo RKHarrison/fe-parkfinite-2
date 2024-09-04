@@ -35,6 +35,11 @@ export default function NewCampsiteContactsForm({
     setContactsList((contactsList) => [...contactsList, newContact]);
     reset();
   }
+  function handleRemoveContact(index: number) {
+    setContactsList((contactsList) => [
+      ...contactsList.filter((_, i) => i !== index),
+    ]);
+  }
   function handleSubmitContactList(contactList: CampsiteContactPostRequest[]) {
     setNewCampsiteData((campsiteData) => ({
       ...campsiteData,
@@ -137,17 +142,27 @@ export default function NewCampsiteContactsForm({
         You have added {contactsList.length} contacts for {newCampsiteName}:
       </Text>
       <ScrollView>
-      {contactsList.map((contact, i) => {
-        return (
-          <>
-            <Text style={styles.h4}>Contact {i + 1}: </Text>
-            <Text>
-              {contact.contact_name} - {contact.contact_number}
-            </Text>
-            {contact.contact_email && <Text>{contact.contact_email}</Text>}
-          </>
-        );
-      })}
+        {contactsList.map((contact, i) => {
+          return (
+            <View key={i} style={styles.contactRow}>
+              <View style={styles.miniButtonWrapper}>
+                <Button
+                  title="-"
+                  onPress={() => handleRemoveContact(i)}
+                  buttonStyle={styles.miniButton}
+                />
+              </View>
+
+              <View style={styles.contactDetails}>
+                <Text style={styles.h4}>Contact {i + 1}: </Text>
+                <Text>
+                  {contact.contact_name} - {contact.contact_number}
+                </Text>
+                {contact.contact_email && <Text>{contact.contact_email}</Text>}
+              </View>
+            </View>
+          );
+        })}
       </ScrollView>
       <Button
         title="Add a new contact to campsite list"
@@ -195,12 +210,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 2,
   },
   h4: {
     fontSize: 14,
     fontWeight: "bold",
-    marginBottom: 2,
+    marginTop: 5,
   },
   fieldTitleText: {
     marginTop: 12,
@@ -236,5 +251,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     minWidth: "80%",
     justifyContent: "center",
+  },
+  contactRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 1,
+  },
+  miniButtonWrapper: {
+    maxWidth: 3,
+    marginRight: 45,
   },
 });
