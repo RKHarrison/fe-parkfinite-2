@@ -165,7 +165,7 @@ export default function NewCampsiteContactsForm({
         })}
       </ScrollView>
       <Button
-        title="Add a new contact to campsite list"
+        title="Add a new contact to list"
         onPress={handleSubmit(handleAddContact)}
       />
       <Button
@@ -180,6 +180,7 @@ export default function NewCampsiteContactsForm({
             : () => setFormStep(4)
         }
       />
+      <Button title="Go back to basic info..." onPress={() => setFormStep(2)} />
     </View>
   );
 }
