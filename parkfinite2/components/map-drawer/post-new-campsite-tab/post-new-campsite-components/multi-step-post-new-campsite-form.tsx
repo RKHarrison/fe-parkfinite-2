@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
+import { getAddressFromCoordinate } from "@/services/api/googleMapsApi";
 import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-form";
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
 import { UserContext } from "@/contexts/UserContext";
 import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
+import ReviewAndSubmitNewCampsite from "./form-components/review-and-submit-page";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
+  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
   const [formStep, setFormStep] = useState(1);
   const [newCampsiteData, setNewCampsiteData] = useState({});
 
@@ -18,6 +21,11 @@ export default function MultiStepPostNewCampsiteForm() {
   useEffect(() => {
     setFormStep(1);
     setNewCampsiteData({});
+    if (droppedMarker) {
+      getAddressFromCoordinate(droppedMarker).then((res) => {
+        setNewCampsiteAddress(res);
+      });
+    }
   }, [droppedMarker]);
 
   return (
@@ -27,6 +35,7 @@ export default function MultiStepPostNewCampsiteForm() {
         {formStep === 1 && (
           <ChooseNewCampsiteLocation
             setFormStep={setFormStep}
+            newCampsiteAddress={newCampsiteAddress}
             setNewCampsiteData={setNewCampsiteData}
           />
         )}
@@ -41,9 +50,15 @@ export default function MultiStepPostNewCampsiteForm() {
             setFormStep={setFormStep}
             setNewCampsiteData={setNewCampsiteData}
             newCampsiteName={
-              newCampsiteData.campsite_name
-                && newCampsiteData.campsite_name
+              newCampsiteData.campsite_name && newCampsiteData.campsite_name
             }
+          />
+        )}
+        {formStep === 4 && (
+          <ReviewAndSubmitNewCampsite
+            newCampsiteAddress={newCampsiteAddress}
+            newCampsiteData={newCampsiteData}
+            setFormStep={setFormStep}
           />
         )}
       </View>

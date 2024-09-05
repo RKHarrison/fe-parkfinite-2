@@ -2,29 +2,21 @@ import { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { router } from "expo-router";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-import { getAddressFromCoordinate } from "@/services/api/googleMapsApi";
 import GooglePlacesMiniInput from "./google-places-mini-component";
 import { Button } from "@/components/Button";
 
 type ChooseNewCampsiteLocationProps = {
   setFormStep: (step: number) => void;
+  newCampsiteAddress: any;
   setNewCampsiteData: (data: any) => void;
 };
 
 export default function ChooseNewCampsiteLocation({
   setFormStep,
+  newCampsiteAddress,
   setNewCampsiteData,
 }: ChooseNewCampsiteLocationProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
-
-  useEffect(() => {
-    if (droppedMarker) {
-      getAddressFromCoordinate(droppedMarker).then((res) => {
-        setNewCampsiteAddress(res);
-      });
-    }
-  }, [droppedMarker]);
 
   function handleSubmitLocation() {
     setNewCampsiteData({
