@@ -9,13 +9,13 @@ import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
 type BasicInfo = {
-  campsiteName: string;
-  campsiteDescription: string;
-  campsiteCategory: string;
-  parkingCost: string;
-  facilitiesCost: string;
-  openingMonth: string;
-  closingMonth: string;
+  campsite_name: string;
+  campsite_description: string;
+  category_id: string;
+  parking_cost: string;
+  facilities_cost: string;
+  opening_month: string;
+  closing_month: string;
 };
 
 type NewCampsiteBasicInfoFormProps = {
@@ -40,18 +40,14 @@ export default function NewCampsiteBasicInfoForm({
       alert("Please log in to submit a new campsite.");
       return;
     }
-    const formattedBasicInfo = {
-      campsite_name: basicInfo.campsiteName,
-      description: basicInfo.campsiteDescription,
-      category_id: Number(basicInfo.campsiteCategory),
-      parking_cost: parseFloat(basicInfo.parkingCost),
-      facilities_cost: parseFloat(basicInfo.facilitiesCost),
-      opening_month: basicInfo.openingMonth,
-      closing_month: basicInfo.closingMonth,
+    const parsedInfo = {
+      category_id: Number(basicInfo.category_id),
+      parking_cost: parseFloat(basicInfo.parking_cost),
+      facilities_cost: parseFloat(basicInfo.facilities_cost),
     };
-    setNewCampsiteData((newCampsiteData) => ({
-      ...newCampsiteData,
-      ...formattedBasicInfo,
+    setNewCampsiteData((basicInfo: BasicInfo) => ({
+      ...basicInfo,
+      ...parsedInfo,
     }));
     setFormStep(3)
   };
@@ -68,7 +64,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="campsiteName"
+            name="campsite_name"
             rules={{
               required: "Campsite name is required",
               minLength: {
@@ -92,8 +88,8 @@ export default function NewCampsiteBasicInfoForm({
               />
             )}
           />
-          {errors.campsiteName && (
-            <Text style={styles.errorText}>{errors.campsiteName.message}</Text>
+          {errors.campsite_name && (
+            <Text style={styles.errorText}>{errors.campsite_name.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -101,7 +97,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="campsiteDescription"
+            name="campsite_description"
             rules={{
               required:
                 "A description of the campsite or parking spot is required",
@@ -124,9 +120,9 @@ export default function NewCampsiteBasicInfoForm({
               />
             )}
           />
-          {errors.campsiteDescription && (
+          {errors.campsite_description && (
             <Text style={styles.errorText}>
-              {errors.campsiteDescription.message}
+              {errors.campsite_description.message}
             </Text>
           )}
 
@@ -135,7 +131,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="campsiteCategory"
+            name="category_id"
             rules={{
               required: "A category is required",
             }}
@@ -165,9 +161,9 @@ export default function NewCampsiteBasicInfoForm({
               </View>
             )}
           />
-          {errors.campsiteCategory && (
+          {errors.category_id && (
             <Text style={styles.errorText}>
-              {errors.campsiteCategory.message}
+              {errors.category_id.message}
             </Text>
           )}
 
@@ -176,7 +172,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="parkingCost"
+            name="parking_cost"
             rules={{
               required:
                 "Please specify a cost for parking; if free, specify 0.",
@@ -196,8 +192,8 @@ export default function NewCampsiteBasicInfoForm({
               />
             )}
           />
-          {errors.parkingCost && (
-            <Text style={styles.errorText}>{errors.parkingCost.message}</Text>
+          {errors.parking_cost && (
+            <Text style={styles.errorText}>{errors.parking_cost.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -206,7 +202,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="facilitiesCost"
+            name="facilities_cost"
             rules={{
               required:
                 "Please specify a cost for using facilities; if free or none available specify 0",
@@ -226,9 +222,9 @@ export default function NewCampsiteBasicInfoForm({
               />
             )}
           />
-          {errors.facilitiesCost && (
+          {errors.facilities_cost && (
             <Text style={styles.errorText}>
-              {errors.facilitiesCost.message}
+              {errors.facilities_cost.message}
             </Text>
           )}
 
@@ -237,7 +233,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="openingMonth"
+            name="opening_month"
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.pickerWrapper}>
                 <Picker
@@ -273,7 +269,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="closingMonth"
+            name="closing_month"
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.pickerWrapper}>
                 <Picker
