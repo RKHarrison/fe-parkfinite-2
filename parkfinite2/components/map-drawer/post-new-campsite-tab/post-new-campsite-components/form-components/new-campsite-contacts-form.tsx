@@ -41,8 +41,8 @@ export default function NewCampsiteContactsForm({
     ]);
   }
   function handleSubmitContactList(contactList: CampsiteContactPostRequest[]) {
-    setNewCampsiteData((campsiteData) => ({
-      ...campsiteData,
+    setNewCampsiteData((previousData) => ({
+      ...previousData,
       contacts: [...contactList],
     }));
     setFormStep(4);
@@ -83,7 +83,9 @@ export default function NewCampsiteContactsForm({
           )}
         />
         {errors.campsite_contact_name && (
-          <Text style={styles.errorText}>{errors.campsite_contact_name.message}</Text>
+          <Text style={styles.errorText}>
+            {errors.campsite_contact_name.message}
+          </Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter a telephone number for this contact...
@@ -110,7 +112,9 @@ export default function NewCampsiteContactsForm({
           )}
         />
         {errors.campsite_contact_phone && (
-          <Text style={styles.errorText}>{errors.campsite_contact_phone.message}</Text>
+          <Text style={styles.errorText}>
+            {errors.campsite_contact_phone.message}
+          </Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter an email for this contact... (optional)
@@ -135,7 +139,9 @@ export default function NewCampsiteContactsForm({
           )}
         />
         {errors.campsite_contact_email && (
-          <Text style={styles.errorText}>{errors.campsite_contact_email.message}</Text>
+          <Text style={styles.errorText}>
+            {errors.campsite_contact_email.message}
+          </Text>
         )}
       </ScrollView>
       <Text style={styles.h3}>
@@ -146,18 +152,17 @@ export default function NewCampsiteContactsForm({
           return (
             <View key={i} style={styles.contactRow}>
               <View style={styles.miniButtonWrapper}>
-                <Button
-                  title="-"
-                  onPress={() => handleRemoveContact(i)}
-                />
+                <Button title="-" onPress={() => handleRemoveContact(i)} />
               </View>
 
               <View>
-                <Text style={styles.h4}>Contact {i + 1}: {contact.campsite_contact_name}</Text>
-                <Text>
-                   Phone: {contact.campsite_contact_phone}
+                <Text style={styles.h4}>
+                  Contact {i + 1}: {contact.campsite_contact_name}
                 </Text>
-                {contact.campsite_contact_email && <Text>Email: {contact.campsite_contact_email}</Text>}
+                <Text>Phone: {contact.campsite_contact_phone}</Text>
+                {contact.campsite_contact_email && (
+                  <Text>Email: {contact.campsite_contact_email}</Text>
+                )}
               </View>
             </View>
           );

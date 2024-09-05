@@ -45,7 +45,8 @@ export default function NewCampsiteBasicInfoForm({
       parking_cost: parseFloat(basicInfo.parking_cost),
       facilities_cost: parseFloat(basicInfo.facilities_cost),
     };
-    setNewCampsiteData((basicInfo: BasicInfo) => ({
+    setNewCampsiteData((previousData) => ({
+      ...previousData,
       ...basicInfo,
       ...parsedInfo,
     }));
