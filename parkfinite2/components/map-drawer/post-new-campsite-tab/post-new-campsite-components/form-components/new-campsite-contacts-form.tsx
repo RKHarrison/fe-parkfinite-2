@@ -59,7 +59,7 @@ export default function NewCampsiteContactsForm({
         </Text>
         <Controller
           control={control}
-          name="contact_name"
+          name="campsite_contact_name"
           rules={{
             required: "Campsite name is required",
             minLength: {
@@ -82,15 +82,15 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contact_name && (
-          <Text style={styles.errorText}>{errors.contact_name.message}</Text>
+        {errors.campsite_contact_name && (
+          <Text style={styles.errorText}>{errors.campsite_contact_name.message}</Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter a telephone number for this contact...
         </Text>
         <Controller
           control={control}
-          name="contact_number"
+          name="campsite_contact_phone"
           rules={{
             required: "A telephone number is required.",
             pattern: {
@@ -109,15 +109,15 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contact_number && (
-          <Text style={styles.errorText}>{errors.contact_number.message}</Text>
+        {errors.campsite_contact_phone && (
+          <Text style={styles.errorText}>{errors.campsite_contact_phone.message}</Text>
         )}
         <Text style={styles.fieldTitleText}>
           Enter an email for this contact... (optional)
         </Text>
         <Controller
           control={control}
-          name="contact_email"
+          name="campsite_contact_email"
           rules={{
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -134,8 +134,8 @@ export default function NewCampsiteContactsForm({
             />
           )}
         />
-        {errors.contact_email && (
-          <Text style={styles.errorText}>{errors.contact_email.message}</Text>
+        {errors.campsite_contact_email && (
+          <Text style={styles.errorText}>{errors.campsite_contact_email.message}</Text>
         )}
       </ScrollView>
       <Text style={styles.h3}>
@@ -149,16 +149,15 @@ export default function NewCampsiteContactsForm({
                 <Button
                   title="-"
                   onPress={() => handleRemoveContact(i)}
-                  buttonStyle={styles.miniButton}
                 />
               </View>
 
-              <View style={styles.contactDetails}>
-                <Text style={styles.h4}>Contact {i + 1}: {contact.contact_name}</Text>
+              <View>
+                <Text style={styles.h4}>Contact {i + 1}: {contact.campsite_contact_name}</Text>
                 <Text>
-                   Phone: {contact.contact_number}
+                   Phone: {contact.campsite_contact_phone}
                 </Text>
-                {contact.contact_email && <Text>Email: {contact.contact_email}</Text>}
+                {contact.campsite_contact_email && <Text>Email: {contact.campsite_contact_email}</Text>}
               </View>
             </View>
           );
