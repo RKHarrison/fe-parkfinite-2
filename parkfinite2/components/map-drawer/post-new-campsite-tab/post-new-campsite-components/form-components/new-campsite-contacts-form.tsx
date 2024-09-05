@@ -154,11 +154,11 @@ export default function NewCampsiteContactsForm({
               </View>
 
               <View style={styles.contactDetails}>
-                <Text style={styles.h4}>Contact {i + 1}: </Text>
+                <Text style={styles.h4}>Contact {i + 1}: {contact.contact_name}</Text>
                 <Text>
-                  {contact.contact_name} - {contact.contact_number}
+                   Phone: {contact.contact_number}
                 </Text>
-                {contact.contact_email && <Text>{contact.contact_email}</Text>}
+                {contact.contact_email && <Text>Email: {contact.contact_email}</Text>}
               </View>
             </View>
           );
