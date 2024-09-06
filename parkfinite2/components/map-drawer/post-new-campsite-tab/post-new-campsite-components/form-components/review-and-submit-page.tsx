@@ -2,6 +2,7 @@ import { Text, View, ScrollView } from "react-native";
 import { Button } from "@/components/Button";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 import FieldAndDataText from "@/components/FieldAndDataText";
+import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
 
 interface ReviewAndSubmitNewCampsiteProps {
   newCampsiteAddress: string;
@@ -14,7 +15,6 @@ export default function ReviewAndSubmitNewCampsite({
   newCampsiteData,
   setFormStep,
 }: ReviewAndSubmitNewCampsiteProps) {
-
   return (
     <>
       <Text>Location: {newCampsiteAddress}</Text>
@@ -26,8 +26,12 @@ export default function ReviewAndSubmitNewCampsite({
       <Text>Basic Info: </Text>
       <FieldAndDataText title="Name" data={newCampsiteData.campsite_name} />
       <FieldAndDataText
+        title="Category"
+        data={campsiteCategoryMap.get(Number(newCampsiteData.category_id))}
+      />
+      <FieldAndDataText
         title="Description"
-        data={newCampsiteData.campsite_description}
+        data={newCampsiteData.description}
       />
       <FieldAndDataText
         title="Parking cost"
@@ -48,15 +52,30 @@ export default function ReviewAndSubmitNewCampsite({
       <Button title="Go back to basic info" onPress={() => setFormStep(2)} />
 
       <Text>Contact(s): </Text>
-      <ScrollView>
-        {newCampsiteData.contacts.map((contact, index) => (
-          <View key={index}>
-            <FieldAndDataText title="Name" data={contact.campsite_contact_name} />
-            <FieldAndDataText title="Phone" data={contact.campsite_contact_phone} />
-            {contact.campsite_contact_email && <FieldAndDataText title="Email" data={contact.campsite_contact_email} />}
-          </View>
-        ))}
-      </ScrollView>
+      {newCampsiteData.contacts ? (
+        newCampsiteData.contacts.map((contact, index) => (
+          <ScrollView>
+            <View key={index} style={{ margin: 10 }}>
+              <FieldAndDataText
+                title="Name"
+                data={contact.campsite_contact_name}
+              />
+              <FieldAndDataText
+                title="Phone"
+                data={contact.campsite_contact_phone}
+              />
+              {contact.campsite_contact_email && (
+                <FieldAndDataText
+                  title="Email"
+                  data={contact.campsite_contact_email}
+                />
+              )}
+            </View>
+          </ScrollView>
+        ))
+      ) : (
+        <Text>No contacts provided for this spot.</Text>
+      )}
       <Button title="Go back to contacts" onPress={() => setFormStep(3)} />
     </>
   );
