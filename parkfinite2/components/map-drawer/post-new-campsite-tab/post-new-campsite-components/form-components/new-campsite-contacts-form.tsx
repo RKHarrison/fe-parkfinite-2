@@ -8,8 +8,6 @@ import { Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Button } from "@/components/Button";
 
-type NewCampsiteContacts = CampsiteContactPostRequest[];
-
 type NewCampsiteContactsFormProps = {
   setFormStep: (step: number) => void;
   setNewCampsiteData: (data: any) => void;
@@ -61,11 +59,11 @@ export default function NewCampsiteContactsForm({
           control={control}
           name="campsite_contact_name"
           rules={{
-            required: "Campsite name is required",
+            required: "Contact name is required",
             minLength: {
-              value: 4,
+              value: 2,
               message:
-                "Minimum length for campsite name or summary is 4 characters",
+                "Minimum length for campsite name or summary is 2 characters",
             },
             maxLength: {
               value: 200,
