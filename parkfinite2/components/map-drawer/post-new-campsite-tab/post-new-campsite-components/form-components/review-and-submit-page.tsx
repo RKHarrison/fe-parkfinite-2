@@ -101,6 +101,7 @@ export default function ReviewAndSubmitNewCampsite({
       <Button title="Go back to contacts" onPress={() => setFormStep(3)} />
 
       <Button
+        buttonStyle={styles.submitButton}
         title="Confirm campsite details and submit new campsite!"
         onPress={() => handleSubmitNewCampsite()}
       />
@@ -109,9 +110,9 @@ export default function ReviewAndSubmitNewCampsite({
 }
 
 const styles = StyleSheet.create({
-  h1: { fontSize: 18, fontWeight: "bold", marginTop: 20, marginBottom: 3 },
+  h1: { fontSize: 18, fontWeight: "bold", marginTop: 12, marginBottom: 3 },
   scrollViewMultiple: {
-    height: 200,
+    maxHeight: 150,
   },
   scrollViewSingle: {
     maxHeight: 65,
@@ -119,4 +120,7 @@ const styles = StyleSheet.create({
   contactContainer: {
     margin: 10,
   },
+  submitButton: {
+    marginTop: 12
+  }
 });
