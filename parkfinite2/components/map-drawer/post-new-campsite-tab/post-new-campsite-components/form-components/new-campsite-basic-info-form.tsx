@@ -10,7 +10,7 @@ import { Button } from "@/components/Button";
 
 type BasicInfo = {
   campsite_name: string;
-  campsite_description: string;
+  description: string;
   category_id: string;
   parking_cost: string;
   facilities_cost: string;
@@ -22,6 +22,19 @@ type NewCampsiteBasicInfoFormProps = {
   setFormStep: (step: number) => void;
   setNewCampsiteData: (data: any) => void;
 };
+
+export const campsiteCategoryMap = new Map<number, string>([
+  [1, "In Nature"],
+  [2, "Car Park"],
+  [3, "Car Park (day only)"],
+  [4, "Motorway Rest Stop"],
+  [5, "Free Motor Area"],
+  [6, "Paid Motor Area"],
+  [7, "Private Campervan Spot"],
+  [8, "Camping/Caravan Site"],
+  [9, "Picnic Area"],
+  [10, "On The Beach"],
+]);
 
 export default function NewCampsiteBasicInfoForm({
   setFormStep,
@@ -50,7 +63,7 @@ export default function NewCampsiteBasicInfoForm({
       ...basicInfo,
       ...parsedInfo,
     }));
-    setFormStep(3)
+    setFormStep(3);
   };
 
   return (
@@ -98,7 +111,7 @@ export default function NewCampsiteBasicInfoForm({
           </Text>
           <Controller
             control={control}
-            name="campsite_description"
+            name="description"
             rules={{
               required:
                 "A description of the campsite or parking spot is required",
@@ -121,10 +134,8 @@ export default function NewCampsiteBasicInfoForm({
               />
             )}
           />
-          {errors.campsite_description && (
-            <Text style={styles.errorText}>
-              {errors.campsite_description.message}
-            </Text>
+          {errors.description && (
+            <Text style={styles.errorText}>{errors.description.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -148,24 +159,19 @@ export default function NewCampsiteBasicInfoForm({
                     value=""
                     enabled={false}
                   />
-                  <Picker.Item label="In Nature" value={1} />
-                  <Picker.Item label="Car Park" value={2} />
-                  <Picker.Item label="Car Park (day only)" value={3} />
-                  <Picker.Item label="Motorway Rest Stop" value={4} />
-                  <Picker.Item label="Free Motor Area" value={5} />
-                  <Picker.Item label="Paid Motor Area" value={6} />
-                  <Picker.Item label="Private Campervan Spot" value={7} />
-                  <Picker.Item label="Camping/Caravan Site" value={8} />
-                  <Picker.Item label="Picnic Area" value={9} />
-                  <Picker.Item label="On The Beach" value={10} />
+                  {Array.from(campsiteCategoryMap).map(([value, label]) => (
+                    <Picker.Item
+                      key={value}
+                      value={String(value)}
+                      label={label}
+                    />
+                  ))}
                 </Picker>
               </View>
             )}
           />
           {errors.category_id && (
-            <Text style={styles.errorText}>
-              {errors.category_id.message}
-            </Text>
+            <Text style={styles.errorText}>{errors.category_id.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
