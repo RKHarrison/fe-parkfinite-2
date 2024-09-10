@@ -20,6 +20,7 @@ type BasicInfo = {
 
 type NewCampsiteBasicInfoFormProps = {
   setFormStep: (step: number) => void;
+  newCampsiteData: any;
   setNewCampsiteData: (data: any) => void;
 };
 
@@ -38,6 +39,7 @@ export const campsiteCategoryMap = new Map<number, string>([
 
 export default function NewCampsiteBasicInfoForm({
   setFormStep,
+  newCampsiteData,
   setNewCampsiteData,
 }: NewCampsiteBasicInfoFormProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
@@ -46,7 +48,17 @@ export default function NewCampsiteBasicInfoForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<BasicInfo>();
+  } = useForm<BasicInfo>({
+    defaultValues: {
+      campsite_name: newCampsiteData.campsite_name,
+      description: newCampsiteData.description,
+      category_id: newCampsiteData.category_id,
+      parking_cost: newCampsiteData.parking_cost,
+      facilities_cost: newCampsiteData.facilities_cost,
+      opening_month: newCampsiteData.opening_month,
+      closing_month: newCampsiteData.closing_month,
+    },
+  });
 
   const onSubmit = (basicInfo: BasicInfo) => {
     if (!user) {
@@ -156,13 +168,13 @@ export default function NewCampsiteBasicInfoForm({
                 >
                   <Picker.Item
                     label="Select a category..."
-                    value=""
+                    value={null}
                     enabled={false}
                   />
                   {Array.from(campsiteCategoryMap).map(([value, label]) => (
                     <Picker.Item
                       key={value}
-                      value={String(value)}
+                      value={value}
                       label={label}
                     />
                   ))}
