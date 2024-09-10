@@ -10,8 +10,8 @@ import ReviewAndSubmitNewCampsite from "./form-components/review-and-submit-page
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
   const [formStep, setFormStep] = useState(1);
+  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
   const [newCampsiteData, setNewCampsiteData] = useState({});
 
   useEffect(() => {
@@ -42,16 +42,15 @@ export default function MultiStepPostNewCampsiteForm() {
         {formStep === 2 && droppedMarker && (
           <NewCampsiteBasicInfoForm
             setFormStep={setFormStep}
+            newCampsiteData={newCampsiteData}
             setNewCampsiteData={setNewCampsiteData}
           />
         )}
         {formStep === 3 && (
           <NewCampsiteContactsForm
             setFormStep={setFormStep}
+            newCampsiteData={newCampsiteData}
             setNewCampsiteData={setNewCampsiteData}
-            newCampsiteName={
-              newCampsiteData.campsite_name && newCampsiteData.campsite_name
-            }
           />
         )}
         {formStep === 4 && (
