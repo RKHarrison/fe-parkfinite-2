@@ -23,10 +23,10 @@ parkfinite2Api.interceptors.request.use(
   }
 );
 
-export const postCampsite = (newCampsiteData: CampsitePostRequest, logout) => {
+export const postCampsite = (newCampsiteData: CampsitePostRequest) => {
   return parkfinite2Api
     .post("/campsites", newCampsiteData)
-    .then(()=> console.log('posted'))
+    .then(response => response.data)
     .catch((error) => {
       console.error("API Error", {
         message: error.message,
@@ -35,7 +35,6 @@ export const postCampsite = (newCampsiteData: CampsitePostRequest, logout) => {
       });
       if (error.status === 401) {
         alert('Please log in again, session has expired.')
-        logout()
         router.push('/(drawer)/account')
       }
       throw error;
