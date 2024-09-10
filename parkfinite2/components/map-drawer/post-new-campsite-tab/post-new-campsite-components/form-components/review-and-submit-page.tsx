@@ -73,7 +73,7 @@ export default function ReviewAndSubmitNewCampsite({
           title="Open between"
           data={
             newCampsiteData.opening_month
-              ? `${newCampsiteData.opening_month} and ${newCampsiteData.opening_month}`
+              ? `${newCampsiteData.opening_month} and ${newCampsiteData.closing_month}`
               : "n/a"
           }
         />
