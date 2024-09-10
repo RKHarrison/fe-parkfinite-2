@@ -10,18 +10,18 @@ import { Button } from "@/components/Button";
 
 type NewCampsiteContactsFormProps = {
   setFormStep: (step: number) => void;
+  newCampsiteData: any;
   setNewCampsiteData: (data: any) => void;
-  newCampsiteName: string;
 };
 
 export default function NewCampsiteContactsForm({
   setFormStep,
+  newCampsiteData,
   setNewCampsiteData,
-  newCampsiteName,
 }: NewCampsiteContactsFormProps) {
   const [contactsList, setContactsList] = useState<
     CampsiteContactPostRequest[]
-  >([]);
+  >(newCampsiteData.contacts || []);
   const {
     control,
     handleSubmit,
@@ -30,18 +30,18 @@ export default function NewCampsiteContactsForm({
   } = useForm<CampsiteContactPostRequest>();
 
   function handleAddContact(newContact: CampsiteContactPostRequest) {
-    setContactsList((contactsList) => [...contactsList, newContact]);
+    setContactsList((prevContacts) => [...prevContacts, newContact]);
     reset();
   }
   function handleRemoveContact(index: number) {
-    setContactsList((contactsList) => [
-      ...contactsList.filter((_, i) => i !== index),
-    ]);
+    setContactsList((prevContacts) =>
+      prevContacts.filter((_, i) => i !== index)
+    );
   }
-  function handleSubmitContactList(contactList: CampsiteContactPostRequest[]) {
+  function handleSubmitContactList() {
     setNewCampsiteData((previousData) => ({
       ...previousData,
-      contacts: [...contactList],
+      contacts: contactsList,
     }));
     setFormStep(4);
   }
@@ -49,7 +49,7 @@ export default function NewCampsiteContactsForm({
   return (
     <View style={styles.formContainer}>
       <Text style={styles.h2}>
-        Step 3 (optional) - Enter contact(s) for {newCampsiteName}
+        Step 3 (optional) - Enter contact(s) for {newCampsiteData.campsite_name}
       </Text>
       <ScrollView>
         <Text style={styles.fieldTitleText}>
@@ -143,28 +143,25 @@ export default function NewCampsiteContactsForm({
         )}
       </ScrollView>
       <Text style={styles.h3}>
-        You have added {contactsList.length} contacts for {newCampsiteName}:
+        You have added {contactsList.length} contact(s) for {newCampsiteData.campsite_name}:
       </Text>
       <ScrollView>
-        {contactsList.map((contact, i) => {
-          return (
-            <View key={i} style={styles.contactRow}>
-              <View style={styles.miniButtonWrapper}>
-                <Button title="-" onPress={() => handleRemoveContact(i)} />
-              </View>
-
-              <View>
-                <Text style={styles.h4}>
-                  Contact {i + 1}: {contact.campsite_contact_name}
-                </Text>
-                <Text>Phone: {contact.campsite_contact_phone}</Text>
-                {contact.campsite_contact_email && (
-                  <Text>Email: {contact.campsite_contact_email}</Text>
-                )}
-              </View>
+        {contactsList.map((contact, i) => (
+          <View key={i} style={styles.contactRow}>
+            <View style={styles.miniButtonWrapper}>
+              <Button title="-" onPress={() => handleRemoveContact(i)} />
             </View>
-          );
-        })}
+            <View>
+              <Text style={styles.h4}>
+                Contact {i + 1}: {contact.campsite_contact_name}
+              </Text>
+              <Text>Phone: {contact.campsite_contact_phone}</Text>
+              {contact.campsite_contact_email && (
+                <Text>Email: {contact.campsite_contact_email}</Text>
+              )}
+            </View>
+          </View>
+        ))}
       </ScrollView>
       <Button
         title="Add a new contact to list"
@@ -177,9 +174,7 @@ export default function NewCampsiteContactsForm({
             : "Skip adding contacts"
         }
         onPress={
-          contactsList.length
-            ? () => handleSubmitContactList(contactsList)
-            : () => setFormStep(4)
+          contactsList.length ? handleSubmitContactList : () => setFormStep(4)
         }
       />
       <Button title="Go back to basic info..." onPress={() => setFormStep(2)} />
@@ -191,18 +186,6 @@ const styles = StyleSheet.create({
   formContainer: {
     alignItems: "center",
     marginBottom: 80,
-  },
-  scrollViewContainer: {
-    width: 350,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    padding: 10,
-    margin: 10,
-    alignSelf: "center",
-    backgroundColor: "darkseagreen",
-    borderRadius: 10,
   },
   h2: {
     fontSize: 16,
@@ -242,18 +225,6 @@ const styles = StyleSheet.create({
     padding: 10,
     minWidth: "80%",
     backgroundColor: "#d8f3d8",
-  },
-  picker: { padding: 0 },
-  pickerWrapper: {
-    backgroundColor: "#d8f3d8",
-    padding: 0,
-    height: 40,
-    marginTop: 3,
-    marginBottom: 3,
-    borderWidth: 1,
-    borderRadius: 10,
-    minWidth: "80%",
-    justifyContent: "center",
   },
   contactRow: {
     flexDirection: "row",
