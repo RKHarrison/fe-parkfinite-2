@@ -51,7 +51,7 @@ export default function ChooseNewCampsiteLocation({
           />
           <Button
             title="Choose a different location"
-            onPress={() => setFormStep(1)}
+            onPress={() => setDroppedMarker(null)}
           />
         </>
       )}
