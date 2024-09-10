@@ -6,6 +6,7 @@ import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
 import { postCampsite } from "@/services/api/campsitesApi";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
+import { router } from "expo-router";
 
 interface ReviewAndSubmitNewCampsiteProps {
   newCampsiteAddress: string;
@@ -20,86 +21,91 @@ export default function ReviewAndSubmitNewCampsite({
 }: ReviewAndSubmitNewCampsiteProps) {
   const { user, logout } = useContext(UserContext);
 
-  function handleSubmitNewCampsite() {
+  async function handleSubmitNewCampsite() {
     if (user) {
       const fullCampsiteData = {
         ...newCampsiteData,
         user_account_id: user.user_account_id,
       };
-      postCampsite(fullCampsiteData, logout);
+      try {
+        await postCampsite(fullCampsiteData);
+        alert("New campsite submitted!");
+        router.push("/(drawer)/(tabs)/search/map");
+      } catch (error) {
+        console.error("Error submitting new campsite", error);
+        alert("Error submitting new campsite. Please try again.");
+      }
     }
   }
 
   return (
     <>
-      <Text style={styles.h1}>Location</Text>
-      <Text>{newCampsiteAddress}</Text>
-      <Button
-        title="Go back to choose location"
-        onPress={() => setFormStep(1)}
-      />
+      <Text style={styles.h2}>
+        Final step - review info and submit new campsite:
+      </Text>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <Text style={styles.h3}>Location</Text>
+        <Text>{newCampsiteAddress}</Text>
+        <Button
+          title="Go back to choose location"
+          onPress={() => setFormStep(1)}
+        />
 
-      <Text style={styles.h1}>Basic Info</Text>
-      <FieldAndDataText title="Name" data={newCampsiteData.campsite_name} />
-      <FieldAndDataText
-        title="Category"
-        data={campsiteCategoryMap.get(Number(newCampsiteData.category_id))}
-      />
-      <FieldAndDataText
-        title="Description"
-        data={newCampsiteData.description}
-      />
-      <FieldAndDataText
-        title="Parking cost"
-        data={`£${newCampsiteData.parking_cost}`}
-      />
-      <FieldAndDataText
-        title="Facilities cost"
-        data={`£${newCampsiteData.facilities_cost}`}
-      />
-      <FieldAndDataText
-        title="Open between"
-        data={
-          newCampsiteData.opening_month
-            ? `${newCampsiteData.opening_month} and ${newCampsiteData.opening_month}`
-            : "n/a"
-        }
-      />
-      <Button title="Go back to basic info" onPress={() => setFormStep(2)} />
-
-      <Text style={styles.h1}>Contact(s)</Text>
-      {newCampsiteData.contacts ? (
-        <ScrollView
-          style={
-            newCampsiteData.contacts.length > 1
-              ? styles.scrollViewMultiple
-              : styles.scrollViewSingle
+        <Text style={styles.h3}>Basic Info</Text>
+        <FieldAndDataText title="Name" data={newCampsiteData.campsite_name} />
+        <FieldAndDataText
+          title="Category"
+          data={campsiteCategoryMap.get(Number(newCampsiteData.category_id))}
+        />
+        <FieldAndDataText
+          title="Description"
+          data={newCampsiteData.description}
+        />
+        <FieldAndDataText
+          title="Parking cost"
+          data={`£${newCampsiteData.parking_cost}`}
+        />
+        <FieldAndDataText
+          title="Facilities cost"
+          data={`£${newCampsiteData.facilities_cost}`}
+        />
+        <FieldAndDataText
+          title="Open between"
+          data={
+            newCampsiteData.opening_month
+              ? `${newCampsiteData.opening_month} and ${newCampsiteData.opening_month}`
+              : "n/a"
           }
-        >
-          {newCampsiteData.contacts.map((contact, index) => (
-            <View key={index} style={styles.contactContainer}>
-              <FieldAndDataText
-                title="Name"
-                data={contact.campsite_contact_name}
-              />
-              <FieldAndDataText
-                title="Phone"
-                data={contact.campsite_contact_phone}
-              />
-              {contact.campsite_contact_email && (
-                <FieldAndDataText
-                  title="Email"
-                  data={contact.campsite_contact_email}
-                />
-              )}
-            </View>
-          ))}
-        </ScrollView>
-      ) : (
-        <Text>No contacts provided for this spot.</Text>
-      )}
-      <Button title="Go back to contacts" onPress={() => setFormStep(3)} />
+        />
+        <Button title="Go back to basic info" onPress={() => setFormStep(2)} />
 
+        <Text style={styles.h3}>Contact(s)</Text>
+        {newCampsiteData.contacts ? (
+          <View style={{ maxHeight: 150 * newCampsiteData.contacts.length }}>
+            {newCampsiteData.contacts.map((contact, index) => (
+              <View key={index} style={styles.contactContainer}>
+                <FieldAndDataText
+                  title="Name"
+                  data={contact.campsite_contact_name}
+                />
+                <FieldAndDataText
+                  title="Phone"
+                  data={contact.campsite_contact_phone}
+                />
+                {contact.campsite_contact_email && (
+                  <FieldAndDataText
+                    title="Email"
+                    data={contact.campsite_contact_email}
+                  />
+                )}
+              </View>
+            ))}
+          </View>
+        ) : (
+          <Text>No contacts provided for this spot.</Text>
+        )}
+        <Button title="Go back to contacts" onPress={() => setFormStep(3)} />
+      </ScrollView>
       <Button
         buttonStyle={styles.submitButton}
         title="Confirm campsite details and submit new campsite!"
@@ -110,17 +116,24 @@ export default function ReviewAndSubmitNewCampsite({
 }
 
 const styles = StyleSheet.create({
-  h1: { fontSize: 18, fontWeight: "bold", marginTop: 12, marginBottom: 3 },
-  scrollViewMultiple: {
-    maxHeight: 150,
+  scrollView: { alignItems: "center", width: "100%" },
+  h2: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
-  scrollViewSingle: {
-    maxHeight: 65,
+  h3: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 12,
+    marginBottom: 3,
   },
   contactContainer: {
-    margin: 10,
+    marginBottom: 10,
+    alignItems: "center",
   },
   submitButton: {
-    marginTop: 12
-  }
+    marginTop: 12,
+    marginBottom: 8,
+  },
 });
