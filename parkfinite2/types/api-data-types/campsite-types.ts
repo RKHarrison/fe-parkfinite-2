@@ -13,7 +13,7 @@ export interface CampsiteContact {
 }
 
 export interface CampsiteContactPostRequest {
-  campsite_contact_email: string | null;
+  campsite_contact_email: string;
   campsite_contact_name: string;
   campsite_contact_phone: string;
 }
