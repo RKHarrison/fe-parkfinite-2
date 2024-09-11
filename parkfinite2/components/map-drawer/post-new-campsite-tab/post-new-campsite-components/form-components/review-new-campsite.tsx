@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { StyleSheet, Text } from "react-native";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
 import { Button } from "@/components/Button";
 import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
@@ -20,6 +20,9 @@ export default function ReveiwNewCampsite({
 
   return (
     <>
+      <Text style={styles.h2}>
+        Step 4 - Rate your new spot (how was your stay?):
+      </Text>
       <StarRatingComponent
         initialRating={rating}
         onRatingChange={handleRatingChange}
@@ -29,3 +32,11 @@ export default function ReveiwNewCampsite({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  h2: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+});
