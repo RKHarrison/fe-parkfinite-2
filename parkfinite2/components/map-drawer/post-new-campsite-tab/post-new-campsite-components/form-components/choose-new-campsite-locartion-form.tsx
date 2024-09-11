@@ -2,26 +2,36 @@ import { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { router } from "expo-router";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-import { getAddressFromCoordinate } from "@/services/api/googleMapsApi";
-import GooglePlacesMiniInput from "../post-new-campsite-components/google-places-mini-component";
+import GooglePlacesMiniInput from "./google-places-mini-component";
 import { Button } from "@/components/Button";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 
-export default function ChooseNewCampsiteLocation() {
+type ChooseNewCampsiteLocationProps = {
+  setFormStep: (step: number) => void;
+  newCampsiteAddress: string | null;
+  setNewCampsiteData: (data: any) => void;
+};
+
+export default function ChooseNewCampsiteLocation({
+  setFormStep,
+  newCampsiteAddress,
+  setNewCampsiteData,
+}: ChooseNewCampsiteLocationProps) {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
 
-  useEffect(() => {
-    if (droppedMarker) {
-      getAddressFromCoordinate(droppedMarker).then((res) => {
-        setNewCampsiteAddress(res);
-      });
-    }
-  }, [droppedMarker]);
+  function handleSubmitLocation() {
+    setNewCampsiteData((previousCampsiteData: any) => ({
+      ...previousCampsiteData,
+      campsite_latitude: droppedMarker?.latitude,
+      campsite_longitude: droppedMarker?.longitude,
+    }));
+    setFormStep(FORM_STEPS.basicInfo);
+  }
 
   return (
     <View style={styles.formContainer}>
       <Text style={styles.h2}>Step 1 - Choose a location: </Text>
-      {!droppedMarker ? (
+      {!droppedMarker || !newCampsiteAddress ? (
         <>
           <Button
             title={"Drop a pin"}
@@ -37,6 +47,10 @@ export default function ChooseNewCampsiteLocation() {
       ) : (
         <>
           <Text> {newCampsiteAddress}</Text>
+          <Button
+            title="Confirm location"
+            onPress={() => handleSubmitLocation()}
+          />
           <Button
             title="Choose a different location"
             onPress={() => setDroppedMarker(null)}

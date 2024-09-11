@@ -12,6 +12,12 @@ export interface CampsiteContact {
   campsite_id: number;
 }
 
+export interface CampsiteContactPostRequest {
+  campsite_contact_email: string;
+  campsite_contact_name: string;
+  campsite_contact_phone: string;
+}
+
 export interface CampsiteCategory {
   category_id: number;
   category_img_url: string;
@@ -45,17 +51,23 @@ export interface CampsiteReview {
   campsite_id: number;
 }
 
+export interface CampsiteReviewPostRequest {
+  rating: number;
+  user_account_id: number;
+  comment: string | null;
+}
+
 export interface CampsitePostRequest {
   campsite_name: string;
-  campsite_latitude: number;
-  campsite_longitude: number;
-  contacts: CampsiteContact[];
+  description: string;
+  category_id: number;
   parking_cost: number;
   facilities_cost: number;
-  description: string;
+  campsite_latitude: number;
+  campsite_longitude: number;
   opening_month: string | null;
   closing_month: string | null;
-  user_account_id: number;
+  contacts: CampsiteContactPostRequest[];
   photos: CampsitePhoto[];
-  category_id: number;
+  user_account_id: number;
 }

@@ -2,69 +2,80 @@ import { useContext } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Controller, useForm } from "react-hook-form";
-import { router } from "expo-router";
-
 import { UserContext } from "@/contexts/UserContext";
-import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
-import { postCampsite } from "@/services/api/campsitesApi";
-import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
-type FormData = {
-  campsiteName: string;
-  campsiteDescription: string;
-  campsiteCategory: string;
-  parkingCost: string;
-  facilitiesCost: string;
-  openingMonth: string;
-  closingMonth: string;
+type BasicInfo = {
+  campsite_name: string;
+  description: string;
+  category_id: string;
+  parking_cost: string;
+  facilities_cost: string;
+  opening_month: string;
+  closing_month: string;
 };
 
-export default function NewCampsiteBasicInfoForm() {
-  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const { user, logout } = useContext(UserContext);
+type NewCampsiteBasicInfoFormProps = {
+  setFormStep: (step: number) => void;
+  newCampsiteData: any;
+  setNewCampsiteData: (data: any) => void;
+};
+
+export const campsiteCategoryMap = new Map<number, string>([
+  [1, "In Nature"],
+  [2, "Car Park"],
+  [3, "Car Park (day only)"],
+  [4, "Motorway Rest Stop"],
+  [5, "Free Motor Area"],
+  [6, "Paid Motor Area"],
+  [7, "Private Campervan Spot"],
+  [8, "Camping/Caravan Site"],
+  [9, "Picnic Area"],
+  [10, "On The Beach"],
+]);
+
+export default function NewCampsiteBasicInfoForm({
+  setFormStep,
+  newCampsiteData,
+  setNewCampsiteData,
+}: NewCampsiteBasicInfoFormProps) {
+  const { user } = useContext(UserContext);
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<BasicInfo>({
+    defaultValues: {
+      campsite_name: newCampsiteData.campsite_name,
+      description: newCampsiteData.description,
+      category_id: newCampsiteData.category_id,
+      parking_cost: newCampsiteData.parking_cost,
+      facilities_cost: newCampsiteData.facilities_cost,
+      opening_month: newCampsiteData.opening_month,
+      closing_month: newCampsiteData.closing_month,
+    },
+  });
 
-  const onSubmit = (data: FormData) => {
-    if (!user) {
-      alert("Please log in to submit a new campsite.");
-      return;
-    }
-    if (!droppedMarker) {
-      alert(
-        "Please place a custom marker on the map screen to post a new campsite."
-      );
-    } else {
-      const campsitePostRequestData: CampsitePostRequest = {
-        campsite_name: data.campsiteName,
-        campsite_longitude: droppedMarker?.longitude,
-        campsite_latitude: droppedMarker?.latitude,
-        contacts: [],
-        parking_cost: parseFloat(data.parkingCost),
-        facilities_cost: parseFloat(data.facilitiesCost),
-        description: data.campsiteDescription,
-        opening_month: data.openingMonth,
-        closing_month: data.closingMonth,
-        user_account_id: user.user_account_id,
-        photos: [],
-        category_id: Number(data.campsiteCategory),
-      };
-      postCampsite(campsitePostRequestData, logout).then(() => {
-        setDroppedMarker(null);
-        router.push("/(drawer)/(tabs)/search/map");
-      });
-    }
+  const onSubmit = (basicInfo: BasicInfo) => {
+    const parsedInfo = {
+      category_id: Number(basicInfo.category_id),
+      parking_cost: parseFloat(basicInfo.parking_cost),
+      facilities_cost: parseFloat(basicInfo.facilities_cost),
+    };
+    setNewCampsiteData((previousData: any) => ({
+      ...previousData,
+      ...basicInfo,
+      ...parsedInfo,
+    }));
+    setFormStep(FORM_STEPS.contacts);
   };
 
   return (
     <View style={styles.formContainer}>
       <Text style={styles.h2}>
-        Step 2 - Enter basic info for your new spot:{" "}
+        Step 2 - Enter basic info for your new spot:
       </Text>
       <ScrollView>
         <View style={styles.scrollViewContainer}>
@@ -73,7 +84,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="campsiteName"
+            name="campsite_name"
             rules={{
               required: "Campsite name is required",
               minLength: {
@@ -97,8 +108,8 @@ export default function NewCampsiteBasicInfoForm() {
               />
             )}
           />
-          {errors.campsiteName && (
-            <Text style={styles.errorText}>{errors.campsiteName.message}</Text>
+          {errors.campsite_name && (
+            <Text style={styles.errorText}>{errors.campsite_name.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -106,7 +117,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="campsiteDescription"
+            name="description"
             rules={{
               required:
                 "A description of the campsite or parking spot is required",
@@ -129,10 +140,8 @@ export default function NewCampsiteBasicInfoForm() {
               />
             )}
           />
-          {errors.campsiteDescription && (
-            <Text style={styles.errorText}>
-              {errors.campsiteDescription.message}
-            </Text>
+          {errors.description && (
+            <Text style={styles.errorText}>{errors.description.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -140,7 +149,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="campsiteCategory"
+            name="category_id"
             rules={{
               required: "A category is required",
             }}
@@ -153,27 +162,22 @@ export default function NewCampsiteBasicInfoForm() {
                 >
                   <Picker.Item
                     label="Select a category..."
-                    value=""
+                    value={null}
                     enabled={false}
                   />
-                  <Picker.Item label="In Nature" value={1} />
-                  <Picker.Item label="Car Park" value={2} />
-                  <Picker.Item label="Car Park (day only)" value={3} />
-                  <Picker.Item label="Motorway Rest Stop" value={4} />
-                  <Picker.Item label="Free Motor Area" value={5} />
-                  <Picker.Item label="Paid Motor Area" value={6} />
-                  <Picker.Item label="Private Campervan Spot" value={7} />
-                  <Picker.Item label="Camping/Caravan Site" value={8} />
-                  <Picker.Item label="Picnic Area" value={9} />
-                  <Picker.Item label="On The Beach" value={10} />
+                  {Array.from(campsiteCategoryMap).map(([value, label]) => (
+                    <Picker.Item
+                      key={value}
+                      value={value}
+                      label={label}
+                    />
+                  ))}
                 </Picker>
               </View>
             )}
           />
-          {errors.campsiteCategory && (
-            <Text style={styles.errorText}>
-              {errors.campsiteCategory.message}
-            </Text>
+          {errors.category_id && (
+            <Text style={styles.errorText}>{errors.category_id.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -181,7 +185,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="parkingCost"
+            name="parking_cost"
             rules={{
               required:
                 "Please specify a cost for parking; if free, specify 0.",
@@ -201,8 +205,8 @@ export default function NewCampsiteBasicInfoForm() {
               />
             )}
           />
-          {errors.parkingCost && (
-            <Text style={styles.errorText}>{errors.parkingCost.message}</Text>
+          {errors.parking_cost && (
+            <Text style={styles.errorText}>{errors.parking_cost.message}</Text>
           )}
 
           <Text style={styles.fieldTitleText}>
@@ -211,7 +215,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="facilitiesCost"
+            name="facilities_cost"
             rules={{
               required:
                 "Please specify a cost for using facilities; if free or none available specify 0",
@@ -231,9 +235,9 @@ export default function NewCampsiteBasicInfoForm() {
               />
             )}
           />
-          {errors.facilitiesCost && (
+          {errors.facilities_cost && (
             <Text style={styles.errorText}>
-              {errors.facilitiesCost.message}
+              {errors.facilities_cost.message}
             </Text>
           )}
 
@@ -242,7 +246,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="openingMonth"
+            name="opening_month"
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.pickerWrapper}>
                 <Picker
@@ -278,7 +282,7 @@ export default function NewCampsiteBasicInfoForm() {
           </Text>
           <Controller
             control={control}
-            name="closingMonth"
+            name="closing_month"
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.pickerWrapper}>
                 <Picker
@@ -311,7 +315,13 @@ export default function NewCampsiteBasicInfoForm() {
         </View>
       </ScrollView>
 
-      <Button title="Submit new campsite..." onPress={handleSubmit(onSubmit)} />
+      <Button title="Submit basic info..." onPress={handleSubmit(onSubmit)} />
+      <Button
+        title="Go back to choose location"
+        onPress={() => {
+          setFormStep(FORM_STEPS.location);
+        }}
+      />
     </View>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
-import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
+import {
+  GooglePlacesAutocomplete,
+  GooglePlaceDetail,
+} from "react-native-google-places-autocomplete";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { Region } from "@/types/locations";
 
@@ -36,44 +39,54 @@ export default function GooglePlacesMiniInput({
       placeholder="Search"
       fetchDetails={true}
       onPress={(data, details = null) => {
-        handlePress(details, data);
+        details && handlePress(details);
       }}
       onFail={(error) => console.error(error)}
       requestUrl={{
         url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
         useOnPlatform: "web",
       }}
-      styles={styles.input}
+      styles={styles}
     />
   );
 }
-
 const styles = StyleSheet.create({
-  input: {
-    container: {
-      width: 300,
-      maxHeight:310
-    },
-    textInput: {
-      height: 40,
-      fontSize: 12,
-    },
-    listView: {
-      backgroundColor: "white",
-      zIndex: 3,
-    },
-    row: {
-      backgroundColor: "#FFFFFF",
-      padding: 13,
-      height: 44,
-      flexDirection: "row",
-    },
-    description: {
-      fontSize: 12,
-    },
-    separator: {
-      height: 0.5,
-      backgroundColor: "#c8c7cc",
-    },
+  textInputContainer: {
+    backgroundColor: "rgba(0,0,0,0)",
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    zIndex: 999,
+    width: "90%",
+  },
+  textInput: {
+    marginLeft: 0,
+    marginRight: 0,
+    height: 45,
+    color: "#5d5d5d",
+    fontSize: 16,
+    borderWidth: 1,
+    zIndex: 999,
+  },
+  predefinedPlacesDescription: {
+    color: "#1faadb",
+  },
+  listView: {
+    top: 45.5,
+    zIndex: 10,
+    position: "absolute",
+    color: "black",
+    backgroundColor: "white",
+    width: "89%",
+  },
+  separator: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: "blue",
+  },
+  description: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    fontSize: 14,
+    maxWidth: "89%",
   },
 });
