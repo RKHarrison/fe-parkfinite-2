@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
-import { Campsite, CampsitePostRequest, CampsiteReview } from "@/types/api-data-types/campsite-types";
+import { Campsite, CampsitePostRequest, CampsiteReview, CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
 import { router } from "expo-router";
 import { UserContext } from "@/contexts/UserContext";
 import { useContext } from "react";
@@ -60,6 +60,22 @@ export const getCampsites = () => {
 export function getCampsiteById(campsiteId: string | string[]) {
   return parkfinite2Api
     .get<Campsite>(`/campsites/${campsiteId}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.error("API Error", {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+      throw error;
+    });
+}
+
+export function postReviewByCampsiteId(campsiteId: number, review: CampsiteReviewPostRequest) {
+  return parkfinite2Api
+    .post<CampsiteReview>(`/campsites/${campsiteId}/reviews`, review)
     .then((res) => {
       return res.data;
     })
