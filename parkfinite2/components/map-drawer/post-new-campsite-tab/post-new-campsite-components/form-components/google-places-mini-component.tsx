@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
-import { GooglePlacesAutocomplete, GooglePlaceDetail } from "react-native-google-places-autocomplete";
+import {
+  GooglePlacesAutocomplete,
+  GooglePlaceDetail,
+} from "react-native-google-places-autocomplete";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { Region } from "@/types/locations";
 
@@ -36,7 +39,7 @@ export default function GooglePlacesMiniInput({
       placeholder="Search"
       fetchDetails={true}
       onPress={(data, details = null) => {
-        handlePress(details, data);
+        details && handlePress(details);
       }}
       onFail={(error) => console.error(error)}
       requestUrl={{
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
   input: {
     container: {
       width: 300,
-      maxHeight:310
+      maxHeight: 310,
     },
     textInput: {
       height: 40,

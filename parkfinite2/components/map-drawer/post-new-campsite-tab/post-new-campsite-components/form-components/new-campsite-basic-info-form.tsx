@@ -2,9 +2,7 @@ import { useContext } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Controller, useForm } from "react-hook-form";
-
 import { UserContext } from "@/contexts/UserContext";
-import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
@@ -42,8 +40,7 @@ export default function NewCampsiteBasicInfoForm({
   newCampsiteData,
   setNewCampsiteData,
 }: NewCampsiteBasicInfoFormProps) {
-  const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const { user, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const {
     control,
     handleSubmit,
@@ -70,7 +67,7 @@ export default function NewCampsiteBasicInfoForm({
       parking_cost: parseFloat(basicInfo.parking_cost),
       facilities_cost: parseFloat(basicInfo.facilities_cost),
     };
-    setNewCampsiteData((previousData) => ({
+    setNewCampsiteData((previousData: any) => ({
       ...previousData,
       ...basicInfo,
       ...parsedInfo,

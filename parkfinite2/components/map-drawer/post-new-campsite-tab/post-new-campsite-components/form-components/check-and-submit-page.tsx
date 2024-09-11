@@ -1,20 +1,20 @@
 import { Text, View, ScrollView, StyleSheet } from "react-native";
-import { Button } from "@/components/Button";
-import {
-  CampsitePostRequest,
-  CampsiteReviewPostRequest,
-} from "@/types/api-data-types/campsite-types";
-import FieldAndDataText from "@/components/FieldAndDataText";
-import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
+import { useContext } from "react";
+import { router } from "expo-router";
+import { UserContext } from "@/contexts/UserContext";
+import { DroppedMarker } from "@/contexts/DroppedMarkerContext";
 import {
   postCampsite,
   postReviewByCampsiteId,
 } from "@/services/api/campsitesApi";
-import { useContext } from "react";
-import { UserContext } from "@/contexts/UserContext";
-import { router } from "expo-router";
+import {
+  CampsitePostRequest,
+  CampsiteReviewPostRequest,
+} from "@/types/api-data-types/campsite-types";
+import { Button } from "@/components/Button";
+import FieldAndDataText from "@/components/FieldAndDataText";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
-import { DroppedMarker } from "@/contexts/DroppedMarkerContext";
+import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
 
 interface CheckandSubmitNewCampsiteProps {
   newCampsiteAddress: string | null;
@@ -31,9 +31,9 @@ export default function CheckandSubmitNewCampsite({
   rating,
   setRating,
   setFormStep,
-  setDroppedMarker
+  setDroppedMarker,
 }: CheckandSubmitNewCampsiteProps) {
-  const { user, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   async function handleSubmitNewCampsite() {
     if (user && rating) {
@@ -53,7 +53,7 @@ export default function CheckandSubmitNewCampsite({
           review
         );
         setDroppedMarker(null);
-        setRating(null)
+        setRating(null);
         router.push("/(drawer)/(tabs)/search/map");
         alert("New campsite submitted!");
       } catch (error) {

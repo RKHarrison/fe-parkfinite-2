@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-
+import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { Controller, useForm } from "react-hook-form";
 import { CampsiteContactPostRequest } from "@/types/api-data-types/campsite-types";
-import { Text } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { Button } from "@/components/Button";
 
 type NewCampsiteContactsFormProps = {
@@ -143,7 +140,8 @@ export default function NewCampsiteContactsForm({
         )}
       </ScrollView>
       <Text style={styles.h3}>
-        You have added {contactsList.length} contact(s) for {newCampsiteData.campsite_name}:
+        You have added {contactsList.length} contact(s) for{" "}
+        {newCampsiteData.campsite_name}:
       </Text>
       <ScrollView>
         {contactsList.map((contact, i) => (
