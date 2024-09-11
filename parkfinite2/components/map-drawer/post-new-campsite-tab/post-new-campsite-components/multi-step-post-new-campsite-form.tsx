@@ -6,8 +6,8 @@ import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
 import { UserContext } from "@/contexts/UserContext";
 import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
-import ReviewAndSubmitNewCampsite from "./form-components/review-and-submit-page";
-import RateNewCampsite from "./form-components/rate-new-campsite";
+import ReviewAndSubmitNewCampsite from "./form-components/check-and-submit-page";
+import RateNewCampsite from "./form-components/review-new-campsite";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 
 export default function MultiStepPostNewCampsiteForm() {
