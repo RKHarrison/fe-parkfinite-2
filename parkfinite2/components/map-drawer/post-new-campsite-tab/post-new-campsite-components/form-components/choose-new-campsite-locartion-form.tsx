@@ -30,7 +30,7 @@ export default function ChooseNewCampsiteLocation({
   return (
     <View style={styles.formContainer}>
       <Text style={styles.h2}>Step 1 - Choose a location: </Text>
-      {!droppedMarker ? (
+      {!droppedMarker || !newCampsiteAddress ? (
         <>
           <Button
             title={"Drop a pin"}
