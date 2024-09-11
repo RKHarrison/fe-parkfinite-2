@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import { getAddressFromCoordinate } from "@/services/api/googleMapsApi";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-locartion-form";
 import NewCampsiteBasicInfoForm from "./form-components/new-campsite-basic-info-form";
 import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
@@ -11,7 +12,7 @@ import CheckandSubmitNewCampsite from "./form-components/check-and-submit-page";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const [formStep, setFormStep] = useState<number>(1);
+  const [formStep, setFormStep] = useState<number>(FORM_STEPS.location);
   const [newCampsiteAddress, setNewCampsiteAddress] = useState<string | null>(
     null
   );

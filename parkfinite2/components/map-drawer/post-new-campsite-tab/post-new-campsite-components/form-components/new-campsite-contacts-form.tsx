@@ -4,6 +4,7 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { Controller, useForm } from "react-hook-form";
 import { CampsiteContactPostRequest } from "@/types/api-data-types/campsite-types";
 import { Button } from "@/components/Button";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 
 type NewCampsiteContactsFormProps = {
   setFormStep: (step: number) => void;
@@ -40,7 +41,7 @@ export default function NewCampsiteContactsForm({
       ...previousData,
       contacts: contactsList,
     }));
-    setFormStep(4);
+    setFormStep(FORM_STEPS.review);
   }
 
   return (
@@ -172,10 +173,10 @@ export default function NewCampsiteContactsForm({
             : "Skip adding contacts"
         }
         onPress={
-          contactsList.length ? handleSubmitContactList : () => setFormStep(4)
+          contactsList.length ? handleSubmitContactList : () => setFormStep(FORM_STEPS.review)
         }
       />
-      <Button title="Go back to basic info..." onPress={() => setFormStep(2)} />
+      <Button title="Go back to basic info..." onPress={() => setFormStep(FORM_STEPS.basicInfo)} />
     </View>
   );
 }

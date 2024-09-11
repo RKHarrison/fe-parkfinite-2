@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
 import { Button } from "@/components/Button";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 
 interface ReveiwNewCampsiteProps {
   rating: StarRating;
@@ -23,8 +24,8 @@ export default function ReveiwNewCampsite({
         initialRating={rating}
         onRatingChange={handleRatingChange}
       />
-      {rating && <Button title="Confirm rating" onPress={() => setFormStep(5)} />}
-      <Button title="Back to contacts" onPress={() => setFormStep(3)} />
+      {rating && <Button title="Confirm rating" onPress={() => setFormStep(FORM_STEPS.checkAndSubmit)} />}
+      <Button title="Back to contacts" onPress={() => setFormStep(FORM_STEPS.contacts)} />
     </>
   );
 }

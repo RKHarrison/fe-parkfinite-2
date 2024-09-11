@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
 import GooglePlacesMiniInput from "./google-places-mini-component";
 import { Button } from "@/components/Button";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 
 type ChooseNewCampsiteLocationProps = {
   setFormStep: (step: number) => void;
@@ -24,7 +25,7 @@ export default function ChooseNewCampsiteLocation({
       campsite_latitude: droppedMarker?.latitude,
       campsite_longitude: droppedMarker?.longitude,
     }));
-    setFormStep(2);
+    setFormStep(FORM_STEPS.basicInfo);
   }
 
   return (

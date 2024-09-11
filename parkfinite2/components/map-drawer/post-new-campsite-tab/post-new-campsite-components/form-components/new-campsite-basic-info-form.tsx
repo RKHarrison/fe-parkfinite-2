@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Controller, useForm } from "react-hook-form";
 import { UserContext } from "@/contexts/UserContext";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 import { Picker } from "@react-native-picker/picker";
 import { Button } from "@/components/Button";
 
@@ -58,10 +59,6 @@ export default function NewCampsiteBasicInfoForm({
   });
 
   const onSubmit = (basicInfo: BasicInfo) => {
-    if (!user) {
-      alert("Please log in to submit a new campsite.");
-      return;
-    }
     const parsedInfo = {
       category_id: Number(basicInfo.category_id),
       parking_cost: parseFloat(basicInfo.parking_cost),
@@ -72,7 +69,7 @@ export default function NewCampsiteBasicInfoForm({
       ...basicInfo,
       ...parsedInfo,
     }));
-    setFormStep(3);
+    setFormStep(FORM_STEPS.contacts);
   };
 
   return (
@@ -322,7 +319,7 @@ export default function NewCampsiteBasicInfoForm({
       <Button
         title="Go back to choose location"
         onPress={() => {
-          setFormStep(1);
+          setFormStep(FORM_STEPS.location);
         }}
       />
     </View>

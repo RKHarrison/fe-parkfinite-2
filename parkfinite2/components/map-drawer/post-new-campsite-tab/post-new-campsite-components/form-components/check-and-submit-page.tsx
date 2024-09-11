@@ -11,6 +11,7 @@ import {
   CampsitePostRequest,
   CampsiteReviewPostRequest,
 } from "@/types/api-data-types/campsite-types";
+import { FORM_STEPS } from "@/constants/postCampsiteFormSteps";
 import { Button } from "@/components/Button";
 import FieldAndDataText from "@/components/FieldAndDataText";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
@@ -78,7 +79,7 @@ export default function CheckandSubmitNewCampsite({
         <Text>{newCampsiteAddress}</Text>
         <Button
           title="Go back to choose location"
-          onPress={() => setFormStep(1)}
+          onPress={() => setFormStep(FORM_STEPS.location)}
         />
         <StarRatingComponent
           initialRating={rating}
@@ -111,7 +112,7 @@ export default function CheckandSubmitNewCampsite({
               : "n/a"
           }
         />
-        <Button title="Go back to basic info" onPress={() => setFormStep(2)} />
+        <Button title="Go back to basic info" onPress={() => setFormStep(FORM_STEPS.basicInfo)} />
 
         <Text style={styles.h3}>Contact(s)</Text>
         {newCampsiteData?.contacts ? (
@@ -138,7 +139,7 @@ export default function CheckandSubmitNewCampsite({
         ) : (
           <Text>No contacts provided for this spot.</Text>
         )}
-        <Button title="Go back to contacts" onPress={() => setFormStep(3)} />
+        <Button title="Go back to contacts" onPress={() => setFormStep(FORM_STEPS.contacts)} />
       </ScrollView>
       <Button
         buttonStyle={styles.submitButton}
