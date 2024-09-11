@@ -7,7 +7,7 @@ import { Button } from "@/components/Button";
 
 type ChooseNewCampsiteLocationProps = {
   setFormStep: (step: number) => void;
-  newCampsiteAddress: any;
+  newCampsiteAddress: string | null;
   setNewCampsiteData: (data: any) => void;
 };
 
@@ -19,7 +19,7 @@ export default function ChooseNewCampsiteLocation({
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
 
   function handleSubmitLocation() {
-    setNewCampsiteData(previousCampsiteData => ({ 
+    setNewCampsiteData((previousCampsiteData: any) => ({ 
       ...previousCampsiteData,
       campsite_latitude: droppedMarker?.latitude,
       campsite_longitude: droppedMarker?.longitude,
