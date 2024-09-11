@@ -7,16 +7,21 @@ import { postCampsite } from "@/services/api/campsitesApi";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { router } from "expo-router";
+import StarRatingComponent, { StarRating } from "@/components/StarRating";
 
 interface ReviewAndSubmitNewCampsiteProps {
-  newCampsiteAddress: string;
+  newCampsiteAddress: string | null;
   newCampsiteData: CampsitePostRequest;
+  rating: StarRating;
+  setRating: (rating: StarRating) => void;
   setFormStep: (step: number) => void;
 }
 
 export default function ReviewAndSubmitNewCampsite({
   newCampsiteAddress,
   newCampsiteData,
+  rating,
+  setRating,
   setFormStep,
 }: ReviewAndSubmitNewCampsiteProps) {
   const { user, logout } = useContext(UserContext);
@@ -38,11 +43,16 @@ export default function ReviewAndSubmitNewCampsite({
     }
   }
 
+  const handleRatingChange = (newRating: StarRating) => {
+    setRating(newRating);
+  };
+
   return (
     <>
       <Text style={styles.h2}>
         Final step - review info and submit new campsite:
       </Text>
+
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.h3}>Location</Text>
         <Text>{newCampsiteAddress}</Text>
@@ -50,37 +60,41 @@ export default function ReviewAndSubmitNewCampsite({
           title="Go back to choose location"
           onPress={() => setFormStep(1)}
         />
-
+        <StarRatingComponent
+          initialRating={rating}
+          onRatingChange={handleRatingChange}
+        />
+        
         <Text style={styles.h3}>Basic Info</Text>
-        <FieldAndDataText title="Name" data={newCampsiteData.campsite_name} />
+        <FieldAndDataText title="Name" data={newCampsiteData?.campsite_name} />
         <FieldAndDataText
           title="Category"
-          data={campsiteCategoryMap.get(Number(newCampsiteData.category_id))}
+          data={campsiteCategoryMap.get(Number(newCampsiteData?.category_id))}
         />
         <FieldAndDataText
           title="Description"
-          data={newCampsiteData.description}
+          data={newCampsiteData?.description}
         />
         <FieldAndDataText
           title="Parking cost"
-          data={`£${newCampsiteData.parking_cost}`}
+          data={`£${newCampsiteData?.parking_cost}`}
         />
         <FieldAndDataText
           title="Facilities cost"
-          data={`£${newCampsiteData.facilities_cost}`}
+          data={`£${newCampsiteData?.facilities_cost}`}
         />
         <FieldAndDataText
           title="Open between"
           data={
-            newCampsiteData.opening_month
-              ? `${newCampsiteData.opening_month} and ${newCampsiteData.closing_month}`
+            newCampsiteData?.opening_month
+              ? `${newCampsiteData.opening_month} and ${newCampsiteData?.closing_month}`
               : "n/a"
           }
         />
         <Button title="Go back to basic info" onPress={() => setFormStep(2)} />
 
         <Text style={styles.h3}>Contact(s)</Text>
-        {newCampsiteData.contacts ? (
+        {newCampsiteData?.contacts ? (
           <View style={{ maxHeight: 150 * newCampsiteData.contacts.length }}>
             {newCampsiteData.contacts.map((contact, index) => (
               <View key={index} style={styles.contactContainer}>

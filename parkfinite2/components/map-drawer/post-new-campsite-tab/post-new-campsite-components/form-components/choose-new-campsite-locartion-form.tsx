@@ -19,10 +19,11 @@ export default function ChooseNewCampsiteLocation({
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
 
   function handleSubmitLocation() {
-    setNewCampsiteData({
+    setNewCampsiteData(previousCampsiteData => ({ 
+      ...previousCampsiteData,
       campsite_latitude: droppedMarker?.latitude,
       campsite_longitude: droppedMarker?.longitude,
-    });
+    }))
     setFormStep(2);
   }
 

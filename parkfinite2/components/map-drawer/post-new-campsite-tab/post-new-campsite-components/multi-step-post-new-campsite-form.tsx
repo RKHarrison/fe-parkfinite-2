@@ -7,12 +7,15 @@ import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-loc
 import { UserContext } from "@/contexts/UserContext";
 import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
 import ReviewAndSubmitNewCampsite from "./form-components/review-and-submit-page";
+import RateNewCampsite from "./form-components/rate-new-campsite";
+import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
-  const [formStep, setFormStep] = useState(1);
-  const [newCampsiteAddress, setNewCampsiteAddress] = useState(null);
-  const [newCampsiteData, setNewCampsiteData] = useState({});
+  const [formStep, setFormStep] = useState<number>(1);
+  const [newCampsiteAddress, setNewCampsiteAddress] = useState<string | null>(null);
+  const [newCampsiteData, setNewCampsiteData] = useState<CampsitePostRequest | null>(null);
+  const [rating, setRating] = useState<number | null>(null);
 
   useEffect(() => {
     console.log(newCampsiteData);
@@ -20,10 +23,10 @@ export default function MultiStepPostNewCampsiteForm() {
 
   useEffect(() => {
     setFormStep(1);
-    setNewCampsiteData({});
+    setNewCampsiteData(null);
     if (droppedMarker) {
       getAddressFromCoordinate(droppedMarker).then((res) => {
-        setNewCampsiteAddress(res);
+        setNewCampsiteAddress(prevCampsiteAdress => res);
       });
     }
   }, [droppedMarker]);
@@ -39,7 +42,7 @@ export default function MultiStepPostNewCampsiteForm() {
             setNewCampsiteData={setNewCampsiteData}
           />
         )}
-        {formStep === 2 && droppedMarker && (
+        {formStep === 2 && (
           <NewCampsiteBasicInfoForm
             setFormStep={setFormStep}
             newCampsiteData={newCampsiteData}
@@ -54,9 +57,18 @@ export default function MultiStepPostNewCampsiteForm() {
           />
         )}
         {formStep === 4 && (
+          <RateNewCampsite
+            rating={rating}
+            setRating={setRating}
+            setFormStep={setFormStep}
+          />
+        )}
+        {formStep === 5 && newCampsiteData && (
           <ReviewAndSubmitNewCampsite
             newCampsiteAddress={newCampsiteAddress}
             newCampsiteData={newCampsiteData}
+            rating={rating}
+            setRating={setRating}
             setFormStep={setFormStep}
           />
         )}
