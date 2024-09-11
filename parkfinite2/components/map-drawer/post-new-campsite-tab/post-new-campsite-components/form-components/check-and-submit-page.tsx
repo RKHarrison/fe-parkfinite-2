@@ -16,7 +16,7 @@ import { router } from "expo-router";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
 import { DroppedMarker } from "@/contexts/DroppedMarkerContext";
 
-interface ReviewAndSubmitNewCampsiteProps {
+interface CheckandSubmitNewCampsiteProps {
   newCampsiteAddress: string | null;
   newCampsiteData: CampsitePostRequest;
   rating: StarRating;
@@ -25,14 +25,14 @@ interface ReviewAndSubmitNewCampsiteProps {
   setDroppedMarker: (droppedMarker: DroppedMarker | null) => void;
 }
 
-export default function ReviewAndSubmitNewCampsite({
+export default function CheckandSubmitNewCampsite({
   newCampsiteAddress,
   newCampsiteData,
   rating,
   setRating,
   setFormStep,
   setDroppedMarker
-}: ReviewAndSubmitNewCampsiteProps) {
+}: CheckandSubmitNewCampsiteProps) {
   const { user, logout } = useContext(UserContext);
 
   async function handleSubmitNewCampsite() {

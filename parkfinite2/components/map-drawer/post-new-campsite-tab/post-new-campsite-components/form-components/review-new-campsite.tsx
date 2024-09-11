@@ -3,17 +3,17 @@ import StarRatingComponent, {StarRating} from "@/components/StarRating";
 import { useEffect, useState } from "react";
 
 
-interface RateNewCampsiteProps {
+interface ReveiwNewCampsiteProps {
   rating: StarRating
   setRating: (rating: StarRating) => void;
   setFormStep: (step: number) => void;
 };
 
-export default function RateNewCampsite({
+export default function ReveiwNewCampsite({
   rating,
   setRating,
   setFormStep,
-}: RateNewCampsiteProps) {
+}: ReveiwNewCampsiteProps) {
   const handleRatingChange = (newRating: StarRating) => {
     setRating(newRating);
   };

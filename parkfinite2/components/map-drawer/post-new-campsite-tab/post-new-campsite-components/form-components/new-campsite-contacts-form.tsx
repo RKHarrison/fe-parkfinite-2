@@ -39,7 +39,7 @@ export default function NewCampsiteContactsForm({
     );
   }
   function handleSubmitContactList() {
-    setNewCampsiteData((previousData) => ({
+    setNewCampsiteData((previousData: any) => ({
       ...previousData,
       contacts: contactsList,
     }));

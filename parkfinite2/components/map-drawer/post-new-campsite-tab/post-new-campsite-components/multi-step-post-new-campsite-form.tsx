@@ -7,8 +7,9 @@ import ChooseNewCampsiteLocation from "./form-components/choose-new-campsite-loc
 import { UserContext } from "@/contexts/UserContext";
 import NewCampsiteContactsForm from "./form-components/new-campsite-contacts-form";
 import ReviewAndSubmitNewCampsite from "./form-components/check-and-submit-page";
-import RateNewCampsite from "./form-components/review-new-campsite";
+import ReveiwNewCampsite from "./form-components/review-new-campsite";
 import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import CheckandSubmitNewCampsite from "./form-components/check-and-submit-page";
 
 export default function MultiStepPostNewCampsiteForm() {
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
@@ -58,14 +59,14 @@ export default function MultiStepPostNewCampsiteForm() {
           />
         )}
         {formStep === 4 && (
-          <RateNewCampsite
+          <ReveiwNewCampsite
             rating={rating}
             setRating={setRating}
             setFormStep={setFormStep}
           />
         )}
         {formStep === 5 && newCampsiteData && (
-          <ReviewAndSubmitNewCampsite
+          <CheckandSubmitNewCampsite
             newCampsiteAddress={newCampsiteAddress}
             newCampsiteData={newCampsiteData}
             rating={rating}
