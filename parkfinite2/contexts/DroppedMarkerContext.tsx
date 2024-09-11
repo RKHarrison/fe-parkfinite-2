@@ -1,8 +1,8 @@
 import React, { createContext, useState, ReactNode } from "react";
 
-type DroppedMarker = { longitude: number; latitude: number };
+export type DroppedMarker = { longitude: number; latitude: number };
 
-interface DroppedMarkerContext {
+export interface DroppedMarkerContext {
   droppedMarker: DroppedMarker | null;
   setDroppedMarker: React.Dispatch<
     React.SetStateAction<DroppedMarker | null>

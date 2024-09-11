@@ -1,6 +1,9 @@
 import { Text, View, ScrollView, StyleSheet } from "react-native";
 import { Button } from "@/components/Button";
-import { CampsitePostRequest, CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
+import {
+  CampsitePostRequest,
+  CampsiteReviewPostRequest,
+} from "@/types/api-data-types/campsite-types";
 import FieldAndDataText from "@/components/FieldAndDataText";
 import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
 import {
@@ -11,13 +14,15 @@ import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { router } from "expo-router";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
+import { DroppedMarker } from "@/contexts/DroppedMarkerContext";
 
 interface ReviewAndSubmitNewCampsiteProps {
   newCampsiteAddress: string | null;
   newCampsiteData: CampsitePostRequest;
-  rating: number;
+  rating: StarRating;
   setRating: (rating: StarRating) => void;
   setFormStep: (step: number) => void;
+  setDroppedMarker: (droppedMarker: DroppedMarker | null) => void;
 }
 
 export default function ReviewAndSubmitNewCampsite({
@@ -26,6 +31,7 @@ export default function ReviewAndSubmitNewCampsite({
   rating,
   setRating,
   setFormStep,
+  setDroppedMarker
 }: ReviewAndSubmitNewCampsiteProps) {
   const { user, logout } = useContext(UserContext);
 
@@ -41,10 +47,15 @@ export default function ReviewAndSubmitNewCampsite({
           rating: rating,
           user_account_id: user.user_account_id,
           comment: null,
-        }
-        await postReviewByCampsiteId(postedCampsite.campsite_id, review);
-        alert("New campsite submitted!");
+        };
+        const postedReview = await postReviewByCampsiteId(
+          postedCampsite.campsite_id,
+          review
+        );
+        setDroppedMarker(null);
+        setRating(null)
         router.push("/(drawer)/(tabs)/search/map");
+        alert("New campsite submitted!");
       } catch (error) {
         console.error("Error submitting new campsite", error);
         alert("Error submitting new campsite. Please try again.");
@@ -73,7 +84,7 @@ export default function ReviewAndSubmitNewCampsite({
           initialRating={rating}
           onRatingChange={handleRatingChange}
         />
-        
+
         <Text style={styles.h3}>Basic Info</Text>
         <FieldAndDataText title="Name" data={newCampsiteData?.campsite_name} />
         <FieldAndDataText

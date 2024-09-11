@@ -29,6 +29,7 @@ export default function MultiStepPostNewCampsiteForm() {
         setNewCampsiteAddress(prevCampsiteAdress => res);
       });
     }
+    setRating(null);
   }, [droppedMarker]);
 
   return (
@@ -70,6 +71,7 @@ export default function MultiStepPostNewCampsiteForm() {
             rating={rating}
             setRating={setRating}
             setFormStep={setFormStep}
+            setDroppedMarker={setDroppedMarker}
           />
         )}
       </View>
