@@ -23,7 +23,8 @@ export default function ReveiwNewCampsite({
         initialRating={rating}
         onRatingChange={handleRatingChange}
       />
-      <Button title="Confirm rating" onPress={() => setFormStep(5)} />
+      {rating && <Button title="Confirm rating" onPress={() => setFormStep(5)} />}
+      <Button title="Back to contacts" onPress={() => setFormStep(3)} />
     </>
   );
 }
