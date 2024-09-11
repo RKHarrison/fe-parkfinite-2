@@ -1,9 +1,12 @@
 import { Text, View, ScrollView, StyleSheet } from "react-native";
 import { Button } from "@/components/Button";
-import { CampsitePostRequest } from "@/types/api-data-types/campsite-types";
+import { CampsitePostRequest, CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
 import FieldAndDataText from "@/components/FieldAndDataText";
 import { campsiteCategoryMap } from "./new-campsite-basic-info-form";
-import { postCampsite } from "@/services/api/campsitesApi";
+import {
+  postCampsite,
+  postReviewByCampsiteId,
+} from "@/services/api/campsitesApi";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { router } from "expo-router";
@@ -12,7 +15,7 @@ import StarRatingComponent, { StarRating } from "@/components/StarRating";
 interface ReviewAndSubmitNewCampsiteProps {
   newCampsiteAddress: string | null;
   newCampsiteData: CampsitePostRequest;
-  rating: StarRating;
+  rating: number;
   setRating: (rating: StarRating) => void;
   setFormStep: (step: number) => void;
 }
@@ -27,13 +30,19 @@ export default function ReviewAndSubmitNewCampsite({
   const { user, logout } = useContext(UserContext);
 
   async function handleSubmitNewCampsite() {
-    if (user) {
+    if (user && rating) {
       const fullCampsiteData = {
         ...newCampsiteData,
         user_account_id: user.user_account_id,
       };
       try {
-        await postCampsite(fullCampsiteData);
+        const postedCampsite = await postCampsite(fullCampsiteData);
+        const review: CampsiteReviewPostRequest = {
+          rating: rating,
+          user_account_id: user.user_account_id,
+          comment: null,
+        }
+        await postReviewByCampsiteId(postedCampsite.campsite_id, review);
         alert("New campsite submitted!");
         router.push("/(drawer)/(tabs)/search/map");
       } catch (error) {
