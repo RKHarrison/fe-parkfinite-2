@@ -9,6 +9,7 @@ import CampsiteBasicInfo from "./individual-campsite-components/campsite-basic-i
 import CampsiteContacts from "./individual-campsite-components/campsite-contacts";
 import CampsiteHeaderAndRating from "./individual-campsite-components/campsite-header-and-rating";
 import CampsiteReviews from "./individual-campsite-components/campsite-reviews";
+import PostCampsiteReview from "./individual-campsite-components/post-campsite-review";
 
 type IndividualCampsiteScreenProps = {
   id: string | string[];
@@ -35,6 +36,7 @@ export default function IndividualCampsiteScreen({
           {loadedCampsite.contacts[0] && (
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
+          <PostCampsiteReview campsiteId={loadedCampsite.campsite_id} />
           <CampsiteReviews campsiteId={loadedCampsite.campsite_id} />
         </ScrollView>
       )}
