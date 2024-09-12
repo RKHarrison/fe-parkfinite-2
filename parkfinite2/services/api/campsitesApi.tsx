@@ -50,7 +50,7 @@ export const postCampsite = (newCampsiteData: CampsitePostRequest) => {
         alert("Please log in again, session has expired.");
         router.push("/(drawer)/account");
       }
-      throw error;
+      return Promise.reject(error);
     });
 };
 
@@ -66,7 +66,7 @@ export const getCampsites = () => {
         status: error.response?.status,
         data: error.response?.data,
       });
-      throw error;
+      return Promise.reject(error);
     });
 };
 
@@ -82,7 +82,7 @@ export function getCampsiteById(campsiteId: string | string[]) {
         status: error.response?.status,
         data: error.response?.data,
       });
-      throw error;
+      return Promise.reject(error);
     });
 }
 
@@ -101,7 +101,7 @@ export function postReviewByCampsiteId(
         status: error.response?.status,
         data: error.response?.data,
       });
-      throw error;
+      return Promise.reject(error);
     });
 }
 
@@ -117,6 +117,6 @@ export function getReviewsByCampsiteId(campsiteId: string | string[]) {
         status: error.response?.status,
         data: error.response?.data,
       });
-      throw error;
+      return Promise.reject(error);
     });
 }
