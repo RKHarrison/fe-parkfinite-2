@@ -3,6 +3,7 @@ import { ScrollView } from "react-native";
 
 import { getCampsiteById } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
+import { CampsiteReview } from "@/types/api-data-types/campsite-types";
 
 import { ImageCarousel } from "@/components/ImageCarousel";
 import CampsiteBasicInfo from "./individual-campsite-components/campsite-basic-info";
@@ -19,6 +20,7 @@ export default function IndividualCampsiteScreen({
   id,
 }: IndividualCampsiteScreenProps) {
   const [loadedCampsite, setLoadedCampsite] = useState<Campsite | null>(null);
+  const [campsiteReviews, setCampsiteReviews] = useState<CampsiteReview[]>([]);
   const [userHasReviewed, setUserHasReviewed] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function IndividualCampsiteScreen({
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
           {!userHasReviewed && <PostCampsiteReview campsiteId={loadedCampsite.campsite_id} setUserHasReviewed={setUserHasReviewed}/>}
-          <CampsiteReviews campsiteId={loadedCampsite.campsite_id} />
+          <CampsiteReviews campsiteId={loadedCampsite.campsite_id} campsiteReviews={campsiteReviews} setCampsiteReviews={setCampsiteReviews} />
         </ScrollView>
       )}
     </>

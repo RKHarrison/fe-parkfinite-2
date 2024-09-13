@@ -7,11 +7,15 @@ import { convertNumberToStars } from "@/utils/convertNumberToStars";
 
 type CampsiteReviewsProps = {
   campsiteId: number;
+  campsiteReviews: CampsiteReview[];
+  setCampsiteReviews: (value: CampsiteReview[]) => void;
 };
 
-export default function CampsiteReviews({ campsiteId }: CampsiteReviewsProps) {
-  const [campsiteReviews, setCampsiteReviews] = useState<CampsiteReview[]>([]);
-
+export default function CampsiteReviews({
+  campsiteId,
+  campsiteReviews,
+  setCampsiteReviews,
+}: CampsiteReviewsProps) {
   useEffect(() => {
     getReviewsByCampsiteId(campsiteId).then((reviewsFromApi) => {
       setCampsiteReviews(reviewsFromApi);
@@ -36,7 +40,9 @@ export default function CampsiteReviews({ campsiteId }: CampsiteReviewsProps) {
             </View>
           ))
         ) : (
-          <Text style={campsiteDetailedCardStyles.italicText}>Be the first to review this campsite...</Text>
+          <Text style={campsiteDetailedCardStyles.italicText}>
+            Be the first to review this campsite...
+          </Text>
         )}
       </View>
     </>
