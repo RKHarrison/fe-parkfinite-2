@@ -6,7 +6,7 @@ import { Animated, StyleSheet, View, Text, TouchableWithoutFeedback } from "reac
 export type StarRating = number | null;
 
 type StarRatingProps = {
-  initialRating: StarRating,
+  initialRating?: StarRating,
   onRatingChange: (rating: StarRating) => void
 }
 
