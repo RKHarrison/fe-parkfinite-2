@@ -11,10 +11,12 @@ import { postReviewByCampsiteId } from "@/services/api/campsitesApi";
 
 type PostCampsiteReviewProps = {
   campsiteId: number;
+  setUserHasReviewed: (value: boolean) => void;
 };
 
 export default function PostCampsiteReview({
   campsiteId,
+  setUserHasReviewed
 }: PostCampsiteReviewProps) {
   const { user } = useContext(UserContext);
   const { control, handleSubmit, setValue } =
@@ -52,6 +54,7 @@ export default function PostCampsiteReview({
         title="Submit review"
         onPress={handleSubmit((data) => {
           postReviewByCampsiteId(campsiteId, data);
+          setUserHasReviewed(true);
         })}
       />
     </View>

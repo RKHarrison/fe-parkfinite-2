@@ -19,6 +19,7 @@ export default function IndividualCampsiteScreen({
   id,
 }: IndividualCampsiteScreenProps) {
   const [loadedCampsite, setLoadedCampsite] = useState<Campsite | null>(null);
+  const [userHasReviewed, setUserHasReviewed] = useState<boolean>(false);
 
   useEffect(() => {
     getCampsiteById(id).then((campsiteFromApi) =>
@@ -36,7 +37,7 @@ export default function IndividualCampsiteScreen({
           {loadedCampsite.contacts[0] && (
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
-          <PostCampsiteReview campsiteId={loadedCampsite.campsite_id} />
+          {!userHasReviewed && <PostCampsiteReview campsiteId={loadedCampsite.campsite_id} setUserHasReviewed={setUserHasReviewed}/>}
           <CampsiteReviews campsiteId={loadedCampsite.campsite_id} />
         </ScrollView>
       )}
