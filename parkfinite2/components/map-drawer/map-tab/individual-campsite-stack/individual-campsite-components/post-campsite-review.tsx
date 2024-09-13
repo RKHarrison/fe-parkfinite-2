@@ -6,6 +6,7 @@ import StarRatingComponent, { StarRating } from "@/components/StarRating";
 import { Button } from "@/components/Button";
 import { CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
 import { UserContext } from "@/contexts/UserContext";
+import FieldAndDataText from "@/components/FieldAndDataText";
 
 type PostCampsiteReviewProps = {
   campsiteId: number;
@@ -15,7 +16,6 @@ export default function PostCampsiteReview({
   campsiteId,
 }: PostCampsiteReviewProps) {
   const { user } = useContext(UserContext);
-  const [rating, setRating] = useState<StarRating>(null);
   const { control, handleSubmit, setValue } =
     useForm<CampsiteReviewPostRequest>({
       defaultValues: {
@@ -24,15 +24,14 @@ export default function PostCampsiteReview({
       },
     });
 
-  const handleRatingChange = (rating: StarRating) => {
-    setRating(rating);
-  };
-
   return (
     <View style={campsiteDetailedCardStyles.container}>
       <Text>PostCampsiteReview</Text>
 
-      <StarRatingComponent onRatingChange={handleRatingChange} />
+      <Controller control={control} name="rating" rules={{required:true}}
+      render={({ field: { onChange, value } }) => (
+        <StarRatingComponent onRatingChange={onChange} />
+      )} />
 
       <Controller
         control={control}
