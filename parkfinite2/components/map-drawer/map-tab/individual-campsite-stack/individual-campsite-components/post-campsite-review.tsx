@@ -7,6 +7,7 @@ import { Button } from "@/components/Button";
 import { CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
 import { UserContext } from "@/contexts/UserContext";
 import FieldAndDataText from "@/components/FieldAndDataText";
+import { postReviewByCampsiteId } from "@/services/api/campsitesApi";
 
 type PostCampsiteReviewProps = {
   campsiteId: number;
@@ -50,7 +51,7 @@ export default function PostCampsiteReview({
       <Button
         title="Submit review"
         onPress={handleSubmit((data) => {
-          console.log(data);
+          postReviewByCampsiteId(campsiteId, data);
         })}
       />
     </View>
