@@ -105,7 +105,7 @@ export function postReviewByCampsiteId(
     });
 }
 
-export function getReviewsByCampsiteId(campsiteId: string | string[]) {
+export function getReviewsByCampsiteId(campsiteId: number) {
   return parkfinite2Api
     .get<CampsiteReview[]>(`/campsites/${campsiteId}/reviews`)
     .then((res) => {
