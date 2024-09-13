@@ -3,6 +3,7 @@ import { Text, TextInput, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { campsiteDetailedCardStyles } from "../individual-campsite-styles";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
+import { Button } from "@/components/Button";
 import { CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
 import { UserContext } from "@/contexts/UserContext";
 
@@ -46,7 +47,13 @@ export default function PostCampsiteReview({
           />
         )}
       />
-      
+
+      <Button
+        title="Submit review"
+        onPress={handleSubmit((data) => {
+          console.log(data);
+        })}
+      />
     </View>
   );
 }
