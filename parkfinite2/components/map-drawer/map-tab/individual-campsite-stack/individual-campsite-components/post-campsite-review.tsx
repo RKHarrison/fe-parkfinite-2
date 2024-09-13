@@ -33,6 +33,20 @@ export default function PostCampsiteReview({
 
       <StarRatingComponent onRatingChange={handleRatingChange} />
 
+      <Controller
+        control={control}
+        name="comment"
+        rules={{ required: false, minLength: 4, maxLength: 500 }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            style={campsiteDetailedCardStyles.textInput}
+            placeholder="Leave a comment..."
+            onChangeText={onChange}
+            value={value ?? ""}
+          />
+        )}
+      />
+      
     </View>
   );
 }
