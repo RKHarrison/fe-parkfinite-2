@@ -16,7 +16,7 @@ type PostCampsiteReviewProps = {
 
 export default function PostCampsiteReview({
   campsiteId,
-  setUserHasReviewed
+  setUserHasReviewed,
 }: PostCampsiteReviewProps) {
   const { user } = useContext(UserContext);
   const { control, handleSubmit, setValue } =
@@ -31,10 +31,14 @@ export default function PostCampsiteReview({
     <View style={campsiteDetailedCardStyles.container}>
       <Text>PostCampsiteReview</Text>
 
-      <Controller control={control} name="rating" rules={{required:true}}
-      render={({ field: { onChange, value } }) => (
-        <StarRatingComponent onRatingChange={onChange} />
-      )} />
+      <Controller
+        control={control}
+        name="rating"
+        rules={{ required: true }}
+        render={({ field: { onChange, value } }) => (
+          <StarRatingComponent onRatingChange={onChange} />
+        )}
+      />
 
       <Controller
         control={control}
@@ -52,9 +56,14 @@ export default function PostCampsiteReview({
 
       <Button
         title="Submit review"
-        onPress={handleSubmit((data) => {
-          postReviewByCampsiteId(campsiteId, data);
-          setUserHasReviewed(true);
+        onPress={handleSubmit(async (data) => {
+          try {
+            postReviewByCampsiteId(campsiteId, data);
+            setUserHasReviewed(true);
+          } catch (error) {
+            alert("Failed to post review. Please try again later.");
+            setUserHasReviewed(false);
+          }
         })}
       />
     </View>
