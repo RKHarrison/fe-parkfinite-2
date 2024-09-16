@@ -37,11 +37,10 @@ export default function PostCampsiteReview({
     }
     const tempReviewID = Number(`-${campsiteId}${user?.user_account_id}${Date.now()}`);
     const optimisticReview = ({
-      rating: data.rating,
-      comment: data.comment,
-      username: user?.username,
-      campsite_id: campsiteId,
+      ...data,
       review_id: tempReviewID,
+      campsite_id: campsiteId,
+      username: user.username,
     });
 
     try {
