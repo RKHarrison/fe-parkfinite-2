@@ -46,7 +46,7 @@ export interface Campsite {
 export interface CampsiteReview {
   rating: number;
   username: string;
-  comment: string;
+  comment: string | null;
   review_id: number;
   campsite_id: number;
 }
