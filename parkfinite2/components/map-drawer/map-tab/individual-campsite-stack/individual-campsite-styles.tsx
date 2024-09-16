@@ -49,5 +49,15 @@ export const campsiteDetailedCardStyles = StyleSheet.create({
   },
   italicText: {
     fontStyle: "italic"
-  }
+  },
+  textInput: {
+    height: 40,
+    marginTop: 3,
+    marginBottom: 3,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    minWidth: "80%",
+    backgroundColor: "#d8f3d8",
+  },
 });
