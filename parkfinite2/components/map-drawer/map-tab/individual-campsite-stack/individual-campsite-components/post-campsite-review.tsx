@@ -4,7 +4,10 @@ import { Controller, useForm } from "react-hook-form";
 import { campsiteDetailedCardStyles } from "../individual-campsite-styles";
 import StarRatingComponent, { StarRating } from "@/components/StarRating";
 import { Button } from "@/components/Button";
-import { CampsiteReviewPostRequest } from "@/types/api-data-types/campsite-types";
+import {
+  CampsiteReviewPostRequest,
+  CampsiteReview,
+} from "@/types/api-data-types/campsite-types";
 import { UserContext } from "@/contexts/UserContext";
 import FieldAndDataText from "@/components/FieldAndDataText";
 import { postReviewByCampsiteId } from "@/services/api/campsitesApi";
@@ -12,11 +15,13 @@ import { postReviewByCampsiteId } from "@/services/api/campsitesApi";
 type PostCampsiteReviewProps = {
   campsiteId: number;
   setUserHasReviewed: (value: boolean) => void;
+  setCampsiteReviews: React.Dispatch<React.SetStateAction<CampsiteReview[]>>;
 };
 
 export default function PostCampsiteReview({
   campsiteId,
   setUserHasReviewed,
+  setCampsiteReviews,
 }: PostCampsiteReviewProps) {
   const { user } = useContext(UserContext);
   const { control, handleSubmit, setValue } =
@@ -57,12 +62,27 @@ export default function PostCampsiteReview({
       <Button
         title="Submit review"
         onPress={handleSubmit(async (data) => {
+          if (!user) return alert("Please log in again to post a review.");
           try {
-            postReviewByCampsiteId(campsiteId, data);
+            const tempReviewID = Number(
+              `-${campsiteId}${user.user_account_id}${Date.now()}`
+            );
+            const newReview: CampsiteReview = {
+              rating: data.rating,
+              comment: data.comment,
+              username: user?.username,
+              campsite_id: campsiteId,
+              review_id: tempReviewID,
+            };  
             setUserHasReviewed(true);
+            setCampsiteReviews((prevReviews: CampsiteReview[]) => [
+              ...prevReviews,
+              newReview,
+            ]);
+            postReviewByCampsiteId(campsiteId, data);
           } catch (error) {
-            alert("Failed to post review. Please try again later.");
             setUserHasReviewed(false);
+            alert("Failed to post review. Please try again later.");
           }
         })}
       />
