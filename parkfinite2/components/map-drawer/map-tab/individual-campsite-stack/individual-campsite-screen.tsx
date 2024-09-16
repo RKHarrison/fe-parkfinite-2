@@ -39,8 +39,18 @@ export default function IndividualCampsiteScreen({
           {loadedCampsite.contacts[0] && (
             <CampsiteContacts campsiteContacts={loadedCampsite.contacts} />
           )}
-          {!userHasReviewed && <PostCampsiteReview campsiteId={loadedCampsite.campsite_id} setUserHasReviewed={setUserHasReviewed}/>}
-          <CampsiteReviews campsiteId={loadedCampsite.campsite_id} campsiteReviews={campsiteReviews} setCampsiteReviews={setCampsiteReviews} />
+          {!userHasReviewed && (
+            <PostCampsiteReview
+              campsiteId={loadedCampsite.campsite_id}
+              setUserHasReviewed={setUserHasReviewed}
+              setCampsiteReviews={setCampsiteReviews}
+            />
+          )}
+          <CampsiteReviews
+            campsiteId={loadedCampsite.campsite_id}
+            campsiteReviews={campsiteReviews}
+            setCampsiteReviews={setCampsiteReviews}
+          />
         </ScrollView>
       )}
     </>
