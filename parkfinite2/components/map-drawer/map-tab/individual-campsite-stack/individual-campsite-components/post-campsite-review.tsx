@@ -73,13 +73,23 @@ export default function PostCampsiteReview({
               username: user?.username,
               campsite_id: campsiteId,
               review_id: tempReviewID,
-            };  
+            };
             setUserHasReviewed(true);
             setCampsiteReviews((prevReviews: CampsiteReview[]) => [
               ...prevReviews,
               newReview,
             ]);
-            postReviewByCampsiteId(campsiteId, data);
+            const reviewFromApi = await postReviewByCampsiteId(
+              campsiteId,
+              data
+            );
+            setCampsiteReviews((prevReviews: CampsiteReview[]) =>
+              prevReviews.map((review) =>
+                review.review_id === tempReviewID
+                  ? { ...reviewFromApi }
+                  : review
+              )
+            );
           } catch (error) {
             setUserHasReviewed(false);
             alert("Failed to post review. Please try again later.");
