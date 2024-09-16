@@ -1,15 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Text, TextInput, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { campsiteDetailedCardStyles } from "../individual-campsite-styles";
-import StarRatingComponent, { StarRating } from "@/components/StarRating";
+import StarRatingComponent from "@/components/StarRating";
 import { Button } from "@/components/Button";
 import {
   CampsiteReviewPostRequest,
   CampsiteReview,
 } from "@/types/api-data-types/campsite-types";
 import { UserContext } from "@/contexts/UserContext";
-import FieldAndDataText from "@/components/FieldAndDataText";
 import { postReviewByCampsiteId } from "@/services/api/campsitesApi";
 
 type PostCampsiteReviewProps = {
@@ -24,13 +23,53 @@ export default function PostCampsiteReview({
   setCampsiteReviews,
 }: PostCampsiteReviewProps) {
   const { user } = useContext(UserContext);
-  const { control, handleSubmit, setValue } =
-    useForm<CampsiteReviewPostRequest>({
-      defaultValues: {
-        user_account_id: user?.user_account_id,
-        comment: null,
-      },
+  const { control, handleSubmit } = useForm<CampsiteReviewPostRequest>({
+    defaultValues: {
+      user_account_id: user?.user_account_id,
+      comment: null,
+    },
+  });
+
+  const handleReviewSubmission = async (data: CampsiteReviewPostRequest) => {
+    if (!user) {
+      alert("Please log in again to post a review.");
+      return;
+    }
+    const tempReviewID = Number(`-${campsiteId}${user?.user_account_id}${Date.now()}`);
+    const optimisticReview = ({
+      rating: data.rating,
+      comment: data.comment,
+      username: user?.username,
+      campsite_id: campsiteId,
+      review_id: tempReviewID,
     });
+
+    try {
+      updateReviewsWithOptimisticReview(optimisticReview);
+      const reviewFromApi = await postReviewByCampsiteId(campsiteId, data);
+      replaceTemporaryReview(tempReviewID, reviewFromApi);
+
+    } catch (error) {
+      setUserHasReviewed(false);
+      alert("Failed to post review. Please try again later.");
+    }
+  };
+
+  const updateReviewsWithOptimisticReview = (newReview: CampsiteReview) => {
+    setUserHasReviewed(true);
+    setCampsiteReviews((prevReviews) => [...prevReviews, newReview]);
+  };
+
+  const replaceTemporaryReview = (
+    tempReviewID: number,
+    actualReview: CampsiteReview
+  ) => {
+    setCampsiteReviews((prevReviews) =>
+      prevReviews.map((review) =>
+        review.review_id === tempReviewID ? actualReview : review
+      )
+    );
+  };
 
   return (
     <View style={campsiteDetailedCardStyles.container}>
@@ -40,7 +79,7 @@ export default function PostCampsiteReview({
         control={control}
         name="rating"
         rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange } }) => (
           <StarRatingComponent onRatingChange={onChange} />
         )}
       />
@@ -48,7 +87,7 @@ export default function PostCampsiteReview({
       <Controller
         control={control}
         name="comment"
-        rules={{ required: false, minLength: 4, maxLength: 500 }}
+        rules={{ minLength: 4, maxLength: 500 }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             style={campsiteDetailedCardStyles.textInput}
@@ -59,43 +98,7 @@ export default function PostCampsiteReview({
         )}
       />
 
-      <Button
-        title="Submit review"
-        onPress={handleSubmit(async (data) => {
-          if (!user) return alert("Please log in again to post a review.");
-          try {
-            const tempReviewID = Number(
-              `-${campsiteId}${user.user_account_id}${Date.now()}`
-            );
-            const newReview: CampsiteReview = {
-              rating: data.rating,
-              comment: data.comment,
-              username: user?.username,
-              campsite_id: campsiteId,
-              review_id: tempReviewID,
-            };
-            setUserHasReviewed(true);
-            setCampsiteReviews((prevReviews: CampsiteReview[]) => [
-              ...prevReviews,
-              newReview,
-            ]);
-            const reviewFromApi = await postReviewByCampsiteId(
-              campsiteId,
-              data
-            );
-            setCampsiteReviews((prevReviews: CampsiteReview[]) =>
-              prevReviews.map((review) =>
-                review.review_id === tempReviewID
-                  ? { ...reviewFromApi }
-                  : review
-              )
-            );
-          } catch (error) {
-            setUserHasReviewed(false);
-            alert("Failed to post review. Please try again later.");
-          }
-        })}
-      />
+      <Button title="Submit review" onPress={handleSubmit(handleReviewSubmission)} />
     </View>
   );
 }
