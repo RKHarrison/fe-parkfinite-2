@@ -25,7 +25,7 @@ export interface CampsiteCategory {
 }
 
 export interface Campsite {
-  added_by: string;
+  username: string;
   approved: boolean;
   average_rating: number;
   campsite_id: number;
