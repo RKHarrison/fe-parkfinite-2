@@ -44,7 +44,8 @@ export default function PostCampsiteReview({
     });
 
     try {
-      updateReviewsWithOptimisticReview(optimisticReview);
+      setUserHasReviewed(true);
+      setCampsiteReviews((prevReviews) => [...prevReviews, optimisticReview])
       const reviewFromApi = await postReviewByCampsiteId(campsiteId, data);
       replaceTemporaryReview(tempReviewID, reviewFromApi);
 
@@ -52,11 +53,6 @@ export default function PostCampsiteReview({
       setUserHasReviewed(false);
       alert("Failed to post review. Please try again later.");
     }
-  };
-
-  const updateReviewsWithOptimisticReview = (newReview: CampsiteReview) => {
-    setUserHasReviewed(true);
-    setCampsiteReviews((prevReviews) => [...prevReviews, newReview]);
   };
 
   const replaceTemporaryReview = (
