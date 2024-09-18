@@ -20,10 +20,10 @@ export default function CampsiteBasicInfo({
         title="Added on"
         data={campsite && formatDateStamp(campsite.date_added)}
       />
-      <FieldAndDataText title="Added by" data={campsite?.added_by} />
-      <Text
-        style={{ fontStyle: "italic" }}
-      >{`"${campsite?.description}"`}</Text>
+      <FieldAndDataText title="Added by" data={campsite.username} />
+      <Text style={{ fontStyle: "italic" }}>
+        {campsite.description && `"${campsite.description}"`}
+      </Text>
     </View>
   );
 }
