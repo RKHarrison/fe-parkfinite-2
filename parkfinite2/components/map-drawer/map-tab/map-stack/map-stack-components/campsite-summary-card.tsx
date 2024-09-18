@@ -1,11 +1,11 @@
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { Collapsible } from "@/components/Collapsible";
-import { Text, Image, View, Pressable } from "react-native";
+import { Text, Image, View } from "react-native";
 import { convertNumberToStars } from "@/utils/convertNumberToStars";
-import { StyleSheet, ViewStyle } from "react-native";
-import { useContext, useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { useContext } from "react";
 import { Button } from "@/components/Button";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { UserContext } from "@/contexts/UserContext";
 
 type CampsiteSummaryCardProps = {

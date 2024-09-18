@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { router } from "expo-router";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";

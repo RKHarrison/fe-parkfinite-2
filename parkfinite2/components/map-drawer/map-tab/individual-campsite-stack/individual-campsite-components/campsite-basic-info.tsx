@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import formatDateStamp from "@/utils/formatDateStamp";
 import { Campsite } from "@/types/api-data-types/campsite-types";
 import { campsiteDetailedCardStyles } from "../individual-campsite-styles";

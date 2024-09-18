@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getReviewsByCampsiteId } from "@/services/api/campsitesApi";
 import { CampsiteReview } from "@/types/api-data-types/campsite-types";
 import { campsiteDetailedCardStyles } from "../individual-campsite-styles";

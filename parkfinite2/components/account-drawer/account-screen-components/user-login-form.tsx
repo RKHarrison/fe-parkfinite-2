@@ -1,11 +1,8 @@
-import { save, getValueFor } from "../../../utils/expoSecureStore";
-import { getJsonWebToken } from "@/services/api/authApi";
-import { Button } from "@/components/Button";
+import { useContext, useState } from "react";
 import { StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useContext, useEffect, useState } from "react";
-import { getUserAccountDataById } from "@/services/api/usersApi";
 import { UserContext } from "@/contexts/UserContext";
+import { Button } from "@/components/Button";
 
 export default function UserLoginForm() {
   const { login } = useContext(UserContext);

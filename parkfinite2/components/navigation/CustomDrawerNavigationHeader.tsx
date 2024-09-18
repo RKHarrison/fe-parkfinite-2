@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StyleSheet, View, TextInput, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { UserContext } from "@/contexts/UserContext";
 import { Ionicons } from "@expo/vector-icons";
