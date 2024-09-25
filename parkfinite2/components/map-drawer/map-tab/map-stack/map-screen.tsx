@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
-import MapView from "react-native-map-clustering";
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Image, StyleSheet, View, Text, Platform } from "react-native";
+
 import * as Location from "expo-location";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -24,6 +23,15 @@ import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
 import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
 import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
 import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
+
+let MapView, Marker;
+if (Platform.OS === "web") {
+  MapView = require("@preflower/react-native-web-maps").default;
+  Marker = require("@preflower/react-native-web-maps").Marker;
+} else if (Platform.OS === "android" || Platform.OS === "ios") {
+  MapView = require("react-native-map-clustering").default;
+  Marker = require("react-native-maps").Marker;
+}
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -53,6 +61,18 @@ export default function MapScreen({ region }: MapScreenProps) {
   );
   const isFocused = useIsFocused();
 
+  const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      loadGoogleMapsAPI(() => {
+        setGoogleMapsLoaded(true);
+      });
+    } else {
+      setGoogleMapsLoaded(true);
+    }
+  }, []);
+
   useEffect(() => {
     Location.requestForegroundPermissionsAsync();
     getCampsites()
@@ -66,6 +86,10 @@ export default function MapScreen({ region }: MapScreenProps) {
     setSelectedCampsite(null);
   }
 
+  if (!googleMapsLoaded) {
+    return <Text>LOADING....</Text>;
+  }
+
   return (
     <>
       {selectedCampsite && (
@@ -76,7 +100,6 @@ export default function MapScreen({ region }: MapScreenProps) {
       <MapView
         style={styles.map}
         onPress={handleMapPress}
-        provider={PROVIDER_GOOGLE}
         loadingEnabled={true}
         initialRegion={region}
         region={region}
@@ -88,7 +111,7 @@ export default function MapScreen({ region }: MapScreenProps) {
         clusterColor="#88c9ffBF"
         minPoints={6}
       >
-        {loadedCampsites.map((campsite, index) => (
+        {loadedCampsites.map((campsite) => (
           <Marker
             key={campsite.campsite_id}
             onPress={() => setSelectedCampsite(campsite)}
@@ -127,3 +150,22 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
+
+// Function to load Google Maps API
+function loadGoogleMapsAPI(callback) {
+  if (window.google && window.google.maps) {
+    // Google Maps API is already loaded, call the callback function
+    callback();
+  } else {
+    const apiKey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+    // Google Maps API is not loaded, dynamically load it
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=geometry`;
+    script.async = true;
+    script.defer = true;
+    script.onload = callback;
+
+    // Append the script to the document
+    document.head.appendChild(script);
+  }
+}
