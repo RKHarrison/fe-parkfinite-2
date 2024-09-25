@@ -13,17 +13,6 @@ import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-car
 import ClearDroppedMarkerButton from "./map-stack-components/clear-dropped-marker-button";
 import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
 
-import icon10 from "@/assets/images/campsite-icons/beach-icon.png";
-import icon8 from "@/assets/images/campsite-icons/camping-icon.png";
-import icon3 from "@/assets/images/campsite-icons/carpark-day-only-icon.png";
-import icon2 from "@/assets/images/campsite-icons/carpark-icon.png";
-import icon1 from "@/assets/images/campsite-icons/in-nature-icon.png";
-import icon5 from "@/assets/images/campsite-icons/motorhome-free-icon.png";
-import icon6 from "@/assets/images/campsite-icons/motorhome-paid-icon.png";
-import icon7 from "@/assets/images/campsite-icons/motorhome-private-icon.png";
-import icon4 from "@/assets/images/campsite-icons/motorway-icon.png";
-import icon9 from "@/assets/images/campsite-icons/picnic-icon.png";
-
 let MapView, Marker;
 if (Platform.OS === "web") {
   MapView = require("@preflower/react-native-web-maps").default;
@@ -36,17 +25,17 @@ if (Platform.OS === "web") {
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 const icons: Record<IconKey, any> = {
-  1: icon1,
-  2: icon2,
-  3: icon3,
-  4: icon4,
-  5: icon5,
-  6: icon6,
-  7: icon7,
-  8: icon8,
-  9: icon9,
-  10: icon10,
-};
+  1: Platform.OS === "web" ? "../../assets/images/campsite-icons/in-nature-icon-3030.png" : require("@/assets/images/campsite-icons/in-nature-icon.png"),
+  2: Platform.OS === "web" ? "../../assets/images/campsite-icons/carpark-icon-3030.png" : require("@/assets/images/campsite-icons/carpark-icon.png"),
+  3: Platform.OS === "web" ? "../../assets/images/campsite-icons/carpark-day-only-icon-3030.png" : require("@/assets/images/campsite-icons/carpark-day-only-icon.png"),
+  4: Platform.OS === "web" ? "../../assets/images/campsite-icons/motorway-icon-3030.png" : require("@/assets/images/campsite-icons/motorway-icon.png"),
+  5: Platform.OS === "web" ? "../../assets/images/campsite-icons/motorhome-free-icon-3030.png" : require("@/assets/images/campsite-icons/motorhome-free-icon.png"),
+  6: Platform.OS === "web" ? "../../assets/images/campsite-icons/motorhome-paid-icon-3030.png" : require("@/assets/images/campsite-icons/motorhome-paid-icon.png"),
+  7: Platform.OS === "web" ? "../../assets/images/campsite-icons/motorhome-private-icon-3030.png" : require("@/assets/images/campsite-icons/motorhome-private-icon.png"),
+  8: Platform.OS === "web" ? "../../assets/images/campsite-icons/camping-icon-3030.png" : require("@/assets/images/campsite-icons/camping-icon.png"),
+  9: Platform.OS === "web" ? "../../assets/images/campsite-icons/picnic-icon-3030.png" : require("@/assets/images/campsite-icons/picnic-icon.png"),
+  10: Platform.OS === "web" ? "../../assets/images/campsite-icons/beach-icon-3030.png" : require("@/assets/images/campsite-icons/beach-icon.png"),
+}
 
 type MapScreenProps = {
   region: Region;
@@ -121,12 +110,16 @@ export default function MapScreen({ region }: MapScreenProps) {
             }}
             title={campsite.campsite_name}
             description={campsite.category.category_name}
+            icon={Platform.OS === 'web' && icons[campsite.category.category_id as IconKey]}
+
           >
-            <Image
-              source={icons[campsite.category.category_id as IconKey]}
-              style={{ width: 30, height: 30 }}
-              resizeMode="contain"
-            />
+            {Platform.OS !== "web" && (
+              <Image
+                source={icons[campsite.category.category_id as IconKey]}
+                style={{ width: 30, height: 30 }}
+                resizeMode="contain"
+              />
+            )}
           </Marker>
         ))}
 
