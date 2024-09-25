@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Platform, Text } from "react-native";
 
 import { Region } from "@/types/locations";
 
@@ -19,6 +19,21 @@ export default function Map() {
 
   return (
     <View style={styles.container}>
+      {Platform.OS === "web" && (
+        <Text
+          style={{
+            zIndex: 20000,
+            position: "absolute",
+            bottom: 35,
+            left: 10,
+            color: "red",
+            fontWeight: 600,
+          }}
+        >
+          WEB MODE IS IN BETA: some formatting and features might not work as
+          expected
+        </Text>
+      )}
       <GooglePlacesInput setRegion={setRegion} />
       <MapScreen region={region} />
     </View>
