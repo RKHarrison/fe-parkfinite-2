@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text, Platform } from "react-native";
-
-import * as Location from "expo-location";
+import MapView, {Marker} from "react-native-maps";
 import { useIsFocused } from "@react-navigation/native";
+import * as Location from "expo-location";
 
 import { UserContext } from "@/contexts/UserContext";
 import { DroppedMarkerContext } from "@/contexts/DroppedMarkerContext";
@@ -13,13 +13,15 @@ import { CampsiteSummaryCard } from "./map-stack-components/campsite-summary-car
 import ClearDroppedMarkerButton from "./map-stack-components/clear-dropped-marker-button";
 import PostNewCampsiteButton from "./map-stack-components/post-new-campsite-button";
 
-let MapView, Marker;
+let MapViewComponent: typeof MapView;
+let MarkerComponent: typeof Marker;
+
 if (Platform.OS === "web") {
-  MapView = require("@preflower/react-native-web-maps").default;
-  Marker = require("@preflower/react-native-web-maps").Marker;
+  MapViewComponent = require("@preflower/react-native-web-maps").default;
+  MarkerComponent = require("@preflower/react-native-web-maps").Marker;
 } else if (Platform.OS === "android" || Platform.OS === "ios") {
-  MapView = require("react-native-map-clustering").default;
-  Marker = require("react-native-maps").Marker;
+  MapViewComponent = require("react-native-map-clustering").default;
+  MarkerComponent = Marker
 }
 
 type IconKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
@@ -86,7 +88,7 @@ export default function MapScreen({ region }: MapScreenProps) {
       )}
       {droppedMarker && <ClearDroppedMarkerButton />}
       {droppedMarker && <PostNewCampsiteButton />}
-      <MapView
+      <MapViewComponent
         style={styles.map}
         onPress={handleMapPress}
         loadingEnabled={true}
@@ -101,7 +103,7 @@ export default function MapScreen({ region }: MapScreenProps) {
         minPoints={6}
       >
         {loadedCampsites.map((campsite) => (
-          <Marker
+          <MarkerComponent
             key={campsite.campsite_id}
             onPress={() => setSelectedCampsite(campsite)}
             coordinate={{
@@ -120,7 +122,7 @@ export default function MapScreen({ region }: MapScreenProps) {
                 resizeMode="contain"
               />
             )}
-          </Marker>
+          </MarkerComponent>
         ))}
 
         {droppedMarker && (
@@ -131,7 +133,7 @@ export default function MapScreen({ region }: MapScreenProps) {
             isPreselected
           />
         )}
-      </MapView>
+      </MapViewComponent>
     </>
   );
 }
