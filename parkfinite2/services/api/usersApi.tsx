@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as SecureStore from "expo-secure-store";
+import { getToken } from "@/utils/tokenUtils";
 
 const parkfinite2Api = axios.create({
   baseURL: "https://parkfinite-2-api.onrender.com/",
@@ -10,25 +10,23 @@ const parkfinite2Api = axios.create({
 
 parkfinite2Api.interceptors.request.use(
   async (config) => {
-    const token = await SecureStore.getItemAsync("bearerToken");
+    const token = await getToken();
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => {
-    throw error;
+    return Promise.reject(error);
   }
 );
 
 export const getUserAccountDataById = (userId: string) => {
   return parkfinite2Api
     .get(`/users/${userId}`)
-    .then((res) => {
-      return res.data
-    })
+    .then((res) => res.data)
     .catch((error) => {
-      console.error(error);
-      throw error
+      console.error("Error fetching user account data:", error);
+      throw error;
     });
 };

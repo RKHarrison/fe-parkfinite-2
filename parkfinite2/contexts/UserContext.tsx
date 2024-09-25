@@ -1,10 +1,9 @@
 import React, { createContext, useState, ReactNode } from "react";
-import * as SecureStore from "expo-secure-store";
-import { save } from "@/utils/expoSecureStore";
 import { getJsonWebToken } from "@/services/api/authApi";
 import { getUserAccountDataById } from "@/services/api/usersApi";
 import { UserAccountData } from "@/types/api-data-types/user-types";
 import { router } from "expo-router";
+import { setToken, deleteToken } from "@/utils/tokenUtils";
 
 interface LoggedInUser extends UserAccountData {
   username: string;
@@ -32,7 +31,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       const token = await getJsonWebToken(username, password);
-      await save("bearerToken", token.access_token);
+      await setToken(token.access_token);
 
       const userAccountData = await getUserAccountDataById(token.user_id);
       const userAccountWithUsername = {
@@ -40,8 +39,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         username: username,
       };
 
-      await setUser(userAccountWithUsername);
-      router.push('/(drawer)/(tabs)/search/map')
+      setUser(userAccountWithUsername);
+      router.push('/(drawer)/(tabs)/search/map');
     } catch (error) {
       throw error;
     }
@@ -49,7 +48,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const logout = async () => {
     setUser(null);
-    SecureStore.deleteItemAsync("bearerToken");
+    await deleteToken();
   };
 
   return (
