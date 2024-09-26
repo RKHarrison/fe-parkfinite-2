@@ -126,7 +126,7 @@ export default function MapScreen({ region }: MapScreenProps) {
         ))}
 
         {droppedMarker && (
-          <Marker
+          <MarkerComponent
             coordinate={droppedMarker}
             draggable
             onDragEnd={(e) => setDroppedMarker(e.nativeEvent.coordinate)}
