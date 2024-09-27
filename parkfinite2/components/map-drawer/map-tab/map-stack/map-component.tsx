@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text, Platform } from "react-native";
-import MapView, {Marker} from "react-native-maps";
+import MapView, {Marker, MapPressEvent} from "react-native-maps";
 import { useIsFocused } from "@react-navigation/native";
 import * as Location from "expo-location";
 
@@ -71,7 +71,7 @@ export default function MapComponent({ region }: MapScreenProps) {
       .catch((err) => console.error("Failed to load campsites", err));
   }, [isFocused]);
 
-  function handleMapPress(e) {
+  function handleMapPress(e: MapPressEvent) {
     const { coordinate } = e.nativeEvent;
     user && setDroppedMarker(coordinate);
     setSelectedCampsite(null);
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
 });
 
 // Function to load Google Maps API
-function loadGoogleMapsAPI(callback) {
+function loadGoogleMapsAPI(callback: () => void) {
   if (window.google && window.google.maps) {
     // Google Maps API is already loaded, call the callback function
     callback();
