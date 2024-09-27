@@ -43,7 +43,7 @@ type MapScreenProps = {
   region: Region;
 };
 
-export default function MapScreen({ region }: MapScreenProps) {
+export default function MapComponent({ region }: MapScreenProps) {
   const { user } = useContext(UserContext);
   const { droppedMarker, setDroppedMarker } = useContext(DroppedMarkerContext);
   const [loadedCampsites, setLoadedCampsites] = useState<Campsite[]>([]);
