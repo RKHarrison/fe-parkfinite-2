@@ -98,10 +98,13 @@ export default function MapComponent({ region }: MapScreenProps) {
         showsMyLocationButton={true}
         followsUserLocation={true}
         showsTraffic={false}
-        // cluster controls
-        clusterColor="#88c9ffBF"
-        minPoints={6}
+        // Conditionally add clustering props for non-web platforms
+        {...(Platform.OS !== "web" && {
+          clusterColor: "#88c9ffBF",
+          minPoints: 6,
+        })} 
       >
+
         {loadedCampsites.map((campsite) => (
           <MarkerComponent
             key={campsite.campsite_id}
