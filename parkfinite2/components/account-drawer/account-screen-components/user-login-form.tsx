@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import { StyleSheet, Text, TextInput } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View, Text, TextInput } from "react-native";
 import { UserContext } from "@/contexts/UserContext";
 import { Button } from "@/components/Button";
 
@@ -20,7 +19,7 @@ export default function UserLoginForm() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View>
       <Text>Please login to enable all features...</Text>
       <TextInput
         style={styles.input}
@@ -37,14 +36,11 @@ export default function UserLoginForm() {
         keyboardType="numeric"
       />
       <Button title="login" onPress={() => handleLogin()}></Button>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    alignItems: "center",
-  },
   input: {
     height: 40,
     margin: 12,

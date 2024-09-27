@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { getCampsiteById } from "@/services/api/campsitesApi";
 import { Campsite } from "@/types/api-data-types/campsite-types";
@@ -30,7 +31,13 @@ export default function IndividualCampsiteScreen({
   }, [id]);
 
   return (
-    <>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {loadedCampsite && (
         <ScrollView>
           <CampsiteHeaderAndRating campsite={loadedCampsite} />
@@ -53,6 +60,6 @@ export default function IndividualCampsiteScreen({
           />
         </ScrollView>
       )}
-    </>
+    </SafeAreaView>
   );
 }

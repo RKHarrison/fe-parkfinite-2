@@ -1,18 +1,22 @@
 import { useContext } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { UserContext } from "@/contexts/UserContext";
 import UserLoginForm from "./account-screen-components/user-login-form";
 import UserAccountCard from "./account-screen-components/user-account-card";
-import { Button } from "../Button";
 
 export default function AccountScreen() {
-  const {user, logout} = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
   return (
-    <SafeAreaView>
-      {!user && <UserLoginForm/>}
-      {user && <UserAccountCard/>}
-      {user && <Button title={"Log out"} onPress={logout}/>}
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {!user && <UserLoginForm />}
+      {user && <UserAccountCard />}
     </SafeAreaView>
   );
 }
