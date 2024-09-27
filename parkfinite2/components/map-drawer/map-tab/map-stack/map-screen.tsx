@@ -4,7 +4,8 @@ import { StyleSheet, View, Platform, Text } from "react-native";
 import { Region } from "@/types/locations";
 
 import GooglePlacesInput from "@/components/map-drawer/map-tab/map-stack/map-stack-components/google-places-component";
-import MapComponent from "@/components/map-drawer/map-tab/map-stack/map-component"
+import MapComponent from "@/components/map-drawer/map-tab/map-stack/map-component";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const initialRegion: Region = {
   latitude: 53.0,
@@ -17,7 +18,13 @@ export default function MapScreen() {
   const [region, setRegion] = useState<Region>(initialRegion);
 
   return (
-    <>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {Platform.OS === "web" && (
         <Text
           style={{
@@ -35,7 +42,7 @@ export default function MapScreen() {
       )}
       <GooglePlacesInput setRegion={setRegion} />
       <MapComponent region={region} />
-    </>
+    </SafeAreaView>
   );
 }
 
