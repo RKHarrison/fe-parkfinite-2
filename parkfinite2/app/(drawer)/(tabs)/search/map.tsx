@@ -5,20 +5,20 @@ import { StyleSheet, View, Platform, Text } from "react-native";
 import { Region } from "@/types/locations";
 
 import GooglePlacesInput from "@/components/map-drawer/map-tab/map-stack/map-stack-components/google-places-component";
-import MapScreen from "@/components/map-drawer/map-tab/map-stack/map-screen";
+import MapScreen from "@/components/map-drawer/map-tab/map-stack/map-component"
 
 const initialRegion: Region = {
   latitude: 53.0,
   longitude: -4.4,
   latitudeDelta: 11.0,
-  longitudeDelta: 11.0,
+  longitudeDelta: 11.0,.
 };
 
 export default function Map() {
   const [region, setRegion] = useState<Region>(initialRegion);
 
   return (
-    <View style={styles.container}>
+    <>
       {Platform.OS === "web" && (
         <Text
           style={{
@@ -36,7 +36,7 @@ export default function Map() {
       )}
       <GooglePlacesInput setRegion={setRegion} />
       <MapScreen region={region} />
-    </View>
+    </>
   );
 }
 
