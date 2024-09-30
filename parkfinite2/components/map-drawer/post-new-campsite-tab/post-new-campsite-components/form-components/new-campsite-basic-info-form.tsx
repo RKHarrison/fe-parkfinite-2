@@ -328,6 +328,7 @@ export default function NewCampsiteBasicInfoForm({
 
 const styles = StyleSheet.create({
   formContainer: {
+    flex: 1,
     alignItems: "center",
     marginBottom: 80,
   },
